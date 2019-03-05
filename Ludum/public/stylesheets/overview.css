@@ -7,17 +7,24 @@ body{
     height: 100%;
 }
 #page{
+    
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
-    grid-template-areas:  "news notifications schedule";
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:"news notifications schedule" !important;
+    
 }
 
-#newstitle{
-    grid-area: news;
+.newscard ul{
+    list-style: none !important;
     text-align: center;
     
 }
-#newscard{
+.newscard{
+    grid-area: news;
+    margin-left: 0px;
+    width: 30%;
+    height: 100% !important;
+    border-style: solid;
     
-    height: 100% !important; 
+   
 }

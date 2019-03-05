@@ -1,19 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+/* GET overview page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express'});
-});
-
-/* GET page 1. */
-router.get('/page1', function(req, res, next) {
-  res.render('page1', { title: 'Express'});
-});
-
-/* GET page 2. */
-router.get('/page2', function(req, res, next) {
-  res.render('page2', { title: 'Express'});
+  res.render('index', { title: 'Översikt', profileImage: 'https://cdn.discordapp.com/attachments/404992639948161029/539762969731530754/IMG_5088.JPG'});
 });
 
 module.exports = router;

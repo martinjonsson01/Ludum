@@ -6,4 +6,8 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('overview', { title: 'Översikt'});
 });
+/* GET courses page. */
+router.get('/courses', function(req, res, next) {
+  res.render('overview', { title: 'Kurser'});
+});
 module.exports = router;

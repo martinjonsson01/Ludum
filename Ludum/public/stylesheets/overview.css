@@ -1,2 +1,23 @@
 @import "base.css";
 
+html{
+    height: 100%;
+}
+body{
+    height: 100%;
+}
+#page{
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas:  "news notifications schedule";
+}
+
+#newstitle{
+    grid-area: news;
+    text-align: center;
+    
+}
+#newscard{
+    
+    height: 100% !important; 
+}

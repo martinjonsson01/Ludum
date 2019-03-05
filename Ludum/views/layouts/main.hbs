@@ -28,7 +28,11 @@
   <main id="barba-wrapper">
 
     <ul id="nav-list" class="mdc-list" role="listbox">
-      <li class="mdc-list-item mdc-list-item--selected" role="option" tabindex="0" aria-selected="true">
+      <a href="/"><li class="mdc-list-item mdc-list-item--selected" role="option" tabindex="0" aria-selected="true">
+        <span class="mdc-list-item__text">Översikt</span>
+      </li> </a>
+      <hr  id="small-hr">
+      <li class="mdc-list-item" role="option" tabindex="0" aria-selected="false">
         <span href="/nyheter" class="mdc-list-item__text">Nyheter</span>
       </li>
       <li class="mdc-list-item" aria-selected="false">
@@ -62,6 +66,7 @@
 
     <div id="page" class="barba-container">
       {{{body}}}
+
     </div>
 
   </main>

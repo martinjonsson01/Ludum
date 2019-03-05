@@ -15,6 +15,7 @@ main {
     display: grid;
     grid-template-columns: 320px auto;
     grid-template-rows: 72px auto;
+    height: 100%;
     grid-template-areas: "header header" "list page";
 }
 

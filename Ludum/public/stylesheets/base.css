@@ -1,28 +1,42 @@
 /* This is the base CSS file that all CSS should inherit from. */
 
 html {
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font: 14px Roboto, "Lucida Grande", Helvetica, Arial, sans-serif;
     margin: 0;
     padding: 0;
+    height: 100%;
+    width: 100%;
+
+    --mdc-theme-primary: #26c6da !important;
+    --mdc-theme-secondary: #f9a825 !important;
+    --mdc-theme-on-primary: #000000 !important;
+    --mdc-theme-on-secondary: #000000 !important;
 }
 
 body {
     margin: 0;
     padding: 0;
+    height: 100%;
+    width: 100%;
 }
 
 main {
     display: grid;
+    height: 100%;
+    width: 100%;
     grid-template-columns: 320px auto;
     grid-template-rows: 72px auto;
-    height: 100%;
     grid-template-areas: "header header" "list page";
 }
 
 #header {
+    display: grid;
     position: fixed;
     height: 72px;
     width: 100%;
+    grid-template-columns: 320px auto 80px;
+    grid-template-areas: "logo title account";
+    --mdc-theme-primary: #0095a8 !important;
 }
 
 #nav-list {
@@ -51,12 +65,6 @@ a {
     text-decoration: none;
 }
 
-#header {
-    display: grid;
-    grid-template-columns: 320px auto 64px;
-    grid-template-areas: "logo title account";
-}
-
 #logo {
     max-height: 72px;
     width: auto;
@@ -73,25 +81,25 @@ a {
     height: 54px !important;
 }
 
-.account img {
-    max-width: 40px;
-    max-height: 40px;
-    border-radius: 50%;
-}
-
 button.account {
     background: transparent;
     border: none !important;
     font-size: 0;
     grid-area: account;
-    margin-right: 8px;
+    margin-right: 16px;
+}
+
+button.account img {
+    max-width: 56px;
+    max-height: 56px;
+    border-radius: 50%;
 }
 
 button.account:focus {
     outline: 0;
 }
 
-h1.title {
+h3.title {
     text-align: center;
     margin: auto;
 }

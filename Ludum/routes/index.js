@@ -8,6 +8,6 @@ router.get('/', function(req, res, next) {
 });
 /* GET courses page. */
 router.get('/courses', function(req, res, next) {
-  res.render('overview', { title: 'Kurser'});
+  res.render('courses', { title: 'Kurser'});
 });
 module.exports = router;

@@ -54,3 +54,23 @@ body{
     height: 100% !important;
     
 }
+#schedule{
+    height: 630px;
+}
+#schedule iframe{
+    margin-left: 20px;
+    margin-top: 10px;
+     
+    width: 375px;
+    color: white;
+    height: 620px;
+    
+}
+
+.container3{
+    
+    
+    margin-left: 20px;
+    margin-top: 10px;
+    
+}

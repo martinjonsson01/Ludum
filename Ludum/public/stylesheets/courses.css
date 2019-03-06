@@ -1,2 +1,31 @@
 @import "base.css";
+.course {
+    height: 10em !important;
+}
 
+#general-courses {
+    grid-area: specific-courses;
+    margin: 1em;
+}
+
+#specific-courses {
+    grid-area: general-courses;
+    margin: 1em;
+}
+
+#course-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "general-courses specific-courses";
+}
+
+
+.course-list {
+    height: 80vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+}
+.mdc-list{
+    padding: 0 !important;
+}

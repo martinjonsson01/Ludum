@@ -120,26 +120,36 @@ a {
     text-decoration: none;
 }
 
+a {
+    text-decoration: none;
+    color: #000000;
+}
+
 a:visited{
     text-decoration: none;
-    color: rgba(0, 0, 0, 0.87);
+    color: rgb(0, 0, 0);
 }
 
-button.account {
-    background: transparent;
-    border: none !important;
-    font-size: 0;
+.account {
+    margin: auto;
     grid-area: account;
     margin-right: 16px;
+    color: #000000;
 }
 
-button.account img {
-    max-width: 56px;
-    max-height: 56px;
+.account img {
+    max-width: 52px;
+    max-height: 52px;
     border-radius: 50%;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 200ms;
 }
 
-button.account:focus {
+.account img:hover {
+    opacity: 0.8;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 200ms;
+}
+
+.account:focus {
     outline: 0;
 }
 
@@ -153,21 +163,61 @@ h3.title {
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
-  }
+}
   
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #cacaca; 
-    border-radius: 4px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #929292; 
-  }
+/* Track */
+::-webkit-scrollbar-track {
+background: #f1f1f1; 
+}
 
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #cacaca; 
+border-radius: 4px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #929292; 
+}
+
+.g-signin2 {
+margin: 4px auto auto auto !important;
+}
+
+.g-signin2:focus {
+    outline: 0;
+    margin: 4px auto auto auto !important;
+}
+
+#account-menu-surface {
+    position: absolute;
+    top: 76px;
+    right: 32px;
+    padding: 8px;
+    display: none; /* Display should be grid but it is hidden by default. */
+    grid-template-columns: auto 64px;
+    grid-template-rows: 2fr 1fr 3fr;
+    grid-template-areas: "name name" "email email" "sign-out settings";
+    font-size: 1.5rem;
+}
+
+#account-menu-surface-name {
+    margin: auto;
+    grid-area: name;
+}
+
+#account-menu-surface-email {
+    margin: auto;
+    grid-area: email;
+}
+
+#account-menu-surface-sign-out {
+    margin: auto auto 0 0;
+    grid-area: sign-out;
+}
+
+#account-menu-surface-settings {
+    margin: auto 0 0 auto;
+    grid-area: settings;
+}

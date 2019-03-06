@@ -62,3 +62,6 @@ typings/
 
 # Windows folder metadata
 desktop.ini
+
+# Google credentials
+credentials.json

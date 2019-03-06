@@ -9,6 +9,11 @@
   <title>Översikt</title>
 </head>
 
+<!-- Highlights navigation button in menu. NOTE: Should be outside of barba-wrappers. -->
+<script>
+    document.querySelector('#list-item-overview').classList.add('mdc-list-item--selected');
+</script>
+
 <body>
   <main id="barba-wrapper">
     <div id="page2" class="barba-container">
@@ -23,30 +28,30 @@
             <ul class="mdc-list mdc-list--two-line">
               <a href="/news">
                 <li class="mdc-list-item" tabindex="0">
-                <span class="mdc-list-item__text">
-                  <span class="mdc-list-item__primary-text">SKOLBAL!!</span>
-                  <span class="mdc-list-item__secondary-text">Glöm inte att ta med dig vodka till balen!</span>
-                </span>
-              </li>
+                  <span class="mdc-list-item__text">
+                    <span class="mdc-list-item__primary-text">SKOLBAL!!</span>
+                    <span class="mdc-list-item__secondary-text">Glöm inte att ta med dig vodka till balen!</span>
+                  </span>
+                </li>
 
               </a>
-                          <a href="/news">
+              <a href="/news">
                 <li class="mdc-list-item" tabindex="0">
-                <span class="mdc-list-item__text">
-                  <span class="mdc-list-item__primary-text">Någon stal min banan</span>
-                  <span class="mdc-list-item__secondary-text">Vafan, någon tog min gula banan!</span>
-                </span>
-              </li>
+                  <span class="mdc-list-item__text">
+                    <span class="mdc-list-item__primary-text">Någon stal min banan</span>
+                    <span class="mdc-list-item__secondary-text">Vafan, någon tog min gula banan!</span>
+                  </span>
+                </li>
 
               </a>
-                          </a>
-                          <a href="/news">
+              </a>
+              <a href="/news">
                 <li class="mdc-list-item" tabindex="0">
-                <span class="mdc-list-item__text">
-                  <span class="mdc-list-item__primary-text">Banan upphittad</span>
-                  <span class="mdc-list-item__secondary-text">En väldig ovanlig gulfärgad banan har hittats!</span>
-                </span>
-              </li>
+                  <span class="mdc-list-item__text">
+                    <span class="mdc-list-item__primary-text">Banan upphittad</span>
+                    <span class="mdc-list-item__secondary-text">En väldig ovanlig gulfärgad banan har hittats!</span>
+                  </span>
+                </li>
 
               </a>
             </ul>
@@ -88,25 +93,26 @@
         </div>
 
       </div>
-        <div class="container3">
+      <div class="container3">
         <div class="mdc-card">
-            <script>$('iframe').load( function() {
-    $('iframe').contents().find("view-cap")
-      .append($("<style type='text/css'>  .view-cap{background-color: white;}  </style>"));
-});</script>
-             <iframe id="schedule" src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=600&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=ga.lbs.se_classroom15beff43%40group.calendar.google.com&amp;color=%234a148c&amp;src=ga.lbs.se_classroom95a64838%40group.calendar.google.com&amp;color=%23a52714&amp;src=ga.lbs.se_classroom8bfc3eab%40group.calendar.google.com&amp;color=%233e2723&amp;src=ga.lbs.se_classroom2a227384%40group.calendar.google.com&amp;color=%23055524&amp;src=ga.lbs.se_classroom302482f8%40group.calendar.google.com&amp;color=%23055524&amp;src=ga.lbs.se_classroom1d54b826%40group.calendar.google.com&amp;color=%234a148c&amp;src=ga.lbs.se_classroome3c1057f%40group.calendar.google.com&amp;color=%23004d40&amp;src=ga.lbs.se_classroomc796b274%40group.calendar.google.com&amp;color=%23004d40&amp;src=ga.lbs.se_classroom9e122c73%40group.calendar.google.com&amp;color=%231c3aa9&amp;src=ga.lbs.se_classroom93cf335c%40group.calendar.google.com&amp;color=%23055524&amp;src=ga.lbs.se_classrooma4c55e29%40group.calendar.google.com&amp;color=%23004c50&amp;src=ga.lbs.se_classroomeed9dbf6%40group.calendar.google.com&amp;color=%23004d40&amp;src=ga.lbs.se_classroom2c4fab52%40group.calendar.google.com&amp;color=%23055524&amp;src=ga.lbs.se_classroom07b00758%40group.calendar.google.com&amp;color=%23285418&amp;src=ga.lbs.se_classroom0a41e97e%40group.calendar.google.com&amp;color=%231c3aa9&amp;src=ga.lbs.se_classroomffe955ce%40group.calendar.google.com&amp;color=%231c3aa9&amp;src=ga.lbs.se_classroom3c5e4701%40group.calendar.google.com&amp;color=%23285418&amp;src=ga.lbs.se_classroom0f528384%40group.calendar.google.com&amp;color=%23055524&amp;src=ga.lbs.se_dtl9te7o29dalj74doi2anl1kk%40group.calendar.google.com&amp;color=%232952A3&amp;src=ga.lbs.se_classroom2943a4dd%40group.calendar.google.com&amp;color=%23263238&amp;src=ga.lbs.se_classroomfef0b6f5%40group.calendar.google.com&amp;color=%23004d40&amp;src=ga.lbs.se_classroom8da398ee%40group.calendar.google.com&amp;color=%23004d40&amp;src=ga.lbs.se_classroomf6be576d%40group.calendar.google.com&amp;color=%231c3aa9&amp;src=e_2_en%23weeknum%40group.v.calendar.google.com&amp;color=%235229A3&amp;ctz=Europe%2FStockholm" style="border-width:0"  width="375" height="600" frameborder="0" scrolling="no"></iframe>
+          <iframe id="schedule"
+            src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=600&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=ga.lbs.se_classroom15beff43%40group.calendar.google.com&amp;color=%234a148c&amp;src=ga.lbs.se_classroom95a64838%40group.calendar.google.com&amp;color=%23a52714&amp;src=ga.lbs.se_classroom8bfc3eab%40group.calendar.google.com&amp;color=%233e2723&amp;src=ga.lbs.se_classroom2a227384%40group.calendar.google.com&amp;color=%23055524&amp;src=ga.lbs.se_classroom302482f8%40group.calendar.google.com&amp;color=%23055524&amp;src=ga.lbs.se_classroom1d54b826%40group.calendar.google.com&amp;color=%234a148c&amp;src=ga.lbs.se_classroome3c1057f%40group.calendar.google.com&amp;color=%23004d40&amp;src=ga.lbs.se_classroomc796b274%40group.calendar.google.com&amp;color=%23004d40&amp;src=ga.lbs.se_classroom9e122c73%40group.calendar.google.com&amp;color=%231c3aa9&amp;src=ga.lbs.se_classroom93cf335c%40group.calendar.google.com&amp;color=%23055524&amp;src=ga.lbs.se_classrooma4c55e29%40group.calendar.google.com&amp;color=%23004c50&amp;src=ga.lbs.se_classroomeed9dbf6%40group.calendar.google.com&amp;color=%23004d40&amp;src=ga.lbs.se_classroom2c4fab52%40group.calendar.google.com&amp;color=%23055524&amp;src=ga.lbs.se_classroom07b00758%40group.calendar.google.com&amp;color=%23285418&amp;src=ga.lbs.se_classroom0a41e97e%40group.calendar.google.com&amp;color=%231c3aa9&amp;src=ga.lbs.se_classroomffe955ce%40group.calendar.google.com&amp;color=%231c3aa9&amp;src=ga.lbs.se_classroom3c5e4701%40group.calendar.google.com&amp;color=%23285418&amp;src=ga.lbs.se_classroom0f528384%40group.calendar.google.com&amp;color=%23055524&amp;src=ga.lbs.se_dtl9te7o29dalj74doi2anl1kk%40group.calendar.google.com&amp;color=%232952A3&amp;src=ga.lbs.se_classroom2943a4dd%40group.calendar.google.com&amp;color=%23263238&amp;src=ga.lbs.se_classroomfef0b6f5%40group.calendar.google.com&amp;color=%23004d40&amp;src=ga.lbs.se_classroom8da398ee%40group.calendar.google.com&amp;color=%23004d40&amp;src=ga.lbs.se_classroomf6be576d%40group.calendar.google.com&amp;color=%231c3aa9&amp;src=e_2_en%23weeknum%40group.v.calendar.google.com&amp;color=%235229A3&amp;ctz=Europe%2FStockholm"
+            style="border-width:0" width="375" height="600" frameborder="0" scrolling="no"></iframe>
         </div>
-        </div>
+      </div>
 
-       
+      <!-- Initializes material-design components (like the ripple). NOTE: This script needs to run after all html. -->
+      <script>
+        var lists = document.querySelectorAll('.mdc-list');
+        var listsArray = Array.from(lists);
+        listsArray.map((list) => {
+          var mdcList = mdc.list.MDCList.attachTo(list);
+          mdcList.listElements.map((listItemEl) => mdc.ripple.MDCRipple.attachTo(listItemEl));
+        });
+      </script>
+
     </div>
-
-
-       
-
     </div>
-
-
   </main>
 </body>
 

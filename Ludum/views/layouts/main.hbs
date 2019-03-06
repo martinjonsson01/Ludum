@@ -10,7 +10,7 @@
   <link rel="shortcut icon" type="img/png" href="/media/Favicon.png">
 
   <meta name="google-signin-client_id"
-    content="425892769172-0rsfeg8ciutghh5ke6f7ih04d90eb0b2.apps.googleusercontent.com.apps.googleusercontent.com">
+    content="425892769172-0jb5mo5gm07avnjraabf75pkula2uv65.apps.googleusercontent.com">
 
   <!-- TODO: Maybe switch these scripts out to local scripts to decrease latency. -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/barba.js/1.0.0/barba.min.js" type="text/javascript"></script>
@@ -19,19 +19,22 @@
   <script src='javascripts/layout-main.js' type='text/javascript'></script>
   <script src="https://unpkg.com/material-components-web/dist/material-components-web.min.js"
     type='text/javascript'></script>
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 
 
 <body>
 
+  <!-- Script for Google login -->
+  <script async defer src="https://apis.google.com/js/platform.js" onload="this.onload=function(){};initClient()"
+    onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
+
   <script>
     document.addEventListener("DOMContentLoaded", function (event) {
-      Barba.Pjax.start();
+      //Barba.Pjax.start();
 
       //const list = mdc.list.attachTo(document.querySelector('.mdc-list'));
-      const list = document.querySelectorAll('.mdc-list-item');
-      const listItemRipples = Array.from(list).map((listItemEl) => mdc.ripple.MDCRipple.attachTo(listItemEl));
+      //const list = document.querySelectorAll('.mdc-list-item');
+      //const listItemRipples = Array.from(list).map((listItemEl) => mdc.ripple.MDCRipple.attachTo(listItemEl));
 
       //mdc.dialog.MDCDialog.attachTo(document.querySelector('.mdc-dialog'));
     });
@@ -39,50 +42,63 @@
 
   <main id="barba-wrapper">
 
-    <ul id="nav-list" class="mdc-list" role="listbox">
+    <ul id="nav-list" class="mdc-list" role="listbox" data-mdc-auto-init="MDCList">
+
       <a href="/">
-        <li class="mdc-list-item mdc-list-item--selected" role="option" tabindex="0" aria-selected="true">
+        <li id="list-item-overview" class="mdc-list-item" role="option" tabindex="0" aria-selected="true">
           <span class="mdc-list-item__text">Översikt</span>
         </li>
       </a>
+
       <hr id="small-hr">
+
       <a href="/news">
-         <li class="mdc-list-item" role="option" tabindex="0" aria-selected="false">
-        <span href="/nyheter" class="mdc-list-item__text">Nyheter</span>
-      </li>
+        <li id="list-item-news" class="mdc-list-item" role="option" tabindex="0" aria-selected="false">
+          <span href="/nyheter" class="mdc-list-item__text">Nyheter</span>
+        </li>
       </a>
-     <a href="/schedule">
-        <li class="mdc-list-item" aria-selected="false">
-        <span href="/schema" class="mdc-list-item__text">Schema</span>
-      </li>
-     </a>
-    
+
+      <a href="/schedule">
+        <li id="list-item-schedule" class="mdc-list-item" aria-selected="false">
+          <span href="/schema" class="mdc-list-item__text">Schema</span>
+        </li>
+      </a>
+
       <a href="/courses">
-        <li class="mdc-list-item" aria-selected="false">
+        <li id="list-item-courses" class="mdc-list-item" aria-selected="false">
           <span class="mdc-list-item__text">Kurser</span>
         </li>
       </a>
-      <li class="mdc-list-item" aria-selected="false">
-        <span href="/uppgifter" class="mdc-list-item__text">Uppgifter</span>
-      </li>
-      <li class="mdc-list-item" aria-selected="false">
-        <span href="/meddelanden" class="mdc-list-item__text">Meddelanden</span>
-      </li>
+
+      <a href="/tasks">
+        <li id="list-item-tasks" class="mdc-list-item" aria-selected="false">
+          <span href="/uppgifter" class="mdc-list-item__text">Uppgifter</span>
+        </li>
+      </a>
+
+      <a href="/messages">
+        <li id="list-item-messages" class="mdc-list-item" aria-selected="false">
+          <span href="/meddelanden" class="mdc-list-item__text">Meddelanden</span>
+        </li>
+      </a>
+
       <hr>
+
       <a href="/employees">
-        <li class="mdc-list-item" aria-selected="false">
+        <li id="list-item-employees" class="mdc-list-item" aria-selected="false">
           <span class="mdc-list-item__text">Personallista</span>
         </li>
       </a>
+
       <a href="/students">
-        <li class="mdc-list-item" aria-selected="false">
-        <span href="/students" class="mdc-list-item__text">Elevgrupper</span>
+        <li id="list-item-students" class="mdc-list-item" aria-selected="false">
+          <span href="/students" class="mdc-list-item__text">Elevgrupper</span>
         </li>
       </a>
-     
+
     </ul>
 
-    <header id="header" class="mdc-top-app-bar">
+    <header id="header" class="mdc-top-app-bar" data-mdc-auto-init="MDCTopAppBar">
       <div id="logo">
         <img id="ludum" src="media/LoggaLudum.png" />
         <div id="school" class="mdc-card">
@@ -92,9 +108,16 @@
 
       </div>
       <h3 class="title mdc-typography--headline3">{{title}}</h3>
-      <button class="account">
-        <img src="https://cdn.discordapp.com/attachments/535771563685969920/552482626670297099/unknown.png" />
-      </button>
+      <div class="account" onclick="toggleAccountMenuSurface();">
+        <img id="account-image"
+          src="https://cdn.discordapp.com/attachments/535771563685969920/552482626670297099/unknown.png">
+          <div id="account-menu-surface" class="mdc-card mdc-elevation--z12">
+            <h5 id="account-menu-surface-name" class="mdc-typography--headline5">Förnamn Efternamn</h5>
+            <h6 id="account-menu-surface-email" class="mdc-typography--subtitle1">förnamn.efternamn@elev.ga.lbs.se</h6>
+            <button id="account-menu-surface-settings" class="mdc-icon-button material-icons">settings</button>
+            <button id="account-menu-surface-sign-out" class="mdc-button" onclick="signOut();">Logga ut</button>
+          </div>
+      </div>
 
     </header>
 
@@ -104,19 +127,12 @@
         <div class="mdc-dialog__surface">
           <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
           <h2 class="mdc-dialog__title" id="my-dialog-title">
-            Log in
+            Logga in
           </h2>
           <div class="mdc-dialog__content" id="my-dialog-content">
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <!-- Google sign-in button. -->
+            <div class="g-signin2" data-onsuccess="onSignIn" tabindex="0"></div>
           </div>
-          <footer class="mdc-dialog__actions">
-            <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="no">
-              <span class="mdc-button__label">No</span>
-            </button>
-            <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="yes">
-              <span class="mdc-button__label">Yes</span>
-            </button>
-          </footer>
         </div>
       </div>
       <div class="mdc-dialog__scrim"></div>
@@ -128,6 +144,9 @@
     </div>
 
   </main>
+
+  <script>Barba.Pjax.start();</script>
+
 </body>
 
 </html>

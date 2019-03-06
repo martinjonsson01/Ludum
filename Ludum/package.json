@@ -7,7 +7,10 @@
   },
   "dependencies": {
     "@material/button": "^0.44.1",
+    "@material/dialog": "^0.44.1",
+    "@material/menu-surface": "^1.0.0",
     "@material/ripple": "^0.44.1",
+    "@types/material__dialog": "^0.35.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",

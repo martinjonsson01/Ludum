@@ -23,8 +23,7 @@
 .course-list {
     height: 75vh;
     overflow-y: hidden;
-    overflow-x: hidden;
-
+    overflow-x: hidden;   
 }
 .course-list:hover{
     overflow-y: auto;
@@ -36,4 +35,16 @@
 .course-divider{
     opacity: 1;
     margin: 0;
+}
+.course-list-text{
+    font-size: 2em;
+    margin: 20px 0 0 0;
+}
+.course-list-secondary-text{
+    font-size: 1em;
+    margin: 10px 0 0 0;
+}
+.course-list-image{
+    height: 5em !important;
+    width: 5em !important;
 }

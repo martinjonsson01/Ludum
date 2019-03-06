@@ -60,7 +60,7 @@ body{
 #schedule iframe{
     margin-left: 20px;
     margin-top: 10px;
-     
+     padding: 0px;
     width: 375px;
     color: white;
     height: 620px;
@@ -69,8 +69,17 @@ body{
 
 .container3{
     
-    
+    padding: 0px;
     margin-left: 20px;
     margin-top: 10px;
     
+}
+
+#page3{
+    margin-top: 10px !important;
+    margin-left: 20px !important;
+}
+.fullscreen iframe{
+
+    padding: 0px;
 }

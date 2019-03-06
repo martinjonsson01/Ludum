@@ -51,6 +51,7 @@ main {
 
 #page {
     grid-area: page;
+    height: 100%;
 }
 
 hr#small-hr{
@@ -111,3 +112,4 @@ h3.title {
     text-align: center;
     margin: auto;
 }
+

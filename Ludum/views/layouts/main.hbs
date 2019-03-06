@@ -12,7 +12,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/barba.js/1.0.0/barba.min.js" type="text/javascript"></script>
   <script src='https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js' type="text/javascript"></script>
   <script src='javascripts/layout-main.js' type='text/javascript'></script>
-  <script src="https://unpkg.com/material-components-web/dist/material-components-web.min.js"  type='text/javascript'></script>
+  <script src="https://unpkg.com/material-components-web/dist/material-components-web.min.js" type='text/javascript'></script>
 </head>
 
 
@@ -21,7 +21,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", function (event) {
       Barba.Pjax.start();
-      
+
       //const list = mdc.list.attachTo(document.querySelector('.mdc-list'));
       const list = document.querySelectorAll('.mdc-list-item');
       const listItemRipples = Array.from(list).map((listItemEl) => mdc.ripple.MDCRipple.attachTo(listItemEl));
@@ -32,9 +32,9 @@
 
     <ul id="nav-list" class="mdc-list" role="listbox">
       <a href="/"><li class="mdc-list-item mdc-list-item--selected" role="option" tabindex="0" aria-selected="true">
-        <span class="mdc-list-item__text">Översikt</span>
-      </li> </a>
-      <hr  id="small-hr">
+          <span class="mdc-list-item__text">Översikt</span>
+        </li> </a>
+      <hr id="small-hr">
       <li class="mdc-list-item" role="option" tabindex="0" aria-selected="false">
         <span href="/nyheter" class="mdc-list-item__text">Nyheter</span>
       </li>
@@ -42,8 +42,8 @@
         <span href="/schema" class="mdc-list-item__text">Schema</span>
       </li>
       <a href="/courses"><li class="mdc-list-item" aria-selected="false">
-        <span  class="mdc-list-item__text">Kurser</span>
-      </li></a>
+          <span class="mdc-list-item__text">Kurser</span>
+        </li></a>
       <li class="mdc-list-item" aria-selected="false">
         <span href="/uppgifter" class="mdc-list-item__text">Uppgifter</span>
       </li>
@@ -60,11 +60,23 @@
     </ul>
 
     <header id="header" class="mdc-top-app-bar">
-      <img id="logo" src="media/LoggaLudum.png"/>
+      <div id="logo">
+        <img id="ludum" src="media/LoggaLudum.png" />
+        <div id="school" class="mdc-card">
+          <img id="school-logo" src="media/lbs-logo.png">
+          <h3 id="school-name">Jönköping</h3>
+        </div>
+
+      </div>
       <h3 class="title mdc-typography--headline3">{{title}}</h3>
       <button class="account">
         <img src="https://cdn.discordapp.com/attachments/535771563685969920/552482626670297099/unknown.png" />
       </button>
+
+
+
+
+
     </header>
 
     <div id="page" class="barba-container">

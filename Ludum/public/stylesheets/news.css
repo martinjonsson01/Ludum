@@ -1,0 +1,45 @@
+@import "base.css";
+
+
+
+.main {
+    height: 90% !important;
+}
+
+#page3 {
+    height: 90%;
+}
+
+.news-item {
+    height: 15em !important; 
+}
+
+.containers{
+    height: 80vh;
+    margin-left: 20px;
+    margin-top: 10px;
+  
+}
+
+.barba-container {
+    height: 80vh;
+}
+
+.containers ul {
+    height: 100% !important;
+}
+
+.headline {
+    text-align: center;
+}
+
+.demo-card {
+    height: 80vh;
+    width: 50em;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.mdc-list-item__secondary-text {
+    white-space: pre-wrap;
+}

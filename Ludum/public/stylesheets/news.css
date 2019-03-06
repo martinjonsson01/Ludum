@@ -1,0 +1,31 @@
+@import "base.css";
+
+#page3 {
+    height: 350%;
+}
+
+.mdc-list {
+    width: 375px;
+    height: 100%;
+}
+
+.containers{
+    height: 100%;
+    margin-left: 20px;
+    margin-top: 10px;
+  
+}
+
+.containers ul {
+    height: 100% !important;
+}
+
+.headline {
+    text-align: center;
+}
+
+.demo-card {
+    height: 250%;
+    width: 375px;
+    margin: auto;
+}

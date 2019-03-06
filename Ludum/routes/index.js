@@ -10,4 +10,8 @@ router.get('/', function(req, res, next) {
 router.get('/courses', function(req, res, next) {
   res.render('courses', { title: 'Kurser'});
 });
+/* GET news page. */
+router.get('/news', function(req, res, next) {
+  res.render('news', { title: 'Nyheter'});
+});
 module.exports = router;

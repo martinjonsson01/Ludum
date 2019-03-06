@@ -35,9 +35,10 @@ main {
     position: fixed;
     height: 72px;
     width: 100%;
-    grid-template-columns: 320px auto 80px;
+    grid-template-columns: 320px auto 80px ;
     grid-template-areas: "logo title account";
     --mdc-theme-primary: #0095a8 !important;
+
 }
 
 #nav-list {
@@ -69,11 +70,46 @@ a {
 }
 
 #logo {
+    display: grid;
+    grid-template-columns: 72px 248px;
+    grid-template-rows: 72px;
+    grid-template-areas: "ludum school";
     max-height: 72px;
     width: auto;
     margin: auto auto auto 0;
     grid-area: logo;
 }
+
+#ludum{
+    grid-area: ludum;
+    max-height: 72px;
+}
+
+#school{
+    grid-area: school;
+    margin: auto;
+    
+    padding: 4px;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: auto;
+    grid-template-areas: "school-logo school-name";
+}
+
+#school-logo{
+    grid-area: school-logo;
+    margin: 4px;
+    width: auto;
+    height: 38px;
+}
+
+#school-name{
+    grid-area: school-name;
+    margin: auto;
+    color: #000000;
+}
+
+
 
 .mdc-list-item__text {
     font-size: 1.5rem;

@@ -4,12 +4,12 @@
 }
 
 #general-courses {
-    grid-area: specific-courses;
+    grid-area: general-courses;
     margin: 1em;
 }
 
 #specific-courses {
-    grid-area: general-courses;
+    grid-area: specific-courses;
     margin: 1em;
 }
 
@@ -21,11 +21,19 @@
 
 
 .course-list {
-    height: 80vh;
-    overflow-y: scroll;
+    height: 75vh;
+    overflow-y: hidden;
     overflow-x: hidden;
 
 }
+.course-list:hover{
+    overflow-y: auto;
+}
+
 .mdc-list{
     padding: 0 !important;
+}
+.course-divider{
+    opacity: 1;
+    margin: 0;
 }

@@ -1,9 +1,12 @@
 @import "base.css";
 
+p {
+    font-size: 103% !important;
+}
 
 
-.main {
-    height: 90% !important;
+main {
+    height: 85% !important;
 }
 
 #page3 {
@@ -12,6 +15,11 @@
 
 .news-item {
     height: 15em !important; 
+    
+}
+
+.news-item {
+    
 }
 
 .containers{
@@ -38,8 +46,18 @@
     width: 50em;
     margin: auto;
     margin-top: 10px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.demo-card:hover {
+    overflow-y: auto;
 }
 
 .mdc-list-item__secondary-text {
     white-space: pre-wrap;
+}
+
+.mdc-list-item__primary-text {
+    margin-bottom: 2px;
 }

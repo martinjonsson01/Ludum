@@ -1,19 +1,28 @@
 @import "base.css";
 
-#page3 {
-    height: 350%;
+
+
+.main {
+    height: 90% !important;
 }
 
-.mdc-list {
-    width: 375px;
-    height: 100%;
+#page3 {
+    height: 90%;
+}
+
+.news-item {
+    height: 15em !important; 
 }
 
 .containers{
-    height: 100%;
+    height: 80vh;
     margin-left: 20px;
     margin-top: 10px;
   
+}
+
+.barba-container {
+    height: 80vh;
 }
 
 .containers ul {
@@ -25,7 +34,12 @@
 }
 
 .demo-card {
-    height: 250%;
-    width: 375px;
+    height: 80vh;
+    width: 50em;
     margin: auto;
+    margin-top: 10px;
+}
+
+.mdc-list-item__secondary-text {
+    white-space: pre-wrap;
 }

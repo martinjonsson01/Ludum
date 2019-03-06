@@ -10,8 +10,14 @@ router.get('/', function(req, res, next) {
 router.get('/courses', function(req, res, next) {
   res.render('courses', { title: 'Kurser'});
 });
+
 /* GET news page. */
 router.get('/news', function(req, res, next) {
   res.render('news', { title: 'Nyheter'});
+});
+
+/* GET schedule page. */
+router.get('/schedule', function(req, res, next) {
+  res.render('schedule', { title: 'Schema'});
 });
 module.exports = router;

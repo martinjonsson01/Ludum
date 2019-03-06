@@ -18,6 +18,7 @@ body {
     padding: 0;
     height: 100%;
     width: 100%;
+    background-color: #f4f4f4;
 }
 
 main {
@@ -45,6 +46,7 @@ main {
     width: 320px;
     top: 72px;
     grid-area: list;
+    
 }
 
 #page {
@@ -79,6 +81,12 @@ a {
 
 .mdc-list-item {
     height: 54px !important;
+    text-decoration: none;
+}
+
+a:visited{
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.87);
 }
 
 button.account {

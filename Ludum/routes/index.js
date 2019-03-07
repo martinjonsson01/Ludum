@@ -6,6 +6,10 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('overview', { title: 'Ludum - Översikt', pageTitle: 'Översikt'});
 });
+/* GET overview2 page. */
+router.get('/overview2', function(req, res, next) {
+  res.render('overview2', { title: 'Ludum - Översikt', pageTitle: 'Översikt'});
+});
 /* GET courses page. */
 router.get('/courses', function(req, res, next) {
   res.render('courses', { title: 'Ludum - Kurser', pageTitle: 'Kurser'});

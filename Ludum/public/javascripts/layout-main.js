@@ -94,6 +94,12 @@ var initComponents = function () {
 
         var list = mdc.list.MDCList.attachTo(document.querySelector('.mdc-list'));
         list.listElements.map((listItem) => { mdc.ripple.MDCRipple.attachTo(listItem) });
+
+        var tabBarElement = document.querySelector('.mdc-tab-bar');
+        if (tabBarElement) {
+            var tabBar = mdc.tabBar.MDCTabBar.attachTo(tabBarElement);
+            tabBar.activateTab(0);
+        }
     });
 };
 

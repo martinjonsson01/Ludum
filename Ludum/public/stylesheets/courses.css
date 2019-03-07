@@ -19,7 +19,6 @@
     grid-template-areas: "general-courses specific-courses";
 }
 
-
 .course-list {
     padding: 0 !important;
     height: 75vh;

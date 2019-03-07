@@ -28,18 +28,6 @@
   <script async defer src="https://apis.google.com/js/platform.js" onload="this.onload=function(){};initClient()"
     onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function (event) {
-      //Barba.Pjax.start();
-
-      //const list = mdc.list.attachTo(document.querySelector('.mdc-list'));
-      //const list = document.querySelectorAll('.mdc-list-item');
-      //const listItemRipples = Array.from(list).map((listItemEl) => mdc.ripple.MDCRipple.attachTo(listItemEl));
-
-      //mdc.dialog.MDCDialog.attachTo(document.querySelector('.mdc-dialog'));
-    });
-  </script>
-
   <main id="barba-wrapper">
 
     <ul id="nav-list" class="mdc-list" role="listbox" data-mdc-auto-init="MDCList">
@@ -122,14 +110,12 @@
     </header>
 
     <div class="mdc-dialog" role="alertdialog" aria-modal="true" aria-labelledby="my-dialog-title"
-      aria-describedby="my-dialog-content">
+      aria-describedby="log-in-dialog-content">
       <div class="mdc-dialog__container">
         <div class="mdc-dialog__surface">
           <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
-          <h2 class="mdc-dialog__title" id="my-dialog-title">
-            Logga in
-          </h2>
-          <div class="mdc-dialog__content" id="my-dialog-content">
+          <h2 class="mdc-dialog__title" id="log-in-dialog-title">Logga in</h2>
+          <div class="mdc-dialog__content" id="log-in-dialog-content">
             <!-- Google sign-in button. -->
             <div class="g-signin2" data-onsuccess="onSignIn" tabindex="0"></div>
           </div>

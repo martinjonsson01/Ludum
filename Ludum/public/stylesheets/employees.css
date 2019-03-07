@@ -7,6 +7,7 @@
     width: 250%;
 }
 .course-list {
+    padding: 0 !important;
     height: 75vh;
     overflow-y: hidden;
     overflow-x: hidden;
@@ -16,9 +17,6 @@
     overflow-y: auto;
 }
 
-.mdc-list{
-    padding: 0 !important;
-}
 .course-divider{
     opacity: 1;
     margin: 0;

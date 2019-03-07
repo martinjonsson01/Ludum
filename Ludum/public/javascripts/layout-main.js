@@ -22,6 +22,7 @@ var initClient = function () {
         });
 
         console.log("Checking sign-in state in 1 second...");
+        // Wait for 1000ms before checking if user is signed in. This allows the auto-sign in to happen before the check.
         setTimeout(() => {
             if (auth2.isSignedIn.get()) {
                 console.log("User is already signed in.");
@@ -81,7 +82,22 @@ var initComponents = function () {
     signInDialog.scrimClickAction = "";
     signInDialog.escapeKeyAction = "";
     const list = mdc.list.MDCList.attachTo(document.querySelector('.mdc-list'));
-    list.listElements.map((listItemEl) => mdc.ripple.MDCRipple.attachTo(listItemEl));
+    list.listElements.map((listItem) => { mdc.ripple.MDCRipple.attachTo(listItem) });
+
+    Barba.Dispatcher.on("newPageReady", function (currentStatus, oldStatus, container) {
+        console.log("New page ready!");
+        var titleText = container.querySelector('title').innerHTML;
+        document.querySelector('title').innerHTML = titleText;
+
+        var titleTextWithoutLudum = titleText.split(' - ')[1];
+        console.log(titleText);
+        console.log(titleTextWithoutLudum);
+        console.log(document.querySelector('#page-title'));
+        document.querySelector('#page-title').innerText = titleTextWithoutLudum;
+
+        var list = mdc.list.MDCList.attachTo(document.querySelector('.mdc-list'));
+        list.listElements.map((listItem) => { mdc.ripple.MDCRipple.attachTo(listItem) });
+    });
 };
 
 var toggleAccountMenuSurface = function () {

@@ -34,4 +34,8 @@ router.get('/employees', function(req, res, next) {
 router.get('/students', function(req, res, next) {
   res.render('students', { title: 'Ludum - Elevgrupper'});
 })
+/* GET course page. */
+router.get('/course', function(req, res, next) {
+  res.render('course', { title: 'Ludum - Kurs'});
+})
 module.exports = router;

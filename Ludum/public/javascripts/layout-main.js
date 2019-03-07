@@ -90,9 +90,6 @@ var initComponents = function () {
         document.querySelector('title').innerHTML = titleText;
 
         var titleTextWithoutLudum = titleText.split(' - ')[1];
-        console.log(titleText);
-        console.log(titleTextWithoutLudum);
-        console.log(document.querySelector('#page-title'));
         document.querySelector('#page-title').innerText = titleTextWithoutLudum;
 
         var list = mdc.list.MDCList.attachTo(document.querySelector('.mdc-list'));

@@ -6,30 +6,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel='stylesheet' href='/stylesheets/course.css' />
-    <title>Document</title>
+    <script src="/javascripts/course.js"></script>
+    <title>KURS</title>
 </head>
 
 <body>
-    <main id="barba-wrapper">
+    <main id="barba-wrapper" class="fix-grid">
         <div id="page" class="barba-container">
 
-            <div class="mdc-tab-bar" role="tablist">
-                <div class="mdc-tab-scroller">
-                    <div class="mdc-tab-scroller__scroll-area">
-                        <div class="mdc-tab-scroller__scroll-content">
-                            <button class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0">
-                                <span class="mdc-tab__content">
-                                    <span class="mdc-tab__icon material-icons" aria-hidden="true">favorite</span>
-                                    <span class="mdc-tab__text-label">Favorites</span>
-                                </span>
-                                <span class="mdc-tab-indicator mdc-tab-indicator--active">
-                                    <span
-                                        class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                                </span>
-                                <span class="mdc-tab__ripple"></span>
-                            </button>
+            <div id="course-container">
+                <div id="course-tabBar">
+                    <div class="mdc-tab-bar" role="tablist" id="course-tabbar">
+                        <div class="mdc-tab-scroller">
+                            <div class="mdc-tab-scroller__scroll-area">
+                                <div class="mdc-tab-scroller__scroll-content">
+                                    <button class="mdc-tab mdc-tab--active" role="tab" aria-selected="true"
+                                        tabindex="0">
+                                        <span class="mdc-tab__content">
+                                            <span class="mdc-tab__text-label">Flöde</span>
+                                        </span>
+                                        <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                                            <span
+                                                class="mdc-tab-indicator__content mdc-tab-indicator__content--underline "></span>
+                                        </span>
+                                        <span class="mdc-tab__ripple"></span>
+                                    </button>
+                                    <button class="mdc-tab mdc-tab--hidden" role="tab" aria-selected="true"
+                                        tabindex="0">
+                                        <span class="mdc-tab__content">
+                                            <span class="mdc-tab__text-label">Uppgifter</span>
+                                        </span>
+                                        <span class="mdc-tab-indicator mdc-tab-indicator--hidden">
+                                            <span
+                                                class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                                        </span>
+                                        <span class="mdc-tab__ripple"></span>
+                                    </button>
+                                    <button class="mdc-tab mdc-tab--hidden" role="tab" aria-selected="true"
+                                        tabindex="0">
+                                        <span class="mdc-tab__content">
+                                            <span class="mdc-tab__text-label">Kursmatris</span>
+                                        </span>
+                                        <span class="mdc-tab-indicator mdc-tab-indicator--hidden">
+                                            <span
+                                                class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                                        </span>
+                                        <span class="mdc-tab__ripple"></span>
+                                    </button>
+                                    <button class="mdc-tab mdc-tab--hidden" role="tab" aria-selected="true"
+                                        tabindex="0">
+                                        <span class="mdc-tab__content">
+                                            <span class="mdc-tab__text-label">Prov</span>
+                                        </span>
+                                        <span class="mdc-tab-indicator mdc-tab-indicator--hidden">
+                                            <span
+                                                class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                                        </span>
+                                        <span class="mdc-tab__ripple"></span>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div id="course-content">
+
                 </div>
             </div>
 

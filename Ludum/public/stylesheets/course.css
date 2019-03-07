@@ -1,1 +1,19 @@
 @import "base.css";
+
+#course-container{
+    display: grid;
+    grid-template-rows: 54px auto;
+    grid-template-columns: 1fr;
+    grid-template-areas: "course-tabBar" "course-content";
+    margin: 8px 8px 0 8px;
+}
+#course-tabBar{
+    grid-area: course-tabBar;
+    height: 54px !important;
+}
+#course-content{
+    grid-area: course-content;
+}
+.mdc-tab{
+    height: 54px !important;
+}

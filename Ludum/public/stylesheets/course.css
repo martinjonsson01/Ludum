@@ -5,15 +5,65 @@
     grid-template-rows: 54px auto;
     grid-template-columns: 1fr;
     grid-template-areas: "course-tabBar" "course-content";
-    margin: 8px 8px 0 8px;
+    margin: 0px 8px 8px 8px;
 }
 #course-tabBar{
     grid-area: course-tabBar;
     height: 54px !important;
+    position: fixed !important;
+    top: 80px;
+    left: 328px;
+    width:         calc(100% - 336px);
 }
 #course-content{
     grid-area: course-content;
+    margin-top: 95px;
+    
 }
 .mdc-tab{
     height: 54px !important;
+}
+#flöde{
+    display: block;
+}
+#uppgifter{
+    display: none;
+}
+#kursmatris{
+    display: none;
+}
+#prov{
+    display: none;
+}
+.mdc-card__media{
+    height: 3.5em !important;
+    width: 3.5em !important;
+    border-radius: 50% !important;
+}
+.course-card{
+    margin: 32px auto 32px auto;
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 3.5em auto;
+    grid-template-rows: 1.75em 1.75em auto;
+    grid-template-areas: "teacher-icon teacher-name" "teacher-icon upload-date" "teacher-content teacher-content";
+    width: 758px;
+    border-radius: 8px;
+}
+.demo-card__title{
+    margin-top: 0;
+    margin-left: 16px;
+    margin-bottom: 0;
+    font-size: 1.1rem;
+}
+.demo-card__subtitle{
+    margin-top: 0;
+    margin-left: 16px;
+    margin-bottom: 4px;
+    opacity: 0.6;
+    font-size: 1.1rem;
+}
+p{
+    grid-area: teacher-content;
+    font-size: 1.3rem;
 }

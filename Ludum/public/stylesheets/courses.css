@@ -36,11 +36,11 @@
 }
 .course-list-text{
     font-size: 1.35em;
-    margin: 20px 0 0 0;
+    margin-top: 30px;
 }
 .course-list-secondary-text{
     font-size: 1em;
-    margin: 10px 0 0 0;
+    margin: 8px 0 0 0;
 }
 .course-list-image{
     height: 5em !important;

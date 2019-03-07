@@ -53,6 +53,7 @@ main {
 #page {
     grid-area: page;
     height: 100%;
+    
 }
 
 hr#small-hr{
@@ -220,4 +221,7 @@ margin: 4px auto auto auto !important;
 #account-menu-surface-settings {
     margin: auto 0 0 auto;
     grid-area: settings;
+}
+.mdc-card{
+    border-radius: 8px;
 }

@@ -1,5 +1,4 @@
 @import "base.css";
-
 html{
     height: 100%;
     
@@ -16,8 +15,6 @@ body{
     
 }
 .mdc-list{
-    
-    height: 100;
     /*Ändra bredd för cards*/
     width: 45vh;
 }

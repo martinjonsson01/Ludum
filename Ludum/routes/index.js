@@ -35,11 +35,13 @@ router.get('/employees', function(req, res, next) {
   res.render('employees', { title: 'Ludum - Personal', pageTitle: 'Personal'});
 })
 /* GET Student page. */
-router.get('/students', function(req, res, next) {
-  res.render('students', { title: 'Ludum - Elevgrupper', pageTitle: 'Elevgrupper'});
+router.get('/student-groups', function(req, res, next) {
+  res.render('student-groups', { title: 'Ludum - Elevgrupper', pageTitle: 'Elevgrupper'});
 })
 /* GET course page. */
 router.get('/course', function(req, res, next) {
   res.render('course', { title: 'Ludum - Kurs'});
 })
+
+
 module.exports = router;

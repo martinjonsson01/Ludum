@@ -9,77 +9,58 @@ body{
 }
 
 #page2{
-    display: flex;
+    
     /*Ändra höjd för cards*/
-    height: 350%;
+    height: 100%;
+
     
 }
 .mdc-list{
     
-    height: 100%;
+    height: 100;
     /*Ändra bredd för cards*/
-    width: 375px;
+    width: 45vh;
 }
 .containers{
-    height: 100%;
+    height: 75vh;
+    
     margin-left: 20px;
     margin-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "news notifications schedule";
+    
   
 }
 
 .containers ul{
     grid-area: news;    
-    
-    height: 100% !important;
-    
+
 }
-.demo-card{
-    
-    height: 250%;
-}
+
 .headline{
     text-align: center;
 }
-.containers2{
-    
-    height: 100%;
-    margin-left: 20px;
-    margin-top: 10px;
-    
+
+.mdc-card{
+margin: 10px;
 }
 
-.containers2 ul{
-    grid-area: news;    
-  
-    height: 100% !important;
-    
-}
 #schedule{
-    height: 630px;
+    height: 75vh;
+    width: 45vh;
 }
 #schedule iframe{
-    margin-left: 20px;
-    margin-top: 10px;
+
      padding: 0px;
-    width: 375px;
     color: white;
-    height: 620px;
+    
     
 }
 
-.container3{
-    
-    padding: 0px;
-    margin-left: 20px;
-    margin-top: 10px;
-    
-}
+
 
 #page3{
     margin-top: 10px !important;
     margin-left: 20px !important;
-}
-.fullscreen iframe{
-
-    padding: 0px;
 }

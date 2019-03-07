@@ -21,12 +21,15 @@ var initClient = function () {
             client_id: '425892769172-0jb5mo5gm07avnjraabf75pkula2uv65.apps.googleusercontent.com'
         });
 
-        if (auth2.isSignedIn.get()) {
-            console.log("User is already signed in.");
-        } else {
-            console.log("User is not signed in.");
-            signInDialog.open();
-        }
+        console.log("Checking sign-in state in 1 second...");
+        setTimeout(() => {
+            if (auth2.isSignedIn.get()) {
+                console.log("User is already signed in.");
+            } else {
+                console.log("User is not signed in.");
+                signInDialog.open();
+            }
+        }, 1000);
     });
 };
 

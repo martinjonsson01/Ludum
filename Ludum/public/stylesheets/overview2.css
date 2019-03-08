@@ -8,7 +8,11 @@
 }
 
 #container .mdc-card {
-    padding: 4px;
+    padding: 8px;
     margin: 1em;
     height: 100%;
+}
+
+#container .mdc-card .mdc-typography--headline5 {
+    margin: 0 -8px;
 }

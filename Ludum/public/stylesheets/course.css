@@ -72,7 +72,7 @@ p{
     font-size: 1.3rem;
 }
 .course-card-classwork{
-    margin: 32px 32px 32px auto;
+    margin: 32px 32px 32px 32px;
     padding: 16px;
     display: grid;
     grid-template-columns: 3.5em auto;

@@ -4,6 +4,11 @@
 var auth2;
 
 /**
+ * The pic for the profile card.
+ */
+var profile;
+
+/**
  * The Sign-In modal dialog.
  */
 var signInDialog;
@@ -38,7 +43,7 @@ var initClient = function () {
  * Handle successful sign-ins.
  */
 var onSignIn = function (user) {
-    var profile = user.getBasicProfile();
+    profile = user.getBasicProfile();
     console.log('Successfully signed in with Google OAuth2!');
     console.log('ID: ' + profile.getId()); // Do not send to backend! Use an ID token instead.
     console.log('Name: ' + profile.getName());
@@ -51,6 +56,8 @@ var onSignIn = function (user) {
     document.querySelector("#account-image").src = profile.getImageUrl();
     document.querySelector("#account-menu-surface-name").innerHTML = profile.getName();
     document.querySelector("#account-menu-surface-email").innerHTML = profile.getEmail();
+    document.querySelector("#profile-image").src = profile.getImageUrl();
+    document.querySelector("#profile-name").innerHTML = profile.getName();
 };
 
 /**
@@ -105,6 +112,16 @@ var initComponents = function () {
                 tabBar.activateTab(0);
             
         }
+        var profilePicElement = document.querySelector("#profile-image");
+        if(profilePicElement){
+            profilePicElement.src = profile.getImageUrl();
+
+        }
+        var profileName = document.querySelector("#profile-name");
+        if(profilePicElement){
+            profileName = profile.getName();
+        }
+        
     });
 };
 

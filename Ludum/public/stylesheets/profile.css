@@ -1,0 +1,30 @@
+@import 'base.css';
+
+#profilebanner{
+height: 35vh !important;
+
+}
+
+#profilecard{
+    height: 75vh;
+    width: 79vw;
+    margin: 15px;
+    
+}
+#profile-image{
+    border-radius: 15px;
+    z-index: 44;
+    margin: 30px;
+    width: 10vw;
+    position: fixed;
+    top: 300px;
+    border-style: solid;
+}
+
+#profile-name{
+    margin-left: 20px;
+    position: fixed;
+    top: 450px;
+    left:30vw;
+    font-size: 40px;
+}

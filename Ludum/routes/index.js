@@ -40,8 +40,10 @@ router.get('/student-groups', function(req, res, next) {
 })
 /* GET course page. */
 router.get('/course', function(req, res, next) {
-  res.render('course', { title: 'Ludum - Kurs'});
+  res.render('course', { title: 'Ludum - Kurs', pageTitle: 'Kurs'});
 })
-
+router.get('/profile', function(req, res, next) {
+  res.render('profile', { title: 'Ludum - Profil', pageTitle: 'Profil'});
+})
 
 module.exports = router;

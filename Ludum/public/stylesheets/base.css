@@ -11,6 +11,8 @@ html {
     --mdc-theme-secondary: #f9a825 !important;
     --mdc-theme-on-primary: #000000 !important;
     --mdc-theme-on-secondary: #000000 !important;
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 body {

@@ -32,6 +32,10 @@ main {
     grid-template-areas: "header header" "list page";
 }
 
+.barba-container {
+    height: 100%;
+}
+
 #header {
     display: grid;
     position: fixed;
@@ -174,6 +178,7 @@ h3.title {
 .fix-grid {
     display: block;
 }
+
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
@@ -182,6 +187,8 @@ h3.title {
 /* Track */
 ::-webkit-scrollbar-track {
 background: #f1f1f1; 
+margin: 8px 0;
+border-radius: 4px;
 }
 
 /* Handle */
@@ -239,4 +246,12 @@ margin: 4px auto auto auto !important;
 }
 .mdc-card{
     border-radius: 8px;
+}
+
+.mdc-card ul {
+    overflow-y: hidden;
+    margin: 0;
+}
+.mdc-card ul:hover {
+    overflow-y: auto;
 }

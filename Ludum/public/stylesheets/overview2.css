@@ -5,12 +5,13 @@
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: auto;
     justify-items: stretch;
+    height: 100%;
 }
 
 #container .mdc-card {
-    padding: 8px;
+    padding: 8px 8px 0 8px;
     margin: 1em;
-    height: 100%;
+    height: calc(100vh - 72px - 2em); /* Full screen - app bar - card margin top and bottom */
 }
 
 #container .mdc-card .mdc-typography--headline5 {

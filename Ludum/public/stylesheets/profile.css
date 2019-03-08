@@ -17,14 +17,14 @@ height: 35vh !important;
     margin: 30px;
     width: 10vw;
     position: fixed;
-    top: 300px;
+    top: 270px;
     border-style: solid;
 }
 
 #profile-name{
     margin-left: 20px;
     position: fixed;
-    top: 450px;
-    left:30vw;
+    top: 400px;
+    left:32vw;
     font-size: 40px;
 }

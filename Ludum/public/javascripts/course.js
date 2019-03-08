@@ -10,7 +10,7 @@ function clickStream(){
     }
 function clickClasswork(){
     document.querySelector("#flöde").style.display="none";
-    document.querySelector("#uppgifter").style.display="block";
+    document.querySelector("#uppgifter").style.display="grid";
     document.querySelector("#kursmatris").style.display="none";
     document.querySelector("#prov").style.display="none";
 }

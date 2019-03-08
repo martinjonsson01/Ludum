@@ -17,17 +17,21 @@
 }
 #course-content{
     grid-area: course-content;
-    margin-top: 95px;
-    
+    margin-top: 60px;
+
 }
 .mdc-tab{
     height: 54px !important;
 }
 #flöde{
     display: block;
+    height: calc(100vh - 134px);
+    overflow-y: auto;
+    margin-top: 0px;
 }
 #uppgifter{
     display: none;
+    margin-top: 0px;
 }
 #kursmatris{
     display: none;
@@ -40,7 +44,7 @@
     width: 3.5em !important;
     border-radius: 50% !important;
 }
-.course-card{
+.course-card-flow{
     margin: 32px auto 32px auto;
     padding: 16px;
     display: grid;
@@ -66,4 +70,35 @@
 p{
     grid-area: teacher-content;
     font-size: 1.3rem;
+}
+.course-card-classwork{
+    margin: 32px 32px 32px auto;
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 3.5em auto;
+    grid-template-rows: 1.75em 1.75em auto;
+    grid-template-areas: "teacher-icon teacher-name" "teacher-icon upload-date" "teacher-content teacher-content";
+    border-radius: 8px;
+}
+.classwork-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "course-work course-material";
+    height: calc(100vh - 134px);
+}
+.assignments-container{
+    grid-area: course-work;
+    overflow-y: auto;
+}
+.material-container{
+    grid-area: course-material;
+    height: 100%;
+}
+.material-list{
+    margin: 16px 32px 16px 32px;
+}
+.material-card{
+    margin: 32px 32px 32px 32px;
+    height: 100%;
+    height: calc(100vh - 198px);
 }

@@ -1,10 +1,11 @@
 #employees-container{
     margin-top: 10px;
-    margin-left: 50%;
+    
     width: 100%;
 }
 #employees{
-    width: 250%;
+    width: 80vw;
+
 }
 .course-list {
     padding: 0 !important;

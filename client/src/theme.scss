@@ -23,6 +23,7 @@ html {
   --mdc-theme-on-surface: #000000; /* Text color on top of a surface background. */
 }
 
+/* https://stackoverflow.com/questions/36915508/what-are-the-material-design-dark-theme-colors */
 html[data-theme="dark"] {
   /* global dark colors */
   --mdc-theme-primary: #1b8c9b; /* The theme primary color. */

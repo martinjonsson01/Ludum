@@ -51,7 +51,7 @@ var onSignIn = function (user) {
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
     // Close dialog.
     signInDialog.close();
-
+    
     // Update account surfaces.
     document.querySelector("#account-image").src = profile.getImageUrl();
     document.querySelector("#account-menu-surface-name").innerHTML = profile.getName();

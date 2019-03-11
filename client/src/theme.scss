@@ -1,0 +1,45 @@
+html.color-theme-in-transition,
+html.color-theme-in-transition *,
+html.color-theme-in-transition *:before,
+html.color-theme-in-transition *:after {
+  transition: all 750ms !important;
+  transition-delay: 0 !important;
+}
+
+html {
+  /* global light colors */
+  --mdc-theme-primary: #26c6da; /* The theme primary color. */
+
+  --mdc-theme-secondary: #f9a825; /* The theme secondary color. */
+
+  --mdc-theme-background: #f7f7f7; /* The theme background color. */
+
+  --mdc-theme-surface: #ffffff; /* The theme surface color. */
+
+  --mdc-theme-on-primary: #000000; /* Text color on top of a primary background. */
+
+  --mdc-theme-on-secondary: #000000; /* Text color on top of a secondary background. */
+
+  --mdc-theme-on-surface: #000000; /* Text color on top of a surface background. */
+}
+
+html[data-theme="dark"] {
+  /* global dark colors */
+  --mdc-theme-primary: #1b8c9b; /* The theme primary color. */
+
+  --mdc-theme-secondary: #da9322; /* The theme secondary color. */
+
+  --mdc-theme-background: #003638; /* The theme background color. */
+
+  --mdc-theme-surface: #006064; /* The theme surface color. */
+
+  --mdc-theme-on-primary: #ffffff; /* Text color on top of a primary background. */
+
+  --mdc-theme-on-secondary: #000000; /* Text color on top of a secondary background. */
+
+  --mdc-theme-on-surface: #ffffff; /* Text color on top of a surface background. */
+}
+
+@function color($color-name) {
+  @return var(--mdc-theme-#{$color-name});
+}

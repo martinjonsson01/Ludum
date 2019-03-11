@@ -1,0 +1,27 @@
+@import '@material/react-drawer/index.scss';
+@import '@material/react-list/index.scss';
+@import '@material/react-material-icon/index.scss';
+@import '@material/react-top-app-bar/index.scss';
+.drawer-container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.mdc-drawer {
+    @include mdc-drawer-surface-fill-color(var(--mdc-theme-surface));
+}
+
+.drawer-app-content {
+    flex: auto;
+    overflow: auto;
+}
+
+/* Dark theming. */
+html[data-theme="dark"] { 
+    .mdc-drawer {
+        @include mdc-drawer-fill-color-accessible(#006064);
+        @include mdc-drawer-item-activated-icon-ink-color(#da5026);
+    }
+}

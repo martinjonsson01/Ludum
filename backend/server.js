@@ -31,5 +31,13 @@ app.use(logger("dev"));
 // Route requests going to /api through the api router.
 app.use("/api", apiRouter);
 
+// Serve static assets from build folder.
+app.use(express.static("../client/build"));
+
+// Link all requests not going to /api to the React client.
+app.get('/*', function (req, res) {
+    res.sendFile("../client/build/index.html");
+});
+
 // Start backend server.
 app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));

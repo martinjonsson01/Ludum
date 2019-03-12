@@ -1,11 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './components/App/App.jsx';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./components/common/App.jsx";
+import * as serviceWorker from "./serviceWorker";
 import "./theme.scss";
 import "./styles.scss";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
 
 // NOTE: THE ENVIRONMENT VARIABLE "SASS_PATH" NEEDS TO BE SET TO ".\node_modules" FOR MDC TO WORK!
 

@@ -10,7 +10,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      theme: "light", // TODO: Should default be dark or light? Probably light.
+      theme: "dark", // TODO: Should default be dark or light? Probably light.
     };
     this.onToggleTheme = this.onToggleTheme.bind(this);
   }

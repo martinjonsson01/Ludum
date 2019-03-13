@@ -8,37 +8,44 @@ html.color-theme-in-transition *:after {
 
 html {
   /* global light colors */
-  --mdc-theme-primary: #26c6da; /* The theme primary color. */
-
-  --mdc-theme-secondary: #f9a825; /* The theme secondary color. */
-
-  --mdc-theme-background: #f7f7f7; /* The theme background color. */
-
-  --mdc-theme-surface: #ffffff; /* The theme surface color. */
-
-  --mdc-theme-on-primary: #000000; /* Text color on top of a primary background. */
-
-  --mdc-theme-on-secondary: #000000; /* Text color on top of a secondary background. */
-
-  --mdc-theme-on-surface: #000000; /* Text color on top of a surface background. */
+  /* The theme primary color. */
+  --mdc-theme-primary: #26c6da;
+  /* The theme secondary color. */
+  --mdc-theme-secondary: #f9a825;
+  /* The theme background color. */
+  --mdc-theme-background: #f7f7f7;
+  /* The theme surface color. */
+  --mdc-theme-surface: #ffffff;
+  /* Text color on top of a primary background. */
+  --mdc-theme-on-primary: #000000;
+  /* Text color on top of a secondary background. */
+  --mdc-theme-on-secondary: #000000;
+  /* Text color on top of a surface background. */
+  --mdc-theme-on-surface: #000000;
+  /* Secondary text color on top of the background. */
+  --mdc-theme-text-secondary-on-background: #000000e8;
 }
 
 /* https://stackoverflow.com/questions/36915508/what-are-the-material-design-dark-theme-colors */
+
 html[data-theme="dark"] {
   /* global dark colors */
-  --mdc-theme-primary: #1b8c9b; /* The theme primary color. */
-
-  --mdc-theme-secondary: #da9322; /* The theme secondary color. */
-
-  --mdc-theme-background: #003638; /* The theme background color. */
-
-  --mdc-theme-surface: #006064; /* The theme surface color. */
-
-  --mdc-theme-on-primary: #ffffff; /* Text color on top of a primary background. */
-
-  --mdc-theme-on-secondary: #000000; /* Text color on top of a secondary background. */
-
-  --mdc-theme-on-surface: #ffffff; /* Text color on top of a surface background. */
+  /* The theme primary color. */
+  --mdc-theme-primary: #1b8c9b;
+  /* The theme secondary color. */
+  --mdc-theme-secondary: #da9322;
+  /* The theme background color.003638 */
+  --mdc-theme-background: #006064;
+  /* The theme surface color.006064 */
+  --mdc-theme-surface: #003638;
+  /* Text color on top of a primary background. */
+  --mdc-theme-on-primary: #ffffff;
+  /* Text color on top of a secondary background. */
+  --mdc-theme-on-secondary: #000000;
+  /* Text color on top of a surface background. */
+  --mdc-theme-on-surface: #ffffff;
+  /* Secondary text color on top of the background. */
+  --mdc-theme-text-secondary-on-background: #fffffff1;
 }
 
 @function color($color-name) {

@@ -1,38 +1,73 @@
 @import '@material/react-material-icon/index.scss';
 @import '@material/react-typography/index.scss';
-
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Include padding and border in all element's total width and height. */
-    font-weight: 400;
+    /* Include padding and border in all element's total width and height. */
+    box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-  
-  body {
-    background: var(--mdc-theme-background);
-  }
-  
-  code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-      monospace;
-  }
+}
 
-  .system-font {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-        "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-        sans-serif;
-  }
-  
-  button {
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    background: var(--mdc-theme-background);
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+.system-font {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
+button {
     cursor: pointer;
     border: 0;
     background: none;
     outline: none;
-  }
-  
-  a {
+}
+
+a {
     text-decoration: none;
-  }
-  
+}
+
+/* Scrollbar width. */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Scrollbar track. */
+
+::-webkit-scrollbar-track {
+    width: 4px;
+    background: #9e9e9e;
+    margin: 68px 4px 4px 4px;
+    border-radius: 4px;
+    /* Box shadow used for anti-aliasing. */
+    box-shadow: 0 0 1px 0px #9e9e9e inset, 0 0 1px 0px #9e9e9e;
+}
+
+/* Scrollbar handle. */
+
+::-webkit-scrollbar-thumb {
+    width: 4px;
+    background: #f1f1f1;
+    border-radius: 4px;
+    /* Box shadow used for anti-aliasing. */
+    box-shadow: 0 0 1px 0px #f1f1f1 inset, 0 0 1px 0px #f1f1f1;
+}
+
+/* Scrollbar handle on hover. */
+
+::-webkit-scrollbar-thumb:hover {
+    background: #b9b9b9;
+}

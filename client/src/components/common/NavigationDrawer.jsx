@@ -9,6 +9,15 @@ import lbsLogo from "../../media/lbs-logo.png";
 
 export default class NavigationDrawer extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      open: true,
+    };
+  }
+
+
   static get propTypes() {
     return {
       selectedIndex: PropTypes.any,
@@ -20,7 +29,9 @@ export default class NavigationDrawer extends Component {
 
   render() {
     return (
-      <Drawer>
+      <Drawer
+        dismissible
+        open={this.state.open}>
         <DrawerHeader>
           <DrawerTitle tag='h2'>
             Ludum

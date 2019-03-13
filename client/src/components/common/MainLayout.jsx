@@ -1,15 +1,19 @@
-import React, { Component } from "react";
+import React, { Suspense, lazy, Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
+import Route from "react-router-dom/Route";
 import TopAppBar, { TopAppBarFixedAdjust } from "@material/react-top-app-bar";
 import { DrawerAppContent } from "@material/react-drawer";
 import AccountButton from "./AccountButton";
-import Route from "react-router-dom/Route";
+import LinearProgress from "@material/react-linear-progress";
 
 import { findWithAttr } from "../../Util";
 
 import ErrorBoundary from "./ErrorBoundary";
 import NavigationDrawer from "./NavigationDrawer";
+
+// Lazy-load pages.
+const OverviewPage = lazy(() => import("../overview/OverviewPage"));
 
 class MainLayout extends Component {
 
@@ -46,7 +50,6 @@ class MainLayout extends Component {
       location: "/nyheter",
       title: "Nyheter",
       icon: "announcement",
-      trailingDivider: false,
       subHeader: "Relevant",
     },
     {
@@ -54,42 +57,34 @@ class MainLayout extends Component {
       title: "Schema",
       icon: "schedule",
       trailingDivider: true,
-      subHeader: null,
     },
     {
       location: "/kurser",
       title: "Kurser",
       icon: "school",
-      trailingDivider: false,
       subHeader: "Arbete",
     },
     {
       location: "/uppgifter",
       title: "Uppgifter",
       icon: "assignment",
-      trailingDivider: false,
-      subHeader: null,
     },
     {
       location: "/meddelanden",
       title: "Meddelanden",
       icon: "chat_bubble",
       trailingDivider: true,
-      subHeader: null,
     },
     {
       location: "/personal",
       title: "Personal",
       icon: "person",
-      trailingDivider: false,
       subHeader: "Personer",
     },
     {
       location: "/elevgrupper",
       title: "Elevgrupper",
       icon: "group",
-      trailingDivider: false,
-      subHeader: null,
     },
     {
       location: "/installningar",
@@ -110,6 +105,27 @@ class MainLayout extends Component {
       title: locationIndex === -1 ? "Null" : this.navItems[locationIndex].title,
       user: null,
     };
+    this.onNavigateChange = this.onNavigateChange.bind(this);
+    this.updateBrowserTitle = this.updateBrowserTitle.bind(this);
+  }
+
+  componentDidMount() {
+    this.updateBrowserTitle();
+  }
+
+  componentDidUpdate() {
+    this.updateBrowserTitle();
+  }
+
+  updateBrowserTitle() {
+    const { pathname } = this.props.location;
+    const locationIndex = findWithAttr(this.navItems, "location", pathname);
+    if (locationIndex === -1) {
+      document.title = "Ludum";
+      return;
+    }
+    const title = this.navItems[locationIndex].title;
+    document.title = "Ludum - " + title;
   }
 
   onNavigateChange = (location) => {
@@ -137,6 +153,7 @@ class MainLayout extends Component {
 
         <DrawerAppContent className='drawer-app-content'>
           <TopAppBar
+            className="drawer-padding"
             title={this.state.title}
             fixed={true}
             actionItems={[
@@ -150,8 +167,10 @@ class MainLayout extends Component {
 
           <TopAppBarFixedAdjust>
             <ErrorBoundary>
-              <Route path="/oversikt" component={this.Overview} />
-              <Route path="/schema" component={this.Schedule} />
+              <Suspense fallback={<LinearProgress indeterminate={true} />}>
+                <Route path="/oversikt" component={props => <OverviewPage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
+                <Route path="/schema" component={this.Schedule} />
+              </Suspense>
             </ErrorBoundary>
           </TopAppBarFixedAdjust>
         </DrawerAppContent>

@@ -26,6 +26,19 @@ export default class AccountButton extends Component {
       menuOpen: false,
       anchorElement: null,
     };
+    this.setAnchorElement = this.setAnchorElement.bind(this);
+    this.toggleMenu = this.toggleMenu.bind(this);
+    this.closeMenu = this.closeMenu.bind(this);
+    this.navigateToProfile = this.navigateToProfile.bind(this);
+    this.navigateToSettings = this.navigateToSettings.bind(this);
+  }
+
+  navigateToProfile() {
+    this.props.onNavigateChange("/profil");
+  }
+
+  navigateToSettings() {
+    this.props.onNavigateChange("/installningar");
   }
 
   setAnchorElement = (element) => {
@@ -39,6 +52,10 @@ export default class AccountButton extends Component {
     this.setState((state) => {
       return { menuOpen: !state.menuOpen };
     });
+  }
+
+  closeMenu() {
+    this.setState({ menuOpen: false });
   }
 
   render() {
@@ -59,7 +76,7 @@ export default class AccountButton extends Component {
         <MenuSurface
           open={this.state.menuOpen}
           anchorCorner={Corner.BOTTOM_LEFT}
-          onClose={() => this.setState({ menuOpen: false })}
+          onClose={this.closeMenu}
           anchorElement={this.state.anchorElement}
           anchorMargin={{ top: 0, bottom: 16, left: 0, right: 8 }}
           quickOpen={false}>
@@ -79,7 +96,7 @@ export default class AccountButton extends Component {
             <Button
               id="profile"
               unelevated={true}
-              onClick={() => this.props.onNavigateChange("/profil")}>
+              onClick={this.navigateToProfile}>
               Profil
             </Button>
             {/** Dark mode */}
@@ -96,7 +113,7 @@ export default class AccountButton extends Component {
             {/** Settings */}
             <IconButton
               id="settings"
-              onClick={() => this.props.onNavigateChange("/installningar")}>
+              onClick={this.navigateToSettings}>
               <MaterialIcon icon="settings" />
             </IconButton>
             {/** Sign-out */}

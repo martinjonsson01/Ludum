@@ -1,0 +1,47 @@
+.full-height {
+  /* Set height to 100% of the shortest screen length... */
+  /* minus the height of the top app bar... */
+  /* minus the padding of the layout grid(twice). */
+  height: calc(100vmin - 64px - 24px - 24px);
+}
+
+.mdc-list {
+  overflow-y: hidden;
+}
+
+.mdc-list:hover {
+  overflow-y: auto;
+}
+
+.mdc-list::-webkit-scrollbar-track {
+  margin-top: 4px;
+}
+
+.mdc-list-item__text {
+  color: var(--mdc-theme-on-surface);
+}
+
+.mdc-list-item {
+  height: fit-content !important;
+}
+
+.mdc-list-item__secondary-text {
+  height: fit-content !important;
+  white-space: pre-line !important;
+  margin-bottom: 8px;
+}
+
+.mdc-list-item__primary-text {
+  height: fit-content !important;
+  white-space: normal !important;
+  margin-bottom: 1px;
+}
+
+.mdc-list-item__graphic {
+  align-self: flex-start;
+  margin-top: 16px;
+}
+
+#news {
+  padding: 8px 0 0 0;
+}

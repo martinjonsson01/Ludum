@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
+const path = require("path");
+const compression = require('compression')
+const cors = require("cors");
 
 const API_PORT = 3001;
 const app = express();
@@ -28,6 +31,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger("dev"));
 
+const env = process.env.NODE_ENV || 'dev';
+// Only allow Cross-Origin requests when in development mode.
+if (env === "dev") {
+    app.use(cors());
+}
+
+// GZip-compress assets before serving.
+app.use(compression());
+
 // Route requests going to /api through the api router.
 app.use("/api", apiRouter);
 
@@ -36,7 +48,7 @@ app.use(express.static("../client/build"));
 
 // Link all requests not going to /api to the React client.
 app.get('/*', function (req, res) {
-    res.sendFile("../client/build/index.html");
+    res.sendFile("client/build/index.html", { root: "../" });
 });
 
 // Start backend server.

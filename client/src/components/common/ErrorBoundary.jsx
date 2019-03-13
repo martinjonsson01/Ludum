@@ -32,8 +32,8 @@ export default class ErrorBoundary extends Component {
       // Render fallback UI
       return (
         <React.Fragment>
-          <Headline3>OOPSIE WOOPSIE!!</Headline3>
-          <Body1>Uwu We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix this!</Body1>
+          <Headline3 className="error-title">OOPSIE WOOPSIE!!</Headline3>
+          <Body1 className="error-body">Uwu We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix this!</Body1>
         </React.Fragment>
       );
     }

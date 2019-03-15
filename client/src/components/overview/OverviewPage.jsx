@@ -1,12 +1,14 @@
-import React, { Suspense } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Grid, Row, Cell } from "@material/react-layout-grid";
 import Card from "@material/react-card";
 import { Body1, Headline5 } from "@material/react-typography";
-import LinearProgress from "@material/react-linear-progress";
 
 import "./OverviewPage.scss";
-import NewsSummary from "./NewsSummary";
+
+import NewsSummaryItem from "./NewsSummaryItem";
+import FetchList from "./FetchList";
+import CourseEventItem from "./CourseEventItem";
 
 // eslint-disable-next-line no-unused-vars
 function OverviewPage(props) {
@@ -17,28 +19,28 @@ function OverviewPage(props) {
         <Cell columns={4}>
           <Card
             id="news"
-            className="full-height">
+            className="full-height overview-list">
             <Headline5 className="card-title">Nyheter</Headline5>
-            <Suspense fallback={<LinearProgress indeterminate={true} />}>
-              <NewsSummary />
-            </Suspense>
+            <FetchList
+              url="http://localhost:3001/api/getNews"
+              listComponent={NewsSummaryItem} />
           </Card>
         </Cell>
-        {/** Events */}
+        {/** Course Events */}
         <Cell columns={4}>
-          <Card className="full-height">
-            <Headline5 className="card-title">Händelser</Headline5>
-            <Body1>
-              uwu
-            </Body1>
+          <Card className="full-height overview-list">
+            <Headline5 className="card-title">Kurshändelser</Headline5>
+            <FetchList
+              url="http://localhost:3001/api/getCourseEvents"
+              listComponent={CourseEventItem} />
           </Card>
         </Cell>
         {/** Schedule */}
         <Cell columns={4}>
-          <Card className="full-height">
+          <Card className="full-height overview-list">
             <Headline5 className="card-title">Schema</Headline5>
             <Body1>
-              uwu
+              Work in progress
             </Body1>
           </Card>
         </Cell>

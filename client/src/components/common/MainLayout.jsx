@@ -11,6 +11,7 @@ import { findWithAttr } from "../../Util";
 
 import ErrorBoundary from "./ErrorBoundary";
 import NavigationDrawer from "./NavigationDrawer";
+import NewsPage from "../news/NewsPage";
 
 // Lazy-load pages.
 const OverviewPage = lazy(() => import("../overview/OverviewPage"));
@@ -169,7 +170,7 @@ class MainLayout extends Component {
             <ErrorBoundary>
               <Suspense fallback={<LinearProgress indeterminate={true} />}>
                 <Route path="/oversikt" component={props => <OverviewPage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
-                <Route path="/schema" component={this.Schedule} />
+                <Route path="/nyheter" component={props => <NewsPage {...props} />} />
               </Suspense>
             </ErrorBoundary>
           </TopAppBarFixedAdjust>

@@ -96,8 +96,15 @@ html[data-theme="dark"] {
   @include mdc-states-base-color(#b00020);
 }
 
+.mdc-list-divider {
+  border-bottom-color: #0000001f;
+}
+
+html[data-theme="dark"] .mdc-list-divider {
+  border-bottom-color: #ffffff1f;
+}
+
 .mdc-card {
-  padding: 8px;
   border-radius: 8px;
   overflow-y: hidden;
   color: var(--mdc-theme-on-surface);

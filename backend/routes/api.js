@@ -2,8 +2,9 @@ const express = require('express');
 const Data = require("../data");
 const router = express.Router();
 
-// GET all available data in the database.
+// GET news from the database.
 router.get("/getNews", (req, res) => {
+    // TODO: REMOVE THIS 1000 MS TIMEOUT ASAP
     setTimeout(() =>
         res.json([
             {
@@ -97,6 +98,278 @@ router.get("/getNews", (req, res) => {
                 body: `Ni kommer åt ledighetsansökan på hemsidan http://www.lbs.se/terminstider.
     
           Klicka här för direktlänk!`,
+            },
+        ]), 1000);
+});
+
+// GET course events from the database.
+router.get("/getCourseEvents", (req, res) => {
+    // TODO: REMOVE THIS 1000 MS TIMEOUT ASAP
+    setTimeout(() =>
+        res.json([
+            {
+                course: "Ma3c",
+                event: {
+                    date: "3 mars",
+                    type: {
+                        name: "Bedömt prov",
+                        icon: "assignment_returned",
+                    },
+                    name: "Kapitel 5 - Trigonometri",
+                },
+            },
+            {
+                course: "Fysik 1",
+                event: {
+                    date: "1 mars",
+                    type: {
+                        name: "Bedömd uppgift",
+                        icon: "assignment_returned",
+                    },
+                    name: "Ellabb 2",
+                },
+            },
+            {
+                course: "Fysik 1",
+                event: {
+                    dueDate: "22 februari",
+                    type: {
+                        name: "Ny uppgift",
+                        icon: "assignment",
+                    },
+                    name: "Ellabb 2",
+                },
+            },
+            {
+                course: "Ma3c",
+                event: {
+                    date: "3 mars",
+                    type: {
+                        name: "Bedömt prov",
+                        icon: "assignment_returned",
+                    },
+                    name: "Kapitel 5 - Trigonometri",
+                },
+            },
+            {
+                course: "Fysik 1",
+                event: {
+                    date: "1 mars",
+                    type: {
+                        name: "Bedömd uppgift",
+                        icon: "assignment_returned",
+                    },
+                    name: "Ellabb 2",
+                },
+            },
+            {
+                course: "Fysik 1",
+                event: {
+                    dueDate: "22 februari",
+                    type: {
+                        name: "Ny uppgift",
+                        icon: "assignment",
+                    },
+                    name: "Ellabb 2",
+                },
+            },
+            {
+                course: "Ma3c",
+                event: {
+                    date: "3 mars",
+                    type: {
+                        name: "Bedömt prov",
+                        icon: "assignment_returned",
+                    },
+                    name: "Kapitel 5 - Trigonometri",
+                },
+            },
+            {
+                course: "Fysik 1",
+                event: {
+                    date: "1 mars",
+                    type: {
+                        name: "Bedömd uppgift",
+                        icon: "assignment_returned",
+                    },
+                    name: "Ellabb 2",
+                },
+            },
+            {
+                course: "Fysik 1",
+                event: {
+                    dueDate: "22 februari",
+                    type: {
+                        name: "Ny uppgift",
+                        icon: "assignment",
+                    },
+                    name: "Ellabb 2",
+                },
+            },
+            {
+                course: "Ma3c",
+                event: {
+                    date: "3 mars",
+                    type: {
+                        name: "Bedömt prov",
+                        icon: "assignment_returned",
+                    },
+                    name: "Kapitel 5 - Trigonometri",
+                },
+            },
+            {
+                course: "Fysik 1",
+                event: {
+                    date: "1 mars",
+                    type: {
+                        name: "Bedömd uppgift",
+                        icon: "assignment_returned",
+                    },
+                    name: "Ellabb 2",
+                },
+            },
+            {
+                course: "Fysik 1",
+                event: {
+                    dueDate: "22 februari",
+                    type: {
+                        name: "Ny uppgift",
+                        icon: "assignment",
+                    },
+                    name: "Ellabb 2",
+                },
+            },
+            {
+                course: "Ma3c",
+                event: {
+                    date: "3 mars",
+                    type: {
+                        name: "Bedömt prov",
+                        icon: "assignment_returned",
+                    },
+                    name: "Kapitel 5 - Trigonometri",
+                },
+            },
+            {
+                course: "Fysik 1",
+                event: {
+                    date: "1 mars",
+                    type: {
+                        name: "Bedömd uppgift",
+                        icon: "assignment_returned",
+                    },
+                    name: "Ellabb 2",
+                },
+            },
+            {
+                course: "Fysik 1",
+                event: {
+                    dueDate: "22 februari",
+                    type: {
+                        name: "Ny uppgift",
+                        icon: "assignment",
+                    },
+                    name: "Ellabb 2",
+                },
+            },
+            {
+                course: "Ma3c",
+                event: {
+                    date: "3 mars",
+                    type: {
+                        name: "Bedömt prov",
+                        icon: "assignment_returned",
+                    },
+                    name: "Kapitel 5 - Trigonometri",
+                },
+            },
+            {
+                course: "Fysik 1",
+                event: {
+                    date: "1 mars",
+                    type: {
+                        name: "Bedömd uppgift",
+                        icon: "assignment_returned",
+                    },
+                    name: "Ellabb 2",
+                },
+            },
+            {
+                course: "Fysik 1",
+                event: {
+                    dueDate: "22 februari",
+                    type: {
+                        name: "Ny uppgift",
+                        icon: "assignment",
+                    },
+                    name: "Ellabb 2",
+                },
+            },
+            {
+                course: "Ma3c",
+                event: {
+                    date: "3 mars",
+                    type: {
+                        name: "Bedömt prov",
+                        icon: "assignment_returned",
+                    },
+                    name: "Kapitel 5 - Trigonometri",
+                },
+            },
+            {
+                course: "Fysik 1",
+                event: {
+                    date: "1 mars",
+                    type: {
+                        name: "Bedömd uppgift",
+                        icon: "assignment_returned",
+                    },
+                    name: "Ellabb 2",
+                },
+            },
+            {
+                course: "Fysik 1",
+                event: {
+                    dueDate: "22 februari",
+                    type: {
+                        name: "Ny uppgift",
+                        icon: "assignment",
+                    },
+                    name: "Ellabb 2",
+                },
+            },
+            {
+                course: "Ma3c",
+                event: {
+                    date: "3 mars",
+                    type: {
+                        name: "Bedömt prov",
+                        icon: "assignment_returned",
+                    },
+                    name: "Kapitel 5 - Trigonometri",
+                },
+            },
+            {
+                course: "Fysik 1",
+                event: {
+                    date: "1 mars",
+                    type: {
+                        name: "Bedömd uppgift",
+                        icon: "assignment_returned",
+                    },
+                    name: "Ellabb 2",
+                },
+            },
+            {
+                course: "Fysik 1",
+                event: {
+                    dueDate: "22 februari",
+                    type: {
+                        name: "Ny uppgift",
+                        icon: "assignment",
+                    },
+                    name: "Ellabb 2",
+                },
             },
         ]), 1000);
 });

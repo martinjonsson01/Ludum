@@ -15,6 +15,8 @@ import NewsPage from "../news/NewsPage";
 
 // Lazy-load pages.
 const OverviewPage = lazy(() => import("../overview/OverviewPage"));
+const SchedulePage = lazy(() => import("../schedule/SchedulePage"));
+const CoursesPage = lazy(() => import("../courses/CoursesPage"));
 
 class MainLayout extends Component {
 
@@ -170,7 +172,9 @@ class MainLayout extends Component {
             <ErrorBoundary>
               <Suspense fallback={<LinearProgress indeterminate={true} />}>
                 <Route path="/oversikt" component={props => <OverviewPage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
-                <Route path="/nyheter" component={props => <NewsPage {...props} />} />
+                <Route path="/nyheter" component={props => <NewsPage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
+                <Route path="/schema" component={props => <SchedulePage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
+                <Route path="/kurser" component={props => <CoursesPage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
               </Suspense>
             </ErrorBoundary>
           </TopAppBarFixedAdjust>

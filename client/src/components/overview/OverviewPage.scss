@@ -1,14 +1,3 @@
-.full-height {
-  /* Set height to 100% of the shortest screen length... */
-  /* minus the height of the top app bar... */
-  /* minus the padding of the layout grid(twice). */
-  height: calc(100vmin - 64px - 24px - 24px);
-}
-
-.material-icons.card-icon {
-  margin: auto;
-}
-
 .mdc-list {
   overflow-y: hidden;
 }

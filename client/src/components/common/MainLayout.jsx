@@ -11,10 +11,10 @@ import { findWithAttr } from "../../Util";
 
 import ErrorBoundary from "./ErrorBoundary";
 import NavigationDrawer from "./NavigationDrawer";
-import NewsPage from "../news/NewsPage";
 
 // Lazy-load pages.
 const OverviewPage = lazy(() => import("../overview/OverviewPage"));
+const NewsPage = lazy(() => import("../news/NewsPage"));
 const SchedulePage = lazy(() => import("../schedule/SchedulePage"));
 const CoursesPage = lazy(() => import("../courses/CoursesPage"));
 
@@ -171,9 +171,9 @@ class MainLayout extends Component {
           <TopAppBarFixedAdjust>
             <ErrorBoundary>
               <Suspense fallback={<LinearProgress indeterminate={true} />}>
-                <Route path="/oversikt" component={props => <OverviewPage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
-                <Route path="/nyheter" component={props => <NewsPage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
-                <Route path="/schema" component={props => <SchedulePage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
+                <Route exact path="/oversikt" component={props => <OverviewPage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
+                <Route exact path="/nyheter" component={props => <NewsPage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
+                <Route exact path="/schema" component={props => <SchedulePage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
                 <Route path="/kurser" component={props => <CoursesPage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
               </Suspense>
             </ErrorBoundary>

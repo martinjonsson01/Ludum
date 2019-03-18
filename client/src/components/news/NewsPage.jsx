@@ -1,31 +1,34 @@
 import React from "react";
-import { Grid, Row, Cell } from "@material/react-layout-grid";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import "./NewsPage.scss";
+import FetchList from "../common/FetchList";
+import NewsItem from "./NewsItem";
 
 const Container = styled.div`
-  width: 50vmax;
-  margin: auto;
-  background: red;
+  max-width: calc(100% - (2*1.5rem));
+  width: 1000px;
+  margin: 1.5rem auto;
 `;
+const StyledList = styled.ul`
+  list-style: none;
+`;
+
+function List({ children }) {
+  return <StyledList>{children}</StyledList>;
+}
+List.propTypes = {
+  children: PropTypes.array
+};
 
 function NewsPage() {
   return (
     <Container>
-      <Grid>
-        <Row>
-          <Cell columns={3}>
-            Test1
-          </Cell>
-          <Cell columns={6} >
-            Test2
-          </Cell>
-          <Cell columns={3}>
-            Test3
-          </Cell>
-        </Row>
-      </Grid>
+      <FetchList
+        url="http://localhost:3001/api/getNews"
+        listComponent={List}
+        listItemComponent={NewsItem}
+      />
     </Container>
   );
 }

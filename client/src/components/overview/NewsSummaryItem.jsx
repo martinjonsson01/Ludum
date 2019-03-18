@@ -7,9 +7,14 @@ function NewsSummaryItem(props) {
   const news = props.array;
   const index = props.index;
 
+  function onClick() {
+    // TODO: Navigate to /nyheter#title-of-news
+  }
+
   return ([
     <ListItem
-      key={newsItem.title + ":" + newsItem.date}>
+      key={newsItem.title + ":" + newsItem.date}
+      onClick={onClick}>
       <ListItemGraphic
         graphic={<img src={newsItem.author.image} alt={newsItem.author.name} />} />
       <ListItemText

@@ -2,12 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Grid, Row, Cell } from "@material/react-layout-grid";
 import Card from "@material/react-card";
+import List from "@material/react-list";
 import { Body1, Headline5 } from "@material/react-typography";
 
 import "./OverviewPage.scss";
 
 import NewsSummaryItem from "./NewsSummaryItem";
-import FetchList from "./FetchList";
+import FetchList from "../common/FetchList";
 import CourseEventItem from "./CourseEventItem";
 
 // eslint-disable-next-line no-unused-vars
@@ -23,7 +24,8 @@ function OverviewPage(props) {
             <Headline5 className="card-title">Nyheter</Headline5>
             <FetchList
               url="http://localhost:3001/api/getNews"
-              listComponent={NewsSummaryItem} />
+              listComponent={List}
+              listItemComponent={NewsSummaryItem} />
           </Card>
         </Cell>
         {/** Course Events */}
@@ -32,7 +34,8 @@ function OverviewPage(props) {
             <Headline5 className="card-title">Kurshändelser</Headline5>
             <FetchList
               url="http://localhost:3001/api/getCourseEvents"
-              listComponent={CourseEventItem} />
+              listComponent={List}
+              listItemComponent={CourseEventItem} />
           </Card>
         </Cell>
         {/** Schedule */}

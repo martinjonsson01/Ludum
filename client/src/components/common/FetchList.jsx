@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import PropTypes from "prop-types";
-import ErrorBoundary from "../common/ErrorBoundary";
+import ErrorBoundary from "./ErrorBoundary";
 import LinearProgress from "@material/react-linear-progress";
 import FetchListDataFetcher from "./FetchListDataFetcher";
 
@@ -14,7 +14,8 @@ function FetchList(props) {
       <Suspense fallback={<LinearProgress indeterminate={true} />}>
         <FetchListDataFetcher
           url={props.url}
-          listComponent={props.listComponent} />
+          listComponent={props.listComponent}
+          listItemComponent={props.listItemComponent} />
       </Suspense>
     </ErrorBoundary>
   );
@@ -23,6 +24,7 @@ function FetchList(props) {
 FetchList.propTypes = {
   url: PropTypes.string,
   listComponent: PropTypes.any,
+  listItemComponent: PropTypes.any,
 };
 
 export default FetchList;

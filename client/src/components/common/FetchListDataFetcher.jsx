@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import List from "@material/react-list";
 import useFetch from "fetch-suspense";
 
 /**
@@ -12,23 +11,24 @@ function FetchListDataFetcher(props) {
   const list = useFetch(props.url, { method: "GET" });
 
   return (
-    <List
+    <props.listComponent
       twoLine={true}
       avatarList={true}>
       {list.map((listItem, index, array) =>
-        <props.listComponent
+        <props.listItemComponent
           key={index}
           listItem={listItem}
           index={index}
           array={array} />
       )}
-    </List>
+    </props.listComponent>
   );
 }
 
 FetchListDataFetcher.propTypes = {
   url: PropTypes.string,
   listComponent: PropTypes.any,
+  listItemComponent: PropTypes.any,
 };
 
 export default FetchListDataFetcher;

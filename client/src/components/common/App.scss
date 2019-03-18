@@ -9,10 +9,18 @@
 @import '@material/react-menu-surface/index.scss';
 @import '@material/react-layout-grid/index.scss';
 @import '@material/react-ripple/index.scss';
+#root {
+  height: 100%;
+}
+
+main {
+  height: 100%;
+}
+
 .drawer-container {
   display: flex;
   flex-direction: row;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -24,6 +32,16 @@
 .drawer-padding {
   /* This padding is required because of the side-drawer. */
   padding-right: 267px;
+}
+
+.grid-container {
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.fix-container {
+  position: absolute;
+  width: 100%;
 }
 
 .mdc-drawer {

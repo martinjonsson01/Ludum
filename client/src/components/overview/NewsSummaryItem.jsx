@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { ListItem, ListItemText, ListItemGraphic, ListDivider } from "@material/react-list";
 
 function NewsSummaryItem(props) {
@@ -8,7 +9,8 @@ function NewsSummaryItem(props) {
   const index = props.index;
 
   function onClick() {
-    // TODO: Navigate to /nyheter#title-of-news
+    // Navigate to /nyheter#title-of-news.
+    props.onNavigateChange("/nyheter", encodeURI(newsItem.title));
   }
 
   return ([
@@ -19,7 +21,7 @@ function NewsSummaryItem(props) {
         graphic={<img src={newsItem.author.image} alt={newsItem.author.name} />} />
       <ListItemText
         primaryText={newsItem.title}
-        secondaryText={newsItem.body} />
+        secondaryText={`${newsItem.body.substring(0, 100)}...`} />
     </ListItem>,
     // Only render ListDivider if not last item.
     news.length - 1 === index ? "" :
@@ -27,5 +29,12 @@ function NewsSummaryItem(props) {
         key={newsItem.title + ":" + newsItem.date + "_divider"} />
   ]);
 }
+
+NewsSummaryItem.propTypes = {
+  listItem: PropTypes.object,
+  array: PropTypes.array,
+  index: PropTypes.number,
+  onNavigateChange: PropTypes.func,
+};
 
 export default NewsSummaryItem;

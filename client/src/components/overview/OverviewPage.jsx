@@ -25,7 +25,8 @@ function OverviewPage(props) {
             <FetchList
               url="http://localhost:3001/api/getNews"
               listComponent={List}
-              listItemComponent={NewsSummaryItem} />
+              listItemComponent={NewsSummaryItem}
+              onNavigateChange={props.onNavigateChange} />
           </Card>
         </Cell>
         {/** Course Events */}
@@ -53,7 +54,7 @@ function OverviewPage(props) {
 }
 
 OverviewPage.propTypes = {
-  null: PropTypes.any,
+  onNavigateChange: PropTypes.func,
 };
 
 export default OverviewPage;

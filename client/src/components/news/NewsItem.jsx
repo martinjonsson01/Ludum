@@ -16,12 +16,12 @@ const NewsItemContent = styled.div`
   grid-template-rows: auto auto;
   grid-template-areas: 
     "top-bar"
-    "body";
+    "body"; 
   padding: 1rem;
 `;
 const TopBar = styled.div`
   grid-area: top-bar;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   display: flex;
   flex-flow: column nowrap;
   align-items: start;
@@ -33,8 +33,7 @@ const AuthorImage = styled.img`
   border-radius: 50%;
 `;
 const TitleContainer = styled.div`
-  margin-bottom: 0.5rem;
-  margin-left: 4rem;
+  margin: 0.5rem 0 0 4rem;
 `;
 const BodyArea = styled.div`
   grid-area: body;
@@ -54,16 +53,12 @@ function NewsItem(props) {
 
   return ([
     <NewsItemContainer
-      id={newsItem.title.replace(" ", "-")}
+      id={encodeURI(newsItem.title)}
       key={newsItem.title + ":" + newsItem.date}>
       <Card>
         <NewsItemContent>
           {/** Top bar */}
           <TopBar>
-            {/** Title */}
-            <TitleContainer>
-              <Headline5>{newsItem.title}</Headline5>
-            </TitleContainer>
             {/** Author info */}
             <Author>
               {/** Author image */}
@@ -75,6 +70,10 @@ function NewsItem(props) {
                 <Body1>{newsItem.date}</Body1>
               </div>
             </Author>
+            {/** Title */}
+            <TitleContainer>
+              <Headline5>{newsItem.title}</Headline5>
+            </TitleContainer>
           </TopBar>
           {/** News body */}
           <BodyArea>

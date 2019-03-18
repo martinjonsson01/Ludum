@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import useFetch from "fetch-suspense";
 
@@ -8,18 +9,38 @@ import useFetch from "fetch-suspense";
  */
 function FetchListDataFetcher(props) {
 
-  const list = useFetch(props.url, { method: "GET" });
+  const listData = useFetch(props.url, { method: "GET" });
+
+  useEffect(() => {
+    const itemId = props.location.hash;
+    const itemElement = document.getElementById(itemId.substring(1));
+    if (!itemElement) return;
+    // Scroll to itemElement.
+    itemElement.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+      inline: "center"
+    });
+    // Apply temporary styling to itemElement to highlight it.
+    itemElement.classList.add("navigate-highlight");
+    // Remove temporary styling after 1000ms.
+    setTimeout(() => {
+      itemElement.classList.remove("navigate-highlight");
+    }, 1000);
+  });
 
   return (
     <props.listComponent
       twoLine={true}
       avatarList={true}>
-      {list.map((listItem, index, array) =>
+      {listData.map((listItem, index, array) =>
         <props.listItemComponent
           key={index}
           listItem={listItem}
           index={index}
-          array={array} />
+          array={array}
+          onNavigateChange={props.onNavigateChange}
+        />
       )}
     </props.listComponent>
   );
@@ -29,6 +50,8 @@ FetchListDataFetcher.propTypes = {
   url: PropTypes.string,
   listComponent: PropTypes.any,
   listItemComponent: PropTypes.any,
+  location: PropTypes.object,
+  onNavigateChange: PropTypes.func,
 };
 
-export default FetchListDataFetcher;
+export default withRouter(FetchListDataFetcher);

@@ -131,8 +131,8 @@ class MainLayout extends Component {
     document.title = "Ludum - " + title;
   }
 
-  onNavigateChange = (location) => {
-    this.props.history.push(location);
+  onNavigateChange = (location, hash) => {
+    this.props.history.push(`${location}#${hash || ""}`);
     var navItemIndex = findWithAttr(this.navItems, "location", location);
     this.setState({
       selectedIndex: navItemIndex,
@@ -171,7 +171,7 @@ class MainLayout extends Component {
           <TopAppBarFixedAdjust>
             <ErrorBoundary>
               <Suspense fallback={<LinearProgress indeterminate={true} />}>
-                <Route exact path="/oversikt" component={props => <OverviewPage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
+                <Route exact path="/oversikt" component={props => <OverviewPage onNavigateChange={this.onNavigateChange} {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
                 <Route exact path="/nyheter" component={props => <NewsPage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
                 <Route exact path="/schema" component={props => <SchedulePage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
                 <Route path="/kurser" component={props => <CoursesPage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}

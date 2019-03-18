@@ -122,10 +122,15 @@ html[data-theme="dark"] .mdc-list-divider {
   border-bottom-color: #ffffff1f;
 }
 
+.navigate-highlight .mdc-card {
+  background: var(--mdc-theme-secondary);
+}
+
 .mdc-card {
   border-radius: 8px;
   overflow-y: hidden;
   color: var(--mdc-theme-on-surface);
+  transition: background-color 500ms ease-in-out;
 }
 
 .mdc-card::-webkit-scrollbar-track {

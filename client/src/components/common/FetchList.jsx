@@ -15,7 +15,8 @@ function FetchList(props) {
         <FetchListDataFetcher
           url={props.url}
           listComponent={props.listComponent}
-          listItemComponent={props.listItemComponent} />
+          listItemComponent={props.listItemComponent}
+          onNavigateChange={props.onNavigateChange} />
       </Suspense>
     </ErrorBoundary>
   );
@@ -25,6 +26,7 @@ FetchList.propTypes = {
   url: PropTypes.string,
   listComponent: PropTypes.any,
   listItemComponent: PropTypes.any,
+  onNavigateChange: PropTypes.func,
 };
 
 export default FetchList;

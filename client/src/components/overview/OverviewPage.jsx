@@ -23,7 +23,7 @@ function OverviewPage(props) {
             className="full-height overview-list">
             <Headline5 className="card-title">Nyheter</Headline5>
             <FetchList
-              url="http://localhost:3001/api/getNews"
+              url="http://localhost:3001/api/news"
               listComponent={List}
               listItemComponent={NewsSummaryItem}
               onNavigateChange={props.onNavigateChange} />
@@ -34,7 +34,7 @@ function OverviewPage(props) {
           <Card className="full-height overview-list">
             <Headline5 className="card-title">Kurshändelser</Headline5>
             <FetchList
-              url="http://localhost:3001/api/getCourseEvents"
+              url="http://localhost:3001/api/course-events"
               listComponent={List}
               listItemComponent={CourseEventItem} />
           </Card>

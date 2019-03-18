@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import styled from "styled-components";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import useFetch from "fetch-suspense";
@@ -10,6 +11,20 @@ import useFetch from "fetch-suspense";
 function FetchListDataFetcher(props) {
 
   const listData = useFetch(props.url, { method: "GET" });
+
+  const StyledList = styled.ul`
+    list-style: none;
+  `;
+  function List({ children }) {
+    return <StyledList>{children}</StyledList>;
+  }
+  List.propTypes = {
+    children: PropTypes.array
+  };
+
+  var ListComponent = props.listComponent;
+
+  if (!ListComponent) ListComponent = List;
 
   useEffect(() => {
     const itemId = props.location.hash;
@@ -30,7 +45,7 @@ function FetchListDataFetcher(props) {
   });
 
   return (
-    <props.listComponent
+    <ListComponent
       twoLine={true}
       avatarList={true}>
       {listData.map((listItem, index, array) =>
@@ -42,7 +57,7 @@ function FetchListDataFetcher(props) {
           onNavigateChange={props.onNavigateChange}
         />
       )}
-    </props.listComponent>
+    </ListComponent>
   );
 }
 

@@ -3,7 +3,7 @@ const Data = require("../data");
 const router = express.Router();
 
 // GET news from the database.
-router.get("/getNews", (req, res) => {
+router.get("/news", (req, res) => {
   // TODO: REMOVE THIS 1000 MS TIMEOUT ASAP
   setTimeout(() =>
     res.json([
@@ -103,7 +103,7 @@ router.get("/getNews", (req, res) => {
 });
 
 // GET course events from the database.
-router.get("/getCourseEvents", (req, res) => {
+router.get("/course-events", (req, res) => {
   // TODO: REMOVE THIS 1000 MS TIMEOUT ASAP
   setTimeout(() =>
     res.json([
@@ -374,8 +374,26 @@ router.get("/getCourseEvents", (req, res) => {
     ]), 1000);
 });
 
-// GET courses for user from the database.
-router.get("/getCourses", (req, res) => {
+// GET general courses for user from the database.
+router.get("/general-courses", (req, res) => {
+  setTimeout(() =>
+    res.json([
+      {
+        code: "IDRIDR01",
+        name: "Idrott & hälsa 1",
+        teachers: [
+          {
+            name: "Johan Rosenströmer",
+            image: "https://www.lbs.se/wp-content/uploads/resized/0a/Stina_680x532_f3d695f7bd8bed00c95e236893ecb0b0.jpg"
+          },
+        ],
+        image: "https://lh4.googleusercontent.com/-Ze5AXIltkd0/VN0otDrb-6I/AAAAAAAAAXI/QrrpSFrBY3k/w984-h209-no/29_robots.jpg",
+      },
+    ]), 1000);
+});
+
+// GET specific courses for user from the database.
+router.get("/specific-courses", (req, res) => {
   setTimeout(() =>
     res.json([
       {

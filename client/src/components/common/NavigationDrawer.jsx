@@ -9,18 +9,10 @@ import lbsLogo from "../../media/lbs-logo.png";
 
 export default class NavigationDrawer extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      open: true,
-    };
-  }
-
-
   static get propTypes() {
     return {
       selectedIndex: PropTypes.any,
+      drawerOpen: PropTypes.bool,
       navItems: PropTypes.array,
       navIndexes: PropTypes.array,
       onNavigateChange: PropTypes.func
@@ -31,7 +23,7 @@ export default class NavigationDrawer extends Component {
     return (
       <Drawer
         dismissible
-        open={this.state.open}>
+        open={this.props.drawerOpen}>
         <DrawerHeader>
           <DrawerTitle tag='h2'>
             Ludum

@@ -17,6 +17,20 @@ main {
   height: 100%;
 }
 
+.mdc-top-app-bar-drawer-fix {
+  width: calc(100% - 256px) !important;
+}
+
+.align-text-center {
+  margin: auto;
+  padding: 0;
+}
+
+.top-app-bar-fix-adjust {
+  display: flex;
+  width: 100%;
+}
+
 .drawer-container {
   display: flex;
   flex-direction: row;
@@ -27,11 +41,6 @@ main {
 .drawer-app-content {
   flex: auto;
   overflow: auto;
-}
-
-.drawer-padding {
-  /* This padding is required because of the side-drawer. */
-  padding-right: 267px;
 }
 
 .grid-container {

@@ -2,7 +2,7 @@ import React, { Suspense, lazy, Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import Route from "react-router-dom/Route";
-import TopAppBar, { TopAppBarFixedAdjust } from "@material/react-top-app-bar";
+import TopAppBar, { TopAppBarFixedAdjust, TopAppBarSection, TopAppBarTitle, TopAppBarRow, TopAppBarIcon } from "@material/react-top-app-bar";
 import { DrawerAppContent } from "@material/react-drawer";
 import AccountButton from "./AccountButton";
 import LinearProgress from "@material/react-linear-progress";
@@ -11,6 +11,7 @@ import { findWithAttr } from "../../Util";
 
 import ErrorBoundary from "./ErrorBoundary";
 import NavigationDrawer from "./NavigationDrawer";
+import MaterialIcon from "@material/react-material-icon";
 
 // Lazy-load pages.
 const OverviewPage = lazy(() => import("../overview/OverviewPage"));
@@ -105,6 +106,7 @@ class MainLayout extends Component {
     const locationIndex = findWithAttr(this.navItems, "location", pathname);
     this.state = {
       selectedIndex: locationIndex,
+      drawerOpen: true,
       title: locationIndex === -1 ? "Null" : this.navItems[locationIndex].title,
       user: null,
     };
@@ -140,6 +142,20 @@ class MainLayout extends Component {
     });
   }
 
+  onDrawerToggle = () => {
+    this.setState((prevState) => {
+      var topbar = document.getElementById("topbar");
+      if (prevState.drawerOpen)
+        topbar.classList.remove("mdc-top-app-bar-drawer-fix");
+      else
+        topbar.classList.add("mdc-top-app-bar-drawer-fix");
+
+      return {
+        drawerOpen: !prevState.drawerOpen
+      };
+    });
+  }
+
   render() {
 
     return (
@@ -148,6 +164,7 @@ class MainLayout extends Component {
           <ErrorBoundary>
             <NavigationDrawer
               selectedIndex={this.state.selectedIndex}
+              drawerOpen={this.state.drawerOpen}
               navItems={this.navItems}
               navIndexes={this.navIndexes}
               onNavigateChange={this.onNavigateChange} />
@@ -155,18 +172,33 @@ class MainLayout extends Component {
         </React.StrictMode>
 
         <DrawerAppContent className='drawer-app-content'>
-          <TopAppBar
-            className="drawer-padding"
-            title={this.state.title}
-            fixed={true}
-            actionItems={[
-              <ErrorBoundary key="accountButtonErrorBoundary">
-                <AccountButton
-                  onNavigateChange={this.onNavigateChange}
-                  theme={this.props.theme}
-                  onToggleTheme={this.props.onToggleTheme} />
-              </ErrorBoundary>
-            ]} />
+          <TopAppBar fixed id="topbar" className="mdc-top-app-bar-drawer-fix">
+            <TopAppBarRow>
+              <TopAppBarSection align="start">
+                <TopAppBarIcon navIcon tabIndex={0}>
+                  <MaterialIcon
+                    hasRipple
+                    icon='menu'
+                    onClick={this.onDrawerToggle} />
+                </TopAppBarIcon>
+              </TopAppBarSection>
+              <TopAppBarSection>
+                <TopAppBarTitle
+                  className="align-text-center">
+                  {this.state.title}
+                </TopAppBarTitle>
+              </TopAppBarSection>
+              <TopAppBarSection align="end">
+                <ErrorBoundary key="accountButtonErrorBoundary">
+                  <AccountButton
+                    className="top-app-bar-needs-drawer-fix"
+                    onNavigateChange={this.onNavigateChange}
+                    theme={this.props.theme}
+                    onToggleTheme={this.props.onToggleTheme} />
+                </ErrorBoundary>
+              </TopAppBarSection>
+            </TopAppBarRow>
+          </TopAppBar>
 
           <TopAppBarFixedAdjust>
             <ErrorBoundary>

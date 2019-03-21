@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Card from "@material/react-card";
 import { Body1, Headline5, Headline6 } from "@material/react-typography";
+import { Snackbar } from "@material/react-snackbar";
+import MaterialIcon from "@material/react-material-icon";
+import IconButton from "@material/react-icon-button";
+import { writeText } from "../../Util";
 
 /**
  * NewsItem styling.
@@ -9,6 +13,10 @@ import { Body1, Headline5, Headline6 } from "@material/react-typography";
 const NewsItemContainer = styled.li`
   margin: 1.5rem;
   margin-top: 0;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 `;
 const NewsItemContent = styled.div`
   display: grid;
@@ -34,6 +42,7 @@ const AuthorImage = styled.img`
 `;
 const TitleContainer = styled.div`
   margin: 0.5rem 0 0 4rem;
+  display: flex;
 `;
 const BodyArea = styled.div`
   grid-area: body;
@@ -50,6 +59,17 @@ const Author = styled.div`
 function NewsItem(props) {
 
   const newsItem = props.listItem;
+
+  const [copiedLink, setCopiedLink] = useState(false);
+
+  function onCopyLink() {
+    writeText(`${window.location.origin}${window.location.pathname}#${encodeURI(newsItem.title)}`);
+    setCopiedLink(true);
+  }
+
+  function onSnackbarDismiss() {
+    setCopiedLink(false);
+  }
 
   return ([
     <NewsItemContainer
@@ -72,13 +92,27 @@ function NewsItem(props) {
             </Author>
             {/** Title */}
             <TitleContainer>
-              <Headline5>{newsItem.title}</Headline5>
+              <Headline5 className="vertical-align">{newsItem.title}</Headline5>
+              <IconButton
+                onClick={onCopyLink}>
+                <MaterialIcon icon="link" />
+              </IconButton>
             </TitleContainer>
           </TopBar>
           {/** News body */}
           <BodyArea>
             <Body1>{newsItem.body}</Body1>
           </BodyArea>
+          {
+            copiedLink ?
+              <Snackbar
+                leading
+                message="Kopierade länk till nyhet"
+                actionText="Avfärda"
+                onClose={onSnackbarDismiss}
+              />
+              : ""
+          }
         </NewsItemContent>
       </Card>
     </NewsItemContainer>

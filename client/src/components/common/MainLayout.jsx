@@ -106,20 +106,34 @@ class MainLayout extends Component {
     const locationIndex = findWithAttr(this.navItems, "location", pathname);
     this.state = {
       selectedIndex: locationIndex,
-      drawerOpen: true,
+      drawerOpen: window.innerWidth > 600,
       title: locationIndex === -1 ? "Null" : this.navItems[locationIndex].title,
+      topAppBarSmall: window.innerWidth > 600,
       user: null,
     };
     this.onNavigateChange = this.onNavigateChange.bind(this);
     this.updateBrowserTitle = this.updateBrowserTitle.bind(this);
+    this.onWindowResize = this.onWindowResize.bind(this);
   }
 
   componentDidMount() {
     this.updateBrowserTitle();
+    window.addEventListener("resize", this.onWindowResize);
   }
 
   componentDidUpdate() {
     this.updateBrowserTitle();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.onWindowResize);
+  }
+
+  onWindowResize() {
+    this.setState({
+      topAppBarSmall: window.innerWidth > 600,
+      drawerOpen: window.innerWidth > 600
+    });
   }
 
   updateBrowserTitle() {
@@ -144,12 +158,6 @@ class MainLayout extends Component {
 
   onDrawerToggle = () => {
     this.setState((prevState) => {
-      var topbar = document.getElementById("topbar");
-      if (prevState.drawerOpen)
-        topbar.classList.remove("mdc-top-app-bar-drawer-fix");
-      else
-        topbar.classList.add("mdc-top-app-bar-drawer-fix");
-
       return {
         drawerOpen: !prevState.drawerOpen
       };
@@ -172,7 +180,11 @@ class MainLayout extends Component {
         </React.StrictMode>
 
         <DrawerAppContent className='drawer-app-content'>
-          <TopAppBar fixed id="topbar" className="mdc-top-app-bar-drawer-fix">
+          <TopAppBar
+            fixed
+            id="topbar"
+            className={this.state.drawerOpen ? "mdc-top-app-bar-drawer-fix" : ""}
+            dense={this.state.topAppBarSmall}>
             <TopAppBarRow>
               <TopAppBarSection align="start">
                 <TopAppBarIcon navIcon tabIndex={0}>
@@ -200,7 +212,7 @@ class MainLayout extends Component {
             </TopAppBarRow>
           </TopAppBar>
 
-          <TopAppBarFixedAdjust>
+          <TopAppBarFixedAdjust dense={this.state.topAppBarSmall}>
             <ErrorBoundary>
               <Suspense fallback={<LinearProgress indeterminate={true} />}>
                 <Route exact path="/oversikt" component={props => <OverviewPage onNavigateChange={this.onNavigateChange} {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}

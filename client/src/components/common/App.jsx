@@ -29,13 +29,15 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <ErrorBoundary>
-          <MainLayout
-            theme={this.state.theme}
-            onToggleTheme={this.onToggleTheme} />
-        </ErrorBoundary>
-      </BrowserRouter>
+      <React.StrictMode>
+        <BrowserRouter>
+          <ErrorBoundary>
+            <MainLayout
+              theme={this.state.theme}
+              onToggleTheme={this.onToggleTheme} />
+          </ErrorBoundary>
+        </BrowserRouter>
+      </React.StrictMode>
     );
   }
 

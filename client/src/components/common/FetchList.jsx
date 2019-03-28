@@ -16,6 +16,7 @@ function FetchList(props) {
           url={props.url}
           listComponent={props.listComponent}
           listItemComponent={props.listItemComponent}
+          listDivider={props.listDivider}
           onNavigateChange={props.onNavigateChange} />
       </Suspense>
     </ErrorBoundary>
@@ -23,9 +24,10 @@ function FetchList(props) {
 }
 
 FetchList.propTypes = {
-  url: PropTypes.string,
+  url: PropTypes.string.isRequired,
   listComponent: PropTypes.any,
-  listItemComponent: PropTypes.any,
+  listItemComponent: PropTypes.any.isRequired,
+  listDivider: PropTypes.any,
   onNavigateChange: PropTypes.func,
 };
 

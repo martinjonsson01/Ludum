@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -12,6 +12,11 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "mongoose": "^5.4.18",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "mysql2": "^1.6.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10",
+    "eslint": "^5.15.3"
   }
 }

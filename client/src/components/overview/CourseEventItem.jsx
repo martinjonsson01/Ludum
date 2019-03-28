@@ -1,16 +1,15 @@
 import React from "react";
-import { ListItem, ListItemText, ListItemGraphic, ListDivider } from "@material/react-list";
+import PropTypes from "prop-types";
+import { ListItem, ListItemText, ListItemGraphic } from "@material/react-list";
 import MaterialIcon from "@material/react-material-icon";
 
 function CourseEventItem(props) {
 
   const courseEvent = props.listItem;
-  const courseEventList = props.array;
-  const index = props.index;
 
   const key = courseEvent.course + ":" + courseEvent.event.type.name + ":" + courseEvent.event.name;
 
-  return ([
+  return (
     <ListItem
       key={key}>
       <ListItemGraphic
@@ -18,12 +17,12 @@ function CourseEventItem(props) {
       <ListItemText
         primaryText={courseEvent.course + " - " + courseEvent.event.type.name}
         secondaryText={courseEvent.event.name} />
-    </ListItem>,
-    // Only render ListDivider if not last item.
-    courseEventList.length - 1 === index ? "" :
-      <ListDivider
-        key={key + "_divider"} />
-  ]);
+    </ListItem>
+  );
 }
+
+CourseEventItem.propTypes = {
+  listItem: PropTypes.object,
+};
 
 export default CourseEventItem;

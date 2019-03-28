@@ -1,7 +1,6 @@
 import React, { Suspense, lazy, Component } from "react";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
-import Route from "react-router-dom/Route";
+import { Route, withRouter } from "react-router-dom";
 import TopAppBar, { TopAppBarFixedAdjust, TopAppBarSection, TopAppBarTitle, TopAppBarRow, TopAppBarIcon } from "@material/react-top-app-bar";
 import { DrawerAppContent } from "@material/react-drawer";
 import AccountButton from "./AccountButton";
@@ -98,6 +97,10 @@ class MainLayout extends Component {
       location: "/profil",
       title: "Profil",
     },
+    {
+      location: "/kurser/IDRIDR01",
+      title: "Idrott & Hälsa 1",
+    },
   ];
 
   constructor(props) {
@@ -152,7 +155,7 @@ class MainLayout extends Component {
     var navItemIndex = findWithAttr(this.navItems, "location", location);
     this.setState({
       selectedIndex: navItemIndex,
-      title: this.navItems[navItemIndex].title,
+      title: navItemIndex === -1 ? "Ludum" : this.navItems[navItemIndex].title,
     });
   }
 
@@ -168,16 +171,14 @@ class MainLayout extends Component {
 
     return (
       <div className='drawer-container'>
-        <React.StrictMode>
-          <ErrorBoundary>
-            <NavigationDrawer
-              selectedIndex={this.state.selectedIndex}
-              drawerOpen={this.state.drawerOpen}
-              navItems={this.navItems}
-              navIndexes={this.navIndexes}
-              onNavigateChange={this.onNavigateChange} />
-          </ErrorBoundary>
-        </React.StrictMode>
+        <ErrorBoundary>
+          <NavigationDrawer
+            selectedIndex={this.state.selectedIndex}
+            drawerOpen={this.state.drawerOpen}
+            navItems={this.navItems}
+            navIndexes={this.navIndexes}
+            onNavigateChange={this.onNavigateChange} />
+        </ErrorBoundary>
 
         <DrawerAppContent className='drawer-app-content'>
           <TopAppBar
@@ -218,7 +219,7 @@ class MainLayout extends Component {
                 <Route exact path="/oversikt" component={props => <OverviewPage onNavigateChange={this.onNavigateChange} {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
                 <Route exact path="/nyheter" component={props => <NewsPage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
                 <Route exact path="/schema" component={props => <SchedulePage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
-                <Route path="/kurser" component={props => <CoursesPage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
+                <Route path="/kurser" component={props => <CoursesPage onNavigateChange={this.onNavigateChange} {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
               </Suspense>
             </ErrorBoundary>
           </TopAppBarFixedAdjust>

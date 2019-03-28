@@ -21,10 +21,15 @@ function FetchListDataFetcher(props) {
   List.propTypes = {
     children: PropTypes.array
   };
+  function Divider() {
+    return "";
+  }
 
   var ListComponent = props.listComponent;
+  var ListDivider = props.listDivider;
 
   if (!ListComponent) ListComponent = List;
+  if (!ListDivider) ListDivider = Divider;
 
   useEffect(() => {
     const itemId = props.location.hash;
@@ -48,23 +53,28 @@ function FetchListDataFetcher(props) {
     <ListComponent
       twoLine={true}
       avatarList={true}>
-      {listData.map((listItem, index, array) =>
+      {listData.map((listItem, index, array) => [
         <props.listItemComponent
           key={index}
           listItem={listItem}
           index={index}
           array={array}
           onNavigateChange={props.onNavigateChange}
-        />
-      )}
+        />,
+        // Only render ListDivider if not last item.
+        array.length - 1 === index ? "" :
+          <ListDivider
+            key={index + "_divider"} />
+      ])}
     </ListComponent>
   );
 }
 
 FetchListDataFetcher.propTypes = {
-  url: PropTypes.string,
+  url: PropTypes.string.isRequired,
   listComponent: PropTypes.any,
-  listItemComponent: PropTypes.any,
+  listItemComponent: PropTypes.any.isRequired,
+  listDivider: PropTypes.any,
   location: PropTypes.object,
   onNavigateChange: PropTypes.func,
 };

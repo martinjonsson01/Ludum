@@ -1,13 +1,14 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
-import { Body1, Headline5, Headline6 } from "@material/react-typography";
+import { Headline5, Headline6 } from "@material/react-typography";
+import { ListItem } from "@material/react-list";
 
 /**
  * CourseItem styling.
  */
-const Container = styled.li`
-  margin: 1.5rem;
-  margin-top: 0;
+const ListItemStyled = styled(ListItem)`
+  height: fit-content !important;
 `;
 const Content = styled.div`
   display: grid;
@@ -34,11 +35,6 @@ const TeacherImage = styled.img`
 const TitleContainer = styled.div`
   margin: 0.5rem 0 0 4rem;
 `;
-const BodyArea = styled.div`
-  grid-area: body;
-  height: fit-content;
-  margin: 1rem 4rem 0 4rem;
-`;
 const Teacher = styled.div`
   display: flex;
 `;
@@ -50,10 +46,16 @@ function CourseItem(props) {
 
   const courseItem = props.listItem;
 
-  return ([
-    <Container
-      id={encodeURI(courseItem.title)}
-      key={courseItem.title + ":" + courseItem.date}>
+  function onClick() {
+    // Navigate to /kurser/kurs-kod.
+    props.onNavigateChange(`/kurser/${encodeURI(courseItem.code)}/flode`);
+  }
+
+  return (
+    <ListItemStyled
+      id={encodeURI(courseItem.code)}
+      key={courseItem.code}
+      onClick={onClick}>
       <Content>
         {/** Top bar */}
         <TopBar>
@@ -71,13 +73,14 @@ function CourseItem(props) {
             <Headline5>{courseItem.name}</Headline5>
           </TitleContainer>
         </TopBar>
-        {/** News body */}
-        <BodyArea>
-          <Body1>{courseItem.body}</Body1>
-        </BodyArea>
       </Content>
-    </Container>
-  ]);
+    </ListItemStyled>
+  );
 }
+
+CourseItem.propTypes = {
+  listItem: PropTypes.object,
+  onNavigateChange: PropTypes.func,
+};
 
 export default CourseItem;

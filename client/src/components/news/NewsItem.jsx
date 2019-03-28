@@ -26,6 +26,7 @@ const NewsItemContent = styled.div`
     "top-bar"
     "body"; 
   padding: 1rem;
+  white-space: pre-line !important;
 `;
 const TopBar = styled.div`
   grid-area: top-bar;
@@ -90,9 +91,10 @@ function NewsItem(props) {
                 <Body1>{newsItem.date}</Body1>
               </div>
             </Author>
-            {/** Title */}
             <TitleContainer>
+              {/** Title */}
               <Headline5 className="vertical-align">{newsItem.title}</Headline5>
+              {/** Copy link button */}
               <IconButton
                 onClick={onCopyLink}>
                 <MaterialIcon icon="link" />

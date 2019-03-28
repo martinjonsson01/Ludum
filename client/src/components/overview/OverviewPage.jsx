@@ -4,6 +4,7 @@ import { Grid, Row, Cell } from "@material/react-layout-grid";
 import Card from "@material/react-card";
 import List from "@material/react-list";
 import { Body1, Headline5 } from "@material/react-typography";
+import { ListDivider } from "@material/react-list";
 
 import "./OverviewPage.scss";
 
@@ -26,6 +27,7 @@ function OverviewPage(props) {
               url="http://localhost:3001/api/news"
               listComponent={List}
               listItemComponent={NewsSummaryItem}
+              listDivider={ListDivider}
               onNavigateChange={props.onNavigateChange} />
           </Card>
         </Cell>
@@ -36,6 +38,7 @@ function OverviewPage(props) {
             <FetchList
               url="http://localhost:3001/api/course-events"
               listComponent={List}
+              listDivider={ListDivider}
               listItemComponent={CourseEventItem} />
           </Card>
         </Cell>

@@ -4,27 +4,16 @@ const util = require('util');
 const router = express.Router();
 
 // GET news from the database.
-router.get("/news", async (req, res) => {
-
-  const dbConnection = db.getConnection();
-
-  // Node native promisify.
+router.get("/news", asyncMiddleware(async (req, res, next) => {
   const query = util.promisify(dbConnection.query).bind(dbConnection);
-  try {
-    const columns = "news.title, news.body, news.created_at, news.updated_at, user.first_name, user.last_name, user.avatar_url";
-    const result = await query(
-      `SELECT ${columns} FROM news JOIN user ON news.user_id = user.id`
-    );
-  } catch (error) {
-    console.error("Error occured when GET-ing from /news:");
-    console.error(error);
-    res.sendStatus(500);
-    return;
-  }
+  const columns = "news.title, news.body, news.created_at, news.updated_at, user.first_name, user.last_name, user.avatar_url";
+  const result = await query(
+    `SELECT ${columns} FROM news JOIN user ON news.user_id = user.id`
+  );
+  res.send(result);
   // TODO: https://medium.com/@Abazhenov/using-async-await-in-express-with-node-8-b8af872c0016
   // TODO: https://www.npmjs.com/package/mysql2
-  res.send(result);
-});
+}));
 
 // GET course events from the database.
 router.get("/course-events", (req, res) => {

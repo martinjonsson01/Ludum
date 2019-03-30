@@ -3,8 +3,7 @@ const mysql = require("mysql2/promise");
 
 let _pool;
 
-function init() {
-
+async function init() {
   if (_pool) {
     console.warn("Trying to init DB again!");
     return _pool;
@@ -21,6 +20,10 @@ function init() {
     queueLimit: 0,
   });
 
+  // Test database connection by sending ping query.
+  await _pool.query("SELECT * FROM user WHERE first_name = 'ping'");
+
+  console.log("Successfully connected to database!");
   return _pool;
 }
 

@@ -1,16 +1,18 @@
 import React, { Suspense, lazy, Component } from "react";
 import PropTypes from "prop-types";
-import { Route, withRouter } from "react-router-dom";
+import { Route, Redirect, withRouter } from "react-router-dom";
 import TopAppBar, { TopAppBarFixedAdjust, TopAppBarSection, TopAppBarTitle, TopAppBarRow, TopAppBarIcon } from "@material/react-top-app-bar";
 import { DrawerAppContent } from "@material/react-drawer";
 import AccountButton from "./AccountButton";
 import LinearProgress from "@material/react-linear-progress";
+import SignInPage from "../sign-in/SignInPage";
 
 import { findWithAttr } from "../../Util";
 
 import ErrorBoundary from "./ErrorBoundary";
 import NavigationDrawer from "./NavigationDrawer";
 import MaterialIcon from "@material/react-material-icon";
+import { UserContext } from "./UserContext";
 
 // Lazy-load pages.
 const OverviewPage = lazy(() => import("../overview/OverviewPage"));
@@ -24,7 +26,6 @@ class MainLayout extends Component {
     return {
       location: PropTypes.any,
       history: PropTypes.any,
-      theme: PropTypes.any,
       onToggleTheme: PropTypes.func,
     };
   }
@@ -103,6 +104,8 @@ class MainLayout extends Component {
     },
   ];
 
+  static contextType = UserContext;
+
   constructor(props) {
     super(props);
     const { pathname } = this.props.location;
@@ -112,7 +115,6 @@ class MainLayout extends Component {
       drawerOpen: window.innerWidth > 600,
       title: locationIndex === -1 ? "Null" : this.navItems[locationIndex].title,
       topAppBarSmall: window.innerWidth > 600,
-      user: null,
     };
     this.onNavigateChange = this.onNavigateChange.bind(this);
     this.updateBrowserTitle = this.updateBrowserTitle.bind(this);
@@ -169,6 +171,10 @@ class MainLayout extends Component {
 
   render() {
 
+    if (!this.context.user) {
+      return <SignInPage />;
+    }
+
     return (
       <div className='drawer-container'>
         <ErrorBoundary>
@@ -205,9 +211,7 @@ class MainLayout extends Component {
                 <ErrorBoundary key="accountButtonErrorBoundary">
                   <AccountButton
                     className="top-app-bar-needs-drawer-fix"
-                    onNavigateChange={this.onNavigateChange}
-                    theme={this.props.theme}
-                    onToggleTheme={this.props.onToggleTheme} />
+                    onNavigateChange={this.onNavigateChange} />
                 </ErrorBoundary>
               </TopAppBarSection>
             </TopAppBarRow>
@@ -216,6 +220,7 @@ class MainLayout extends Component {
           <TopAppBarFixedAdjust dense={this.state.topAppBarSmall}>
             <ErrorBoundary>
               <Suspense fallback={<LinearProgress indeterminate={true} />}>
+                <Route exact path="/" component={props => <Redirect to="/oversikt" {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
                 <Route exact path="/oversikt" component={props => <OverviewPage onNavigateChange={this.onNavigateChange} {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
                 <Route exact path="/nyheter" component={props => <NewsPage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
                 <Route exact path="/schema" component={props => <SchedulePage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}

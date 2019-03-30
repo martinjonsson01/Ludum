@@ -22,6 +22,8 @@ html {
   --mdc-theme-on-secondary: #000000;
   /* Text color on top of a surface background. */
   --mdc-theme-on-surface: #000000;
+  /* Text color on top of the background. */
+  --mdc-theme-on-background: #000000;
   /* Secondary text color on top of the background. */
   --mdc-theme-text-secondary-on-background: #000000e8;
 }
@@ -44,6 +46,8 @@ html[data-theme="dark"] {
   --mdc-theme-on-secondary: #000000;
   /* Text color on top of a surface background. */
   --mdc-theme-on-surface: #ffffff;
+  /* Text color on top of the background. */
+  --mdc-theme-on-background: #ffffff;
   /* Secondary text color on top of the background. */
   --mdc-theme-text-secondary-on-background: #fffffff1;
 }

@@ -1,20 +1,16 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Button from "@material/react-button";
-import IconButton from "@material/react-icon-button";
-import MaterialIcon from "@material/react-material-icon";
-import MenuSurface, { Corner } from "@material/react-menu-surface";
-import { Subtitle1, Headline6 } from "@material/react-typography";
 
 import defaultProfile from "../../media/defaultProfile.png";
+import { ThemeContext } from "./ThemeContext";
+import { UserContext } from "./UserContext";
+import AccountSurface from "./AccountSurface";
 
 export default class AccountButton extends Component {
 
   static get propTypes() {
     return {
       user: PropTypes.any,
-      theme: PropTypes.any,
-      onToggleTheme: PropTypes.func,
       onNavigateChange: PropTypes.func
     };
   }
@@ -29,16 +25,6 @@ export default class AccountButton extends Component {
     this.setAnchorElement = this.setAnchorElement.bind(this);
     this.toggleMenu = this.toggleMenu.bind(this);
     this.closeMenu = this.closeMenu.bind(this);
-    this.navigateToProfile = this.navigateToProfile.bind(this);
-    this.navigateToSettings = this.navigateToSettings.bind(this);
-  }
-
-  navigateToProfile() {
-    this.props.onNavigateChange("/profil");
-  }
-
-  navigateToSettings() {
-    this.props.onNavigateChange("/installningar");
   }
 
   setAnchorElement = (element) => {
@@ -60,70 +46,34 @@ export default class AccountButton extends Component {
 
   render() {
 
-    const profileImage = this.props.user ?
-      this.props.user.profileImage : defaultProfile;
-
     return (
-      <div className="account" >
-        {/** Profile Image */}
-        <img
-          src={profileImage}
-          alt="Profilbild"
-          className='mdc-menu-surface--anchor'
-          ref={this.setAnchorElement}
-          onClick={this.toggleMenu} />
-        {/** Menu Surface */}
-        <MenuSurface
-          open={this.state.menuOpen}
-          anchorCorner={Corner.BOTTOM_LEFT}
-          onClose={this.closeMenu}
-          anchorElement={this.state.anchorElement}
-          anchorMargin={{ top: 0, bottom: 16, left: 0, right: 8 }}
-          quickOpen={false}>
-          <div
-            id="grid">
-            {/** Namn */}
-            <Headline6
-              id="name">
-              {this.props.user ? this.props.user.fullName : "Förnamn Efternamn"}
-            </Headline6>
-            {/** E-mail */}
-            <Subtitle1
-              id="email">
-              {this.props.user ? this.props.user.mail : "förnamn.efternamn@elev.ga.lbs.se"}
-            </Subtitle1>
-            {/** Profil */}
-            <Button
-              id="profile"
-              unelevated={true}
-              onClick={this.navigateToProfile}>
-              Profil
-            </Button>
-            {/** Dark mode */}
-            <IconButton
-              id="dark-mode"
-              onClick={this.props.onToggleTheme}>
-              {
-                // Render moon icon if current theme is light; sun icon if theme is dark.
-                this.props.theme === "light" ?
-                  <MaterialIcon icon='brightness_3' /> :
-                  <MaterialIcon icon='brightness_7' />
-              }
-            </IconButton>
-            {/** Settings */}
-            <IconButton
-              id="settings"
-              onClick={this.navigateToSettings}>
-              <MaterialIcon icon="settings" />
-            </IconButton>
-            {/** Sign-out */}
-            <Button
-              id="sign-out">
-              Logga ut
-            </Button>
-          </div>
-        </MenuSurface>
-      </div>
+      <ThemeContext.Consumer>
+        {({ theme, toggleTheme }) =>
+          (<UserContext.Consumer>
+            {({ user, signOutUser }) =>
+              <div className="account" >
+                {/** Profile Image */}
+                <img
+                  src={user ? user.profileObj.imageUrl : defaultProfile}
+                  alt="Profilbild"
+                  className='mdc-menu-surface--anchor'
+                  ref={this.setAnchorElement}
+                  onClick={this.toggleMenu} />
+                {/** Menu Surface */}
+                <AccountSurface
+                  theme={theme}
+                  toggleTheme={toggleTheme}
+                  user={user}
+                  signOutUser={signOutUser}
+                  anchorElement={this.state.anchorElement}
+                  closeMenu={this.closeMenu}
+                  menuOpen={this.state.menuOpen}
+                  onNavigateChange={this.props.onNavigateChange}
+                />
+              </div>
+            }
+          </UserContext.Consumer>)}
+      </ThemeContext.Consumer>
     );
   }
 }

@@ -1,7 +1,8 @@
 @import '@material/react-material-icon/index.scss';
 @import '@material/react-typography/index.scss';
+
 * {
-  margin: 0;
+  margin: 0em;
   padding: 0;
   /* Include padding and border in all element's total width and height. */
   box-sizing: border-box;
@@ -41,6 +42,15 @@ button {
 
 a {
   text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--mdc-theme-on-background)
 }
 
 /* Scrollbar width. */

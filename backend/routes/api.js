@@ -3,6 +3,31 @@ const db = require("../db");
 const asyncHandler = require("express-async-handler");
 const router = express.Router();
 
+// GET current session user.
+router.get("/current-user", (req, res) => {
+  if (req.session.user) {
+    res.json(req.session.user);
+  } else {
+    res.sendStatus(404);
+  }
+});
+
+// POST current session user.
+router.post("/current-user", (req, res) => {
+  // TODO: Validate JWT before allowing user access.
+  req.session.user = req.body;
+  res.sendStatus(200);
+});
+
+// DELETE current user session.
+router.delete("/current-user", (req, res) => {
+  // TODO: Validate JWT before allowing user access.
+  req.session.destroy(err => {
+    if (err) return res.sendStatus(500);
+    return res.sendStatus(200);
+  });
+});
+
 // GET news from the database.
 router.get("/news", asyncHandler(async (req, res) => {
   // Get database connection-pool-object.

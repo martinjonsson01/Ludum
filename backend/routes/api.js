@@ -1,18 +1,20 @@
-const express = require('express');
+const express = require("express");
 const db = require("../db");
-const util = require('util');
+const asyncHandler = require("express-async-handler");
 const router = express.Router();
 
 // GET news from the database.
-router.get("/news", asyncMiddleware(async (req, res, next) => {
-  const query = util.promisify(dbConnection.query).bind(dbConnection);
+router.get("/news", asyncHandler(async (req, res) => {
+  // Get database connection-pool-object.
+  const pool = db.getPool();
+  // Which columns to SELECT.
   const columns = "news.title, news.body, news.created_at, news.updated_at, user.first_name, user.last_name, user.avatar_url";
-  const result = await query(
+  // Await query on news and user tables.
+  const result = await pool.query(
     `SELECT ${columns} FROM news JOIN user ON news.user_id = user.id`
   );
-  res.send(result);
-  // TODO: https://medium.com/@Abazhenov/using-async-await-in-express-with-node-8-b8af872c0016
-  // TODO: https://www.npmjs.com/package/mysql2
+  // Respond with list of news-data.
+  res.json(result[0]);
 }));
 
 // GET course events from the database.
@@ -287,63 +289,22 @@ router.get("/course-events", (req, res) => {
     ]), 1000);
 });
 
-// GET general courses for user from the database.
-router.get("/general-courses", (req, res) => {
-  setTimeout(() =>
-    res.json([
-      {
-        code: "IDRIDR01",
-        name: "Idrott & hälsa 1",
-        teachers: [
-          {
-            name: "Johan Rosenströmer",
-            image: "https://www.lbs.se/wp-content/uploads/resized/0a/Stina_680x532_f3d695f7bd8bed00c95e236893ecb0b0.jpg"
-          },
-        ],
-        image: "https://lh4.googleusercontent.com/-Ze5AXIltkd0/VN0otDrb-6I/AAAAAAAAAXI/QrrpSFrBY3k/w984-h209-no/29_robots.jpg",
-      },
-      {
-        code: "IDRIDR01",
-        name: "Idrott & hälsa 1",
-        teachers: [
-          {
-            name: "Johan Rosenströmer",
-            image: "https://www.lbs.se/wp-content/uploads/resized/0a/Stina_680x532_f3d695f7bd8bed00c95e236893ecb0b0.jpg"
-          },
-        ],
-        image: "https://lh4.googleusercontent.com/-Ze5AXIltkd0/VN0otDrb-6I/AAAAAAAAAXI/QrrpSFrBY3k/w984-h209-no/29_robots.jpg",
-      },
-    ]), 1000);
-});
+// GET courses for user from the database.
+router.get("/courses", asyncHandler(async (req, res) => {
 
-// GET specific courses for user from the database.
-router.get("/specific-courses", (req, res) => {
-  setTimeout(() =>
-    res.json([
-      {
-        code: "IDRIDR01",
-        name: "Idrott & hälsa 1",
-        teachers: [
-          {
-            name: "Johan Rosenströmer",
-            image: "https://www.lbs.se/wp-content/uploads/resized/0a/Stina_680x532_f3d695f7bd8bed00c95e236893ecb0b0.jpg"
-          },
-        ],
-        image: "https://lh4.googleusercontent.com/-Ze5AXIltkd0/VN0otDrb-6I/AAAAAAAAAXI/QrrpSFrBY3k/w984-h209-no/29_robots.jpg",
-      },
-      {
-        code: "IDRIDR01",
-        name: "Idrott & hälsa 1",
-        teachers: [
-          {
-            name: "Johan Rosenströmer",
-            image: "https://www.lbs.se/wp-content/uploads/resized/0a/Stina_680x532_f3d695f7bd8bed00c95e236893ecb0b0.jpg"
-          },
-        ],
-        image: "https://lh4.googleusercontent.com/-Ze5AXIltkd0/VN0otDrb-6I/AAAAAAAAAXI/QrrpSFrBY3k/w984-h209-no/29_robots.jpg",
-      },
-    ]), 1000);
-});
+  // TODO: Make working user sign-in and auth system before this can be finished.
+
+  // Get database connection-pool-object.
+  const pool = db.getPool();
+  // Which columns to SELECT.
+  const columns = "news.title, news.body, news.created_at, news.updated_at, user.first_name, user.last_name, user.avatar_url";
+  // Await query on news and user tables.
+  const result = await pool.query(
+    `SELECT ${columns} FROM news JOIN user ON news.user_id = user.id`
+  );
+  // Respond with list of news-data.
+  res.json(result[0]);
+}));
 
 // GET course data from the database.
 router.get("/course/:code", (req, res) => {
@@ -356,7 +317,7 @@ router.get("/course/:code", (req, res) => {
 });
 
 // GET all available data in the database.
-router.get("/getData", (req, res) => {
+/*router.get("/getData", (req, res) => {
   Data.find((err, data) => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true, data: data });
@@ -399,6 +360,6 @@ router.post("/putData", (req, res) => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true });
   });
-});
+});*/
 
 module.exports = router;

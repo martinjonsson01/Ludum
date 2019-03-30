@@ -1,45 +1,35 @@
 const assert = require("assert");
-const mysql = require("mysql2");
+const mysql = require("mysql2/promise");
 
-let _connection;
+let _pool;
 
-async function init() {
-  return new Promise((resolve, reject) => {
+function init() {
 
-    if (_connection) {
-      console.warn("Trying to init DB again!");
-      return callback(null, _connection);
-    }
+  if (_pool) {
+    console.warn("Trying to init DB again!");
+    return _pool;
+  }
 
-    // The MySQL connection.
-    const connection = mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      password: 'password',
-      database: 'ludum_db'
-    });
+  // Create the connection pool for the MySQL database.
+  _pool = mysql.createPool({
+    host: "localhost",
+    user: "root",
+    password: "password", // TODO: Change password to ENV-variable.
+    database: "ludum_db",
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
+  });
 
-    // Connects to MySQL.
-    connection.connect(connected);
+  return _pool;
+}
 
-    function connected(err) {
-      if (err) {
-        return reject(err);
-      }
-      console.log("Connected to MySQL database!");
-      _connection = connection;
-      return resolve(_connection);
-    }
-
-  })
-};
-
-function getConnection() {
-  assert.ok(_connection, "Db has not been initialized. Please call init first.");
-  return _connection;
+function getPool() {
+  assert.ok(_pool, "Db has not been initialized. Please call init first.");
+  return _pool;
 }
 
 module.exports = {
-  getConnection,
+  getPool,
   init
 };

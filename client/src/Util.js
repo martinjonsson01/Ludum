@@ -20,4 +20,21 @@ export function writeText(str) {
     document.removeEventListener("copy", listener);
     success ? resolve() : reject();
   });
-};
+}
+
+export function formatDate(date) {
+  var now = new Date();
+
+  // If date is today.
+  if (
+    now.getFullYear() === date.getFullYear() &&
+    now.getMonth() === date.getMonth() &&
+    now.getDate() === date.getDate()
+  ) {
+    var strTime = "idag " + date.toLocaleString("sv-SE", { hour: "2-digit", minute: "2-digit" });
+    return strTime;
+  }
+  else { // If date is not today.
+    return date.toLocaleString("sv-SE", { month: "short", day: "numeric" });
+  }
+}

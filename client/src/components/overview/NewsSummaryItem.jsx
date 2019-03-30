@@ -16,7 +16,7 @@ function NewsSummaryItem(props) {
       key={newsItem.title + ":" + newsItem.date}
       onClick={onClick}>
       <ListItemGraphic
-        graphic={<img src={newsItem.author.image} alt={newsItem.author.name} />} />
+        graphic={<img src={newsItem.avatar_url} alt={newsItem.first_name + " " + newsItem.last_name} />} />
       <ListItemText
         primaryText={newsItem.title}
         secondaryText={`${newsItem.body.substring(0, 100)}...`} />

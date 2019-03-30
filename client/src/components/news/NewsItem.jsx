@@ -5,7 +5,7 @@ import { Body1, Headline5, Headline6 } from "@material/react-typography";
 import { Snackbar } from "@material/react-snackbar";
 import MaterialIcon from "@material/react-material-icon";
 import IconButton from "@material/react-icon-button";
-import { writeText } from "../../Util";
+import { writeText, formatDate } from "../../Util";
 
 /**
  * NewsItem styling.
@@ -60,6 +60,8 @@ const Author = styled.div`
 function NewsItem(props) {
 
   const newsItem = props.listItem;
+  const authorName = newsItem.first_name + " " + newsItem.last_name;
+  const publishDate = formatDate(new Date(newsItem.created_at));
 
   const [copiedLink, setCopiedLink] = useState(false);
 
@@ -83,12 +85,12 @@ function NewsItem(props) {
             {/** Author info */}
             <Author>
               {/** Author image */}
-              <AuthorImage src={newsItem.author.image} alt={newsItem.author.name} />
+              <AuthorImage src={newsItem.avatar_url} alt={authorName} />
               <div>
                 {/** Author name */}
-                <Headline6>{newsItem.author.name}</Headline6>
+                <Headline6>{authorName}</Headline6>
                 {/** Publish date */}
-                <Body1>{newsItem.date}</Body1>
+                <Body1>{publishDate}</Body1>
               </div>
             </Author>
             <TitleContainer>

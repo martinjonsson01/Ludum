@@ -2,29 +2,83 @@ const express = require("express");
 const db = require("../db");
 const asyncHandler = require("express-async-handler");
 const router = express.Router();
+const { OAuth2Client } = require("google-auth-library");
+
+const CLIENT_ID = "425892769172-0jb5mo5gm07avnjraabf75pkula2uv65.apps.googleusercontent.com";
+const client = new OAuth2Client(CLIENT_ID);
 
 // GET current session user.
 router.get("/current-user", (req, res) => {
   if (req.session.user) {
-    res.json(req.session.user);
+    return res.json(req.session.user);
   } else {
-    res.sendStatus(404);
+    return res.sendStatus(404); // NOT FOUND.
   }
 });
 
 // POST current session user.
-router.post("/current-user", (req, res) => {
-  // TODO: Validate JWT before allowing user access.
-  req.session.user = req.body;
-  res.sendStatus(200);
-});
+router.post("/current-user", asyncHandler(async (req, res) => {
+  /**
+   * Validate JWT before allowing user access.
+   */
+  // Get the idToken provided by the client.
+  const jwtToken = req.body.idToken;
+  if (!jwtToken) return res.sendStatus(401); // UNAUTHORIZED.
+  const ticket = await client.verifyIdToken({
+    idToken: jwtToken,
+    audience: CLIENT_ID,
+  });
+  const payload = ticket.getPayload();
+  // Get the hosted domain of the token.
+  const tokenHostedDomain = payload["hd"];
+  // Get database connection-pool-object.
+  const pool = db.getPool();
+  // Get the hosted domain of the school from the database.
+  const [hosted_domains] = await pool.query("SELECT hosted_domain FROM school");
+  const schoolHostedDomain = hosted_domains[0].hosted_domain;
+  // Check if hosted domain of token matches the hosted domain of the school.
+  if (tokenHostedDomain !== schoolHostedDomain) {
+    return res
+      .status(401) // UNAUTHORIZED.
+      .send(
+        "Google-kontot är inte en del av skolans G-Suite. " +
+        "Var snäll och använd ett konto som är med i skolans G-Suite."
+      );
+  }
+
+  /**
+   * Add user to database if not already there.
+   */
+  // Get the subject of the token (the user ID).
+  const userId = payload["sub"];
+  // Check if a user with id userId exists in database.
+  const [users] = await pool.execute(
+    "SELECT id FROM user WHERE id = ?",
+    [userId]
+  );
+  if (users.length === 0) {
+    // TODO: Store user in database.
+    /*await pool.execute(
+      "INSERT INTO user (id, first_name, last_name, avatar_url, email, date_of_birth) " +
+      "VALUES (?, ?, ?, ?, ?, ?)",
+      []
+    );*/
+  }
+  console.log(payload);
+
+  req.session.user = payload;
+
+  return res
+    .status(200) // OK.
+    .send(payload);
+}));
 
 // DELETE current user session.
 router.delete("/current-user", (req, res) => {
   // TODO: Validate JWT before allowing user access.
   req.session.destroy(err => {
-    if (err) return res.sendStatus(500);
-    return res.sendStatus(200);
+    if (err) return res.sendStatus(500); // INTERNAL SERVER ERROR.
+    return res.sendStatus(200); // OK.
   });
 });
 
@@ -39,7 +93,7 @@ router.get("/news", asyncHandler(async (req, res) => {
     `SELECT ${columns} FROM news JOIN user ON news.user_id = user.id`
   );
   // Respond with list of news-data.
-  res.json(result[0]);
+  return res.json(result[0]);
 }));
 
 // GET course events from the database.
@@ -316,9 +370,8 @@ router.get("/course-events", (req, res) => {
 
 // GET courses for user from the database.
 router.get("/courses", asyncHandler(async (req, res) => {
-
-  // TODO: Make working user sign-in and auth system before this can be finished.
-
+  // Can't fetch courses if a user session isn't established. TODO: Move this into a seperate auth middleware.
+  if (!req.session.user) return res.sendStatus(403); // FORBIDDEN.
   // Get database connection-pool-object.
   const pool = db.getPool();
   // Which columns to SELECT.

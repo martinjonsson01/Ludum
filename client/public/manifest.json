@@ -1,15 +1,51 @@
 {
-  "short_name": "Ludum",
   "name": "Ludum",
+  "theme_color": "#26c6da",
+  "background_color": "#006064",
+  "description": "En app som gör allt med skolan smidigare.",
+  "display": "standalone",
+  "Scope": "/",
+  "start_url": "/oversikt",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "icons/logo-16x16.png",
+      "sizes": "16x16"
+    },
+    {
+      "src": "icons/logo-32x32.png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "icons/logo-36x36.png",
+      "sizes": "36x36"
+    },
+    {
+      "src": "icons/logo-48x48.png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "icons/logo-72x72.png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "icons/logo-96x96.png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "icons/logo-104x104.png",
+      "sizes": "104x104"
+    },
+    {
+      "src": "icons/logo-144x144.png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "icons/logo-192x192.png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "icons/logo-512x512.png",
+      "sizes": "512x512"
     }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#26c6da",
-  "background_color": "#f7f7f7"
+  ]
 }

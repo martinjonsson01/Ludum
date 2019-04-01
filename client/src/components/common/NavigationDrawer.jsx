@@ -4,7 +4,7 @@ import List, { ListItem, ListItemGraphic, ListItemText, ListGroupSubheader, List
 import Drawer, { DrawerContent, DrawerHeader, DrawerTitle } from "@material/react-drawer";
 import MaterialIcon from "@material/react-material-icon";
 
-import logo from "../../media/LoggaLudum.png";
+import logo from "../../media/logo-144x144.png";
 import lbsLogo from "../../media/lbs-logo.png";
 
 export default class NavigationDrawer extends Component {

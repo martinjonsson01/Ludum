@@ -54,7 +54,7 @@ export default class AccountButton extends Component {
               <div className="account" >
                 {/** Profile Image */}
                 <img
-                  src={user ? user.profileObj.imageUrl : defaultProfile}
+                  src={user ? user.picture : defaultProfile}
                   alt="Profilbild"
                   className='mdc-menu-surface--anchor'
                   ref={this.setAnchorElement}

@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import PropTypes from "prop-types";
 import { GoogleLogin } from "react-google-login";
 import { ThemeContext } from "../common/ThemeContext";
@@ -14,22 +13,18 @@ const defaultScopes = [
   "https://www.googleapis.com/auth/user.addresses.read",
 ];
 
-const ToggleDisplayButton = styled(GoogleLogin)`
-  display: ${props => props.hidden ? "none" : "inline-flex"} !important;
-`;
-
-function SignInButton({ hidden }) {
+function SignInButton({ onRequest, onSuccess, onFailure }) {
   return (
     <ThemeContext.Consumer>
-      {({ user, signInUser }) =>
-        <ToggleDisplayButton
-          hidden={hidden}
+      {({ theme }) =>
+        <GoogleLogin
           clientId="425892769172-0jb5mo5gm07avnjraabf75pkula2uv65.apps.googleusercontent.com"
           buttonText="Logga in med Google"
           scope={defaultScopes.join(" ")}
-          onSuccess={signInUser}
-          onFailure={signInUser}
-          theme={user}
+          onSuccess={onSuccess}
+          onFailure={onFailure}
+          onRequest={onRequest}
+          theme={theme}
           isSignedIn={false}
         />
       }
@@ -38,7 +33,9 @@ function SignInButton({ hidden }) {
 }
 
 SignInButton.propTypes = {
-  hidden: PropTypes.bool
+  onRequest: PropTypes.func,
+  onSuccess: PropTypes.func,
+  onFailure: PropTypes.func,
 };
 
 export default SignInButton;

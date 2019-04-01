@@ -17,6 +17,7 @@
     "@material/react-tab-bar": "^0.11.0",
     "@material/react-top-app-bar": "^0.11.0",
     "@material/react-typography": "^0.11.0",
+    "@taito/react-sheltr": "^1.0.2",
     "axios": "^0.18.0",
     "fetch-suspense": "^1.0.2",
     "node-sass": "^4.11.0",

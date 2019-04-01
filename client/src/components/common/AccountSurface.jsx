@@ -38,12 +38,12 @@ function AccountSurface({
         {/** Namn */}
         <Headline6
           id="name">
-          {user ? user.profileObj.name : "Förnamn Efternamn"}
+          {user ? user.name : "Förnamn Efternamn"}
         </Headline6>
         {/** E-mail */}
         <Subtitle1
           id="email">
-          {user ? user.profileObj.email : "förnamn.efternamn@elev.ga.lbs.se"}
+          {user ? user.email : "förnamn.efternamn@elev.ga.lbs.se"}
         </Subtitle1>
         {/** Profil */}
         <Button

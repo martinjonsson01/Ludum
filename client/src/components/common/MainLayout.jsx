@@ -172,7 +172,7 @@ class MainLayout extends Component {
   render() {
 
     if (!this.context.user) {
-      return <SignInPage />;
+      return <SignInPage signInUser={this.context.signInUser} />;
     }
 
     return (

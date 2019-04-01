@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { BrowserRouter } from "react-router-dom";
+import Sheltr from "@taito/react-sheltr";
 import "./App.scss";
 import MainLayout from "./MainLayout";
 import ErrorBoundary from "./ErrorBoundary";
 import { ThemeContext } from "./ThemeContext";
 import { UserContext } from "./UserContext";
-import Splashscreen from "./Splashscreen";
 import axios from "axios";
 
 class App extends Component {
@@ -36,17 +36,8 @@ class App extends Component {
       });
     };
 
-    this.signInUser = (GoogleUser) => {
-      if (GoogleUser.tokenId) {
-        //console.log(`token_id: ${GoogleUser.tokenId}`);
-        this.setState({ loading: false, user: GoogleUser });
-        // TODO: Only post GoogleUser.tokenId.
-        axios.post(
-          "http://localhost:3001/api/current-user",
-          GoogleUser,
-          { withCredentials: true }
-        );
-      }
+    this.signInUser = (user) => {
+      this.setState({ user: user });
     };
 
     this.signOutUser = () => {
@@ -57,20 +48,9 @@ class App extends Component {
     const currentTheme = localStorage.getItem("theme") || "light";
     this.setDocumentTheme(currentTheme, true);
 
-    let sessionExists = false;
-    // Check if session cookie exists.
-    if (document.cookie.match(/^(.*;)?\s*connect.sid\s*=\s*[^;]+(.*)?$/)) {
-      sessionExists = true;
-      // GET current user.
-      axios.get("http://localhost:3001/api/current-user", { withCredentials: true }).then(res => {
-        this.setState({ loading: false, user: res.data });
-      }).catch(() => {
-        this.setState({ loading: false });
-      });
-    }
+
 
     this.state = {
-      loading: sessionExists,
       theme: currentTheme,
       toggleTheme: this.onToggleTheme,
       user: null,
@@ -81,21 +61,19 @@ class App extends Component {
 
   render() {
     return (
-      <React.StrictMode>
-        <BrowserRouter>
-          <ThemeContext.Provider value={this.state}>
-            <UserContext.Provider value={this.state}>
-              <ErrorBoundary>
-                {
-                  this.state.loading ?
-                    <Splashscreen /> :
-                    <MainLayout />
-                }
-              </ErrorBoundary>
-            </UserContext.Provider>
-          </ThemeContext.Provider>
-        </BrowserRouter>
-      </React.StrictMode>
+      //<React.StrictMode>
+      <BrowserRouter>
+        <ThemeContext.Provider value={this.state}>
+          <UserContext.Provider value={this.state}>
+            <ErrorBoundary>
+              <Sheltr delay={200}>
+                <MainLayout />
+              </Sheltr>
+            </ErrorBoundary>
+          </UserContext.Provider>
+        </ThemeContext.Provider>
+      </BrowserRouter>
+      //</React.StrictMode>
     );
   }
 

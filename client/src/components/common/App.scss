@@ -10,6 +10,7 @@
 @import '@material/react-layout-grid/index.scss';
 @import '@material/react-ripple/index.scss';
 @import '@material/react-snackbar/index.scss';
+
 #root {
   height: 100%;
 }
@@ -78,9 +79,10 @@ h5.vertical-align {
 
 .account {
   margin: auto 0;
-  margin-right: 8px;
+  margin-right: 12px;
   height: 44px;
   width: 44px;
+
   img {
     border-radius: 50%;
     height: 44px;
@@ -92,7 +94,7 @@ h5.vertical-align {
   padding: 8px;
   display: grid;
   grid-row-gap: 16px;
-  grid-template-areas: "name name name name" "email email email email" "profile . . ." "sign-out . dark-mode settings";
+  grid-template-areas: "name name name name""email email email email""profile . . .""sign-out . dark-mode settings";
 }
 
 #name {

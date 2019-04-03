@@ -1,18 +1,17 @@
 import React, { Suspense, lazy, Component } from "react";
 import PropTypes from "prop-types";
 import { Route, Redirect, withRouter } from "react-router-dom";
-import TopAppBar, { TopAppBarFixedAdjust, TopAppBarSection, TopAppBarTitle, TopAppBarRow, TopAppBarIcon } from "@material/react-top-app-bar";
+import { TopAppBarFixedAdjust } from "@material/react-top-app-bar";
 import { DrawerAppContent } from "@material/react-drawer";
-import AccountButton from "./AccountButton";
 import LinearProgress from "@material/react-linear-progress";
-import SignInPage from "../sign-in/SignInPage";
 
 import { findWithAttr } from "../../Util";
 
 import ErrorBoundary from "./ErrorBoundary";
 import NavigationDrawer from "./NavigationDrawer";
-import MaterialIcon from "@material/react-material-icon";
+import SignInPage from "../sign-in/SignInPage";
 import { UserContext } from "./UserContext";
+import TopBar from "./TopBar";
 
 // Lazy-load pages.
 const OverviewPage = lazy(() => import("../overview/OverviewPage"));
@@ -136,7 +135,6 @@ class MainLayout extends Component {
 
   onWindowResize() {
     this.setState({
-      topAppBarSmall: window.innerWidth > 600,
       drawerOpen: window.innerWidth > 600
     });
   }
@@ -187,36 +185,12 @@ class MainLayout extends Component {
         </ErrorBoundary>
 
         <DrawerAppContent className='drawer-app-content'>
-          <TopAppBar
-            fixed
-            id="topbar"
-            className={this.state.drawerOpen ? "mdc-top-app-bar-drawer-fix" : ""}
-            dense={this.state.topAppBarSmall}>
-            <TopAppBarRow>
-              <TopAppBarSection align="start">
-                <TopAppBarIcon navIcon tabIndex={0}>
-                  <MaterialIcon
-                    hasRipple
-                    icon='menu'
-                    onClick={this.onDrawerToggle} />
-                </TopAppBarIcon>
-              </TopAppBarSection>
-              <TopAppBarSection>
-                <TopAppBarTitle
-                  className="align-text-center">
-                  {this.state.title}
-                </TopAppBarTitle>
-              </TopAppBarSection>
-              <TopAppBarSection align="end">
-                <ErrorBoundary key="accountButtonErrorBoundary">
-                  <AccountButton
-                    className="top-app-bar-needs-drawer-fix"
-                    onNavigateChange={this.onNavigateChange} />
-                </ErrorBoundary>
-              </TopAppBarSection>
-            </TopAppBarRow>
-          </TopAppBar>
-
+          <TopBar
+            drawerOpen={this.state.drawerOpen}
+            title={this.state.title}
+            onDrawerToggle={this.onDrawerToggle}
+            onNavigateChange={this.onNavigateChange}
+          />
           <TopAppBarFixedAdjust dense={this.state.topAppBarSmall}>
             <ErrorBoundary>
               <Suspense fallback={<LinearProgress indeterminate={true} />}>

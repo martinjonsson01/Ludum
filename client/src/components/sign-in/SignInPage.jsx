@@ -9,6 +9,93 @@ import axios from "axios";
 
 import logo from "../../media/logo-104x104.png";
 
+function SignInPage({ signInUser }) {
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  function onRequest() {
+    setError(null);
+    setLoading(true);
+  }
+
+  async function onSuccess(googleUser) {
+    if (googleUser.tokenId) {
+      try {
+        // PUT googleUser.tokenId for authentication.
+        const res = await axios.put(
+          "http://localhost:3001/api/current-user",
+          `idToken=${googleUser.tokenId}`,
+          { withCredentials: true }
+        );
+        var img = new Image();
+        img.src = res.data.picture;
+        // Sign-in new user after profile image has loaded.
+        img.onload = () => signInUser(res.data);
+      } catch (error) {
+        onFailure(error.response);
+      }
+    }
+  }
+
+  function onFailure(response) {
+    if (response.status === 401) {
+      // Explain to user why authentication failed using supplied error message.
+      setError(response.data);
+    }
+    if (response.error === "popup_closed_by_user") {
+      // Explain to user why authentication failed when the popup was closed.
+      setError("Inloggningsfönstret stängdes.");
+    }
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    // Check if session cookie exists.
+    if (document.cookie.match(/^(.*;)?\s*connect.sid\s*=\s*[^;]+(.*)?$/)) {
+      // GET current user.
+      axios.get("http://localhost:3001/api/current-user", { withCredentials: true }).then(res => {
+        // "Register" already signed-in user.
+        signInUser(res.data);
+      }).catch(() => {
+        setLoading(false);
+      });
+    }
+  }, [signInUser]);
+
+  return (
+    loading ?
+      <Splashscreen />
+      :
+      <Center>
+        <Content>
+          <SharedElement sharedId="logo" startOnUnmount>
+            {sheltrProps =>
+              <Logo
+                {...sheltrProps}
+                src={logo}
+                alt="Ludum logotyp"
+              />
+            }
+          </SharedElement>
+          <MainContent>
+            <Headline4>Du är inte inloggad</Headline4>
+            <Error>{error}</Error>
+            <SignInButton
+              onRequest={onRequest}
+              onSuccess={onSuccess}
+              onFailure={onFailure}
+            />
+          </MainContent>
+        </Content>
+      </Center>
+  );
+}
+
+SignInPage.propTypes = {
+  signInUser: PropTypes.func.isRequired,
+};
+
 const Center = styled.div`
   display: flex;
   width: 100%;
@@ -51,90 +138,5 @@ const MainContent = styled.div`
   animation-delay: 0.3s;
   animation-fill-mode: forwards;
 `;
-
-function SignInPage({ signInUser }) {
-
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  function onRequest() {
-    setError(null);
-    setLoading(true);
-  }
-
-  async function onSuccess(googleUser) {
-    if (googleUser.tokenId) {
-      try {
-        // Post googleUser.tokenId for authentication.
-        const res = await axios.post(
-          "http://localhost:3001/api/current-user",
-          `idToken=${googleUser.tokenId}`,
-          { withCredentials: true }
-        );
-        setLoading(false);
-        signInUser(res.data);
-      } catch (error) {
-        onFailure(error.response);
-      }
-    }
-  }
-
-  function onFailure(response) {
-    if (response.status === 401) {
-      // Explain to user why authentication failed using supplied error message.
-      setError(response.data);
-    }
-    if (response.error === "popup_closed_by_user") {
-      // Explain to user why authentication failed when the popup was closed.
-      setError("Inloggningsfönstret stängdes.");
-    }
-    setLoading(false);
-  }
-
-  useEffect(() => {
-    // Check if session cookie exists.
-    if (document.cookie.match(/^(.*;)?\s*connect.sid\s*=\s*[^;]+(.*)?$/)) {
-      // GET current user.
-      axios.get("http://localhost:3001/api/current-user", { withCredentials: true }).then(res => {
-        setLoading(false);
-        signInUser(res.data);
-      }).catch(() => {
-        setLoading(false);
-      });
-    }
-  }, [signInUser]);
-
-  return (
-    loading ?
-      <Splashscreen />
-      :
-      <Center>
-        <Content>
-          <SharedElement sharedId="logo" startOnUnmount>
-            {sheltrProps =>
-              <Logo
-                {...sheltrProps}
-                src={logo}
-                alt="Ludum logotyp"
-              />
-            }
-          </SharedElement>
-          <MainContent>
-            <Headline4>Du är inte inloggad</Headline4>
-            <Error>{error}</Error>
-            <SignInButton
-              onRequest={onRequest}
-              onSuccess={onSuccess}
-              onFailure={onFailure}
-            />
-          </MainContent>
-        </Content>
-      </Center>
-  );
-}
-
-SignInPage.propTypes = {
-  signInUser: PropTypes.func.isRequired,
-};
 
 export default SignInPage;

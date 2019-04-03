@@ -16,8 +16,8 @@ router.get("/current-user", (req, res) => {
   }
 });
 
-// POST current session user.
-router.post("/current-user", asyncHandler(async (req, res) => {
+// PUT current session user.
+router.put("/current-user", asyncHandler(async (req, res) => {
   /**
    * Validate JWT before allowing user access.
    */

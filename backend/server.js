@@ -18,9 +18,9 @@ exports.start = async () => {
     password: "password", // TODO: Change password to ENV-variable.
     database: "ludum_db",
     clearExpired: true,
-    checkExpirationInterval: 900000,
+    checkExpirationInterval: 43200,
     connectionLimit: 10,
-    expiration: 2592000000,
+    expiration: 86400,
   };
 
   const apiRouter = require("./routes/api");
@@ -39,6 +39,22 @@ exports.start = async () => {
   app.use(bodyParser.json());
   app.use(logger("dev"));
 
+  const dbPool = db.getPool();
+  // Create session store using database connection pool.
+  const sessionStore = new MySQLStore(sessionStoreOptions, dbPool);
+  const sessionOptions = {
+    cookie: {
+      path: "/",
+      httpOnly: true,
+      maxAge: 86400,
+      sameSite: "strict",
+    },
+    secret: "xx._ludum_super_hemlig_hemlighet_.xx", // TODO: Change secret to ENV-variable.
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: false,
+  };
+
   const env = process.env.NODE_ENV || "dev";
   if (env === "dev") {
     // Only allow Cross-Origin requests when in development mode.
@@ -51,21 +67,6 @@ exports.start = async () => {
     sessionOptions.cookie.secure = true;
   }
 
-  const dbPool = db.getPool();
-  // Create session store using database connection pool.
-  const sessionStore = new MySQLStore(sessionStoreOptions, dbPool);
-  const sessionOptions = {
-    cookie: {
-      path: "/",
-      httpOnly: false,
-      maxAge: 2592000000,
-      sameSite: "strict",
-    },
-    secret: "xx._ludum_super_hemlig_hemlighet_.xx", // TODO: Change secret to ENV-variable.
-    store: sessionStore,
-    resave: false,
-    saveUninitialized: false,
-  };
   // Add session middleware.
   app.use(session(sessionOptions));
 

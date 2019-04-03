@@ -1,10 +1,34 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
+import CircularProgress from "./CircularProgress";
 import { SharedElement } from "@taito/react-sheltr";
-import LinearProgress from "@material/react-linear-progress";
 import { Headline3 } from "@material/react-typography";
 
 import logo from "../../media/logo-144x144.png";
+
+function Splashscreen() {
+  return (
+    <React.Fragment>
+      {/*<LinearProgress indeterminate={true} />*/}
+      <Center>
+        <CircularProgress>
+          <SharedElement sharedId="logo" startOnUnmount>
+            {sheltrProps =>
+              <Logo
+                {...sheltrProps}
+                src={logo}
+                alt="Ludum logotyp"
+              />
+            }
+          </SharedElement>
+        </CircularProgress>
+        <Title>
+          Ludum
+        </Title>
+      </Center>
+    </React.Fragment>
+  );
+}
 
 const Center = styled.div`
   display: flex;
@@ -35,27 +59,5 @@ const Title = styled(Headline3)`
   animation-delay: 0.5s;
   animation-fill-mode: forwards;
 `;
-
-function Splashscreen() {
-  return (
-    <React.Fragment>
-      <LinearProgress indeterminate={true} />
-      <Center>
-        <SharedElement sharedId="logo" startOnUnmount>
-          {sheltrProps =>
-            <Logo
-              {...sheltrProps}
-              src={logo}
-              alt="Ludum logotyp"
-            />
-          }
-        </SharedElement>
-        <Title>
-          Ludum
-        </Title>
-      </Center>
-    </React.Fragment>
-  );
-}
 
 export default Splashscreen;

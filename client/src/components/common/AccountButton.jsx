@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { SharedElement } from "@taito/react-sheltr";
 
 import defaultProfile from "../../media/defaultProfile.png";
 import { ThemeContext } from "./ThemeContext";
@@ -53,12 +54,18 @@ export default class AccountButton extends Component {
             {({ user, signOutUser }) =>
               <div className="account" >
                 {/** Profile Image */}
-                <img
-                  src={user ? user.picture : defaultProfile}
-                  alt="Profilbild"
-                  className='mdc-menu-surface--anchor'
-                  ref={this.setAnchorElement}
-                  onClick={this.toggleMenu} />
+                <SharedElement sharedId="logo" startOnUnmount>
+                  {sheltrProps =>
+                    <img
+                      {...sheltrProps}
+                      src={user ? user.picture : defaultProfile}
+                      alt="Profilbild"
+                      className='mdc-menu-surface--anchor'
+                      ref={this.setAnchorElement}
+                      onClick={this.toggleMenu}
+                    />
+                  }
+                </SharedElement>
                 {/** Menu Surface */}
                 <AccountSurface
                   theme={theme}

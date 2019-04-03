@@ -102,6 +102,7 @@ function SignInPage({ signInUser }) {
         setLoading(false);
       });
     }
+    setLoading(false);
   }, [signInUser]);
 
   return (

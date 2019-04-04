@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const logger = require("morgan");
 const compression = require("compression");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const MySQLStore = require("express-mysql-session")(session);
 const db = require("./db");
@@ -18,9 +19,9 @@ exports.start = async () => {
     password: "password", // TODO: Change password to ENV-variable.
     database: "ludum_db",
     clearExpired: true,
-    checkExpirationInterval: 43200,
+    checkExpirationInterval: 3600000,
     connectionLimit: 10,
-    expiration: 86400,
+    expiration: 86400000,
   };
 
   const apiRouter = require("./routes/api");
@@ -46,7 +47,7 @@ exports.start = async () => {
     cookie: {
       path: "/",
       httpOnly: true,
-      maxAge: 86400,
+      maxAge: 86400000,
       sameSite: "strict",
     },
     secret: "xx._ludum_super_hemlig_hemlighet_.xx", // TODO: Change secret to ENV-variable.
@@ -67,8 +68,24 @@ exports.start = async () => {
     sessionOptions.cookie.secure = true;
   }
 
+  // Add cookie-parser to allow us access the cookies stored in the browser. 
+  app.use(cookieParser());
+
   // Add session middleware.
   app.use(session(sessionOptions));
+
+  /**
+   * This middleware will check if user's cookie is still saved in browser
+   * and user is not set, then automatically log the user out.
+   * This usually happens when you stop your express server after login,
+   * your cookie still remains saved in the browser.
+   */
+  app.use((req, res, next) => {
+    if (req.cookies["connect.sid"] && !req.session.user) {
+      res.clearCookie("connect.sid");
+    }
+    next();
+  });
 
   // GZip-compress assets before serving.
   app.use(compression());

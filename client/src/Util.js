@@ -39,23 +39,45 @@ export function formatDate(date) {
   }
 }
 
-export async function addScript(id, src) {
+export async function addGoogleClientLibraryScript() {
   return new Promise((resolve, reject) => {
-    const element = document.getElementById(id);
-
-    if (element)
-      return resolve(true);
-
-    const script = document.createElement("script");
-    script.setAttribute("type", "text/javascript");
-    script.setAttribute("id", id);
-    script.setAttribute("src", src);
-    script.addEventListener("load", resolve);
-
-    script.addEventListener("error", () => reject(new Error(`Error loading ${id}.`)));
-
-    script.addEventListener("abort", () => reject(new Error(`${id} loading aborted.`)));
-
-    document.getElementsByTagName("head")[0].appendChild(script);
+    const element = document.getElementsByTagName("script")[0];
+    const firstScriptElement = element;
+    // Resolve immediately if script already exists.
+    if (firstScriptElement.id === "google-login") resolve();
+    let js = element;
+    js = document.createElement("script");
+    js.id = "google-login";
+    js.src = "https://apis.google.com/js/api.js";
+    if (firstScriptElement && firstScriptElement.parentNode) {
+      firstScriptElement.parentNode.insertBefore(js, firstScriptElement);
+    }
+    else {
+      document.head.appendChild(js);
+    }
+    js.onload = () => resolve();
+    js.oncancel = () => reject();
   });
+}
+
+export function parseGoogleUser(googleUser) {
+  /*
+    Offer renamed response keys to names that match use.
+  */
+  const basicProfile = googleUser.getBasicProfile();
+  const authResponse = googleUser.getAuthResponse();
+  googleUser.googleId = basicProfile.getId();
+  googleUser.tokenObj = authResponse;
+  googleUser.tokenId = authResponse.id_token;
+  googleUser.accessToken = authResponse.access_token;
+  googleUser.profileObj = {
+    googleId: basicProfile.getId(),
+    imageUrl: basicProfile.getImageUrl(),
+    email: basicProfile.getEmail(),
+    name: basicProfile.getName(),
+    givenName: basicProfile.getGivenName(),
+    familyName: basicProfile.getFamilyName()
+  };
+
+  return googleUser;
 }

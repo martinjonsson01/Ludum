@@ -42,7 +42,16 @@ class App extends Component {
 
     this.signOutUser = () => {
       axios.delete("http://localhost:3001/api/current-user", { withCredentials: true })
-        .then(() => this.setState({ user: null }));
+        .then(async () => {
+          // Check if auth systems are still initialized.
+          if (window.gapi.auth2 && window.gapi.auth2.getAuthInstance()) {
+            // Wait for signout to complete before setting state.
+            await window.gapi.auth2.getAuthInstance().signOut();
+            this.setState({ user: null });
+          } else {
+            this.setState({ user: null });
+          }
+        });
     };
 
     const currentTheme = localStorage.getItem("theme") || "light";

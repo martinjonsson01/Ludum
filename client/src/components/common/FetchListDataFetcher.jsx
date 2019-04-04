@@ -10,7 +10,7 @@ import useFetch from "fetch-suspense";
  */
 function FetchListDataFetcher(props) {
 
-  const listData = useFetch(props.url, { method: "GET" });
+  const listData = useFetch(props.url, { method: "GET", credentials: "include" });
 
   const StyledList = styled.ul`
     list-style: none;

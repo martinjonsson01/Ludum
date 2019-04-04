@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import PropTypes from "prop-types";
-import { GoogleLogin } from "react-google-login";
 import { ThemeContext } from "../common/ThemeContext";
+import { addGoogleClientLibraryScript, parseGoogleUser } from "../../Util";
 
 /**
  * Scopes to request from users.
@@ -9,26 +9,55 @@ import { ThemeContext } from "../common/ThemeContext";
 const defaultScopes = [
   "https://www.googleapis.com/auth/userinfo.email",
   "https://www.googleapis.com/auth/userinfo.profile",
-  "https://www.googleapis.com/auth/user.birthday.read",
-  "https://www.googleapis.com/auth/user.addresses.read",
+  /*"https://www.googleapis.com/auth/user.birthday.read",
+  "https://www.googleapis.com/auth/user.addresses.read",*/
 ];
 
-function SignInButton({ onRequest, onSuccess, onFailure }) {
+function SignInButton({ onSuccess, onFailure, onRequest }) {
+
+  const theme = useContext(ThemeContext).theme;
+
+  function renderSignInButton() {
+    window.gapi.signin2.render("google-sign-in-button", {
+      "scope": defaultScopes.join(" "),
+      "onsuccess": (googleUser) => onSuccess(parseGoogleUser(googleUser)),
+      "onfailure": onFailure,
+      "theme": theme,
+      "prompt": "select_account"
+    });
+  }
+
+  // Check if Google client library script has been added to DOM.
+  if (!window.gapi) {
+    addGoogleClientLibraryScript()
+      .then(() => {
+        window.gapi.load("signin2", () => {
+          renderSignInButton();
+        });
+      });
+  } else {
+    if (!window.gapi.signin2) {
+      window.gapi.load("signin2", () => {
+        renderSignInButton();
+      });
+    }
+  }
+
+  useEffect(() => {
+    document.getElementById("google-sign-in-button")
+      .onclick = onRequest;
+
+    if (window.gapi && window.gapi.signin2) {
+      renderSignInButton();
+    }
+
+    return () =>
+      document.getElementById("google-sign-in-button")
+        .onclick = null;
+  });
+
   return (
-    <ThemeContext.Consumer>
-      {({ theme }) =>
-        <GoogleLogin
-          clientId="425892769172-0jb5mo5gm07avnjraabf75pkula2uv65.apps.googleusercontent.com"
-          buttonText="Logga in med Google"
-          scope={defaultScopes.join(" ")}
-          onSuccess={onSuccess}
-          onFailure={onFailure}
-          onRequest={onRequest}
-          theme={theme}
-          isSignedIn={false}
-        />
-      }
-    </ThemeContext.Consumer>
+    <div id="google-sign-in-button" />
   );
 }
 

@@ -7,8 +7,20 @@ const { OAuth2Client } = require("google-auth-library");
 const CLIENT_ID = "425892769172-0jb5mo5gm07avnjraabf75pkula2uv65.apps.googleusercontent.com";
 const client = new OAuth2Client(CLIENT_ID);
 
+// Middleware function used to only allow logged-in users through.
+const sessionChecker = (req, res, next) => {
+  if (req.session.user && req.cookies["connect.sid"]) {
+    // Allow through.
+    next();
+  } else {
+    return res
+      .status(401) // UNAUTHORIZED.
+      .send("Var snäll och logga in först.");
+  }
+};
+
 // GET current session user.
-router.get("/current-user", (req, res) => {
+router.get("/current-user", sessionChecker, (req, res) => {
   if (req.session.user) {
     return res.json(req.session.user);
   } else {
@@ -64,7 +76,6 @@ router.put("/current-user", asyncHandler(async (req, res) => {
       []
     );*/
   }
-  console.log(payload);
 
   req.session.user = payload;
 
@@ -74,16 +85,18 @@ router.put("/current-user", asyncHandler(async (req, res) => {
 }));
 
 // DELETE current user session.
-router.delete("/current-user", (req, res) => {
+router.delete("/current-user", sessionChecker, (req, res) => {
   // TODO: Validate JWT before allowing user access.
   req.session.destroy(err => {
     if (err) return res.sendStatus(500); // INTERNAL SERVER ERROR.
+    // Clear session cookie.
+    res.clearCookie("connect.sid");
     return res.sendStatus(200); // OK.
   });
 });
 
 // GET news from the database.
-router.get("/news", asyncHandler(async (req, res) => {
+router.get("/news", sessionChecker, asyncHandler(async (req, res) => {
   // Get database connection-pool-object.
   const pool = db.getPool();
   // Which columns to SELECT.
@@ -97,7 +110,7 @@ router.get("/news", asyncHandler(async (req, res) => {
 }));
 
 // GET course events from the database.
-router.get("/course-events", (req, res) => {
+router.get("/course-events", sessionChecker, (req, res) => {
   // TODO: REMOVE THIS 1000 MS TIMEOUT ASAP
   setTimeout(() =>
     res.json([
@@ -369,7 +382,7 @@ router.get("/course-events", (req, res) => {
 });
 
 // GET courses for user from the database.
-router.get("/courses", asyncHandler(async (req, res) => {
+router.get("/courses", sessionChecker, asyncHandler(async (req, res) => {
   // Can't fetch courses if a user session isn't established. TODO: Move this into a seperate auth middleware.
   if (!req.session.user) return res.sendStatus(403); // FORBIDDEN.
   // Get database connection-pool-object.
@@ -385,7 +398,7 @@ router.get("/courses", asyncHandler(async (req, res) => {
 }));
 
 // GET course data from the database.
-router.get("/course/:code", (req, res) => {
+router.get("/course/:code", sessionChecker, (req, res) => {
   setTimeout(() =>
     res.json([
       {

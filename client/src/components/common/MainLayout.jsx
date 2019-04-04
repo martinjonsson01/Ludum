@@ -1,6 +1,6 @@
 import React, { Suspense, lazy, Component } from "react";
 import PropTypes from "prop-types";
-import { Route, Redirect, withRouter } from "react-router-dom";
+import { Route, Redirect, withRouter, Switch } from "react-router-dom";
 import { TopAppBarFixedAdjust } from "@material/react-top-app-bar";
 import { DrawerAppContent } from "@material/react-drawer";
 import LinearProgress from "@material/react-linear-progress";
@@ -18,6 +18,7 @@ const OverviewPage = lazy(() => import("../overview/OverviewPage"));
 const NewsPage = lazy(() => import("../news/NewsPage"));
 const SchedulePage = lazy(() => import("../schedule/SchedulePage"));
 const CoursesPage = lazy(() => import("../courses/CoursesPage"));
+const NotFoundPage = lazy(() => import("./NotFoundPage"));
 
 class MainLayout extends Component {
 
@@ -112,7 +113,7 @@ class MainLayout extends Component {
     this.state = {
       selectedIndex: locationIndex,
       drawerOpen: window.innerWidth > 600,
-      title: locationIndex === -1 ? "Null" : this.navItems[locationIndex].title,
+      title: locationIndex === -1 ? "Hittades Inte" : this.navItems[locationIndex].title,
       topAppBarSmall: window.innerWidth > 600,
     };
     this.onNavigateChange = this.onNavigateChange.bind(this);
@@ -194,11 +195,14 @@ class MainLayout extends Component {
           <TopAppBarFixedAdjust dense={this.state.topAppBarSmall}>
             <ErrorBoundary>
               <Suspense fallback={<LinearProgress indeterminate={true} />}>
-                <Route exact path="/" component={props => <Redirect to="/oversikt" {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
-                <Route exact path="/oversikt" component={props => <OverviewPage onNavigateChange={this.onNavigateChange} {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
-                <Route exact path="/nyheter" component={props => <NewsPage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
-                <Route exact path="/schema" component={props => <SchedulePage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
-                <Route path="/kurser" component={props => <CoursesPage onNavigateChange={this.onNavigateChange} {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
+                <Switch>
+                  <Route path="/kurser" component={props => <CoursesPage onNavigateChange={this.onNavigateChange} {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
+                  <Route exact path="/oversikt" component={props => <OverviewPage onNavigateChange={this.onNavigateChange} {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
+                  <Route exact path="/nyheter" component={props => <NewsPage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
+                  <Route exact path="/schema" component={props => <SchedulePage {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
+                  <Route exact path="/" component={props => <Redirect to="/oversikt" {...props} />} /> {/** TODO: Fix this to not use a closure. Wait for react-router-dom v4.4 */}
+                  <Route component={props => <NotFoundPage {...props} />} />
+                </Switch>
               </Suspense>
             </ErrorBoundary>
           </TopAppBarFixedAdjust>

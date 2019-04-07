@@ -69,12 +69,14 @@ router.put("/current-user", asyncHandler(async (req, res) => {
     [userId]
   );
   if (users.length === 0) {
+    console.log(payload);
     // TODO: Store user in database.
-    /*await pool.execute(
+    const { given_name, family_name, picture, email } = payload;
+    await pool.execute(
       "INSERT INTO user (id, first_name, last_name, avatar_url, email, date_of_birth) " +
       "VALUES (?, ?, ?, ?, ?, ?)",
-      []
-    );*/
+      [userId, given_name, family_name, picture, email, null]
+    );
   }
 
   req.session.user = payload;
@@ -388,10 +390,12 @@ router.get("/courses", sessionChecker, asyncHandler(async (req, res) => {
   // Get database connection-pool-object.
   const pool = db.getPool();
   // Which columns to SELECT.
-  const columns = "news.title, news.body, news.created_at, news.updated_at, user.first_name, user.last_name, user.avatar_url";
+  const columns = "course.course_name, user.first_name + ' ' + user.last_name AS teacher_name";
   // Await query on news and user tables.
-  const result = await pool.query(
-    `SELECT ${columns} FROM news JOIN user ON news.user_id = user.id`
+  const result = await pool.query(`
+    SELECT ${columns} 
+    FROM user_student_groups
+    JOIN course ON news.user_id = user.id`
   );
   // Respond with list of news-data.
   res.json(result[0]);

@@ -48,13 +48,12 @@ function CourseItem(props) {
 
   function onClick() {
     // Navigate to /kurser/kurs-kod.
-    props.onNavigateChange(`/kurser/${encodeURI(courseItem.code)}/flode`);
+    props.onNavigateChange(`/kurser/${encodeURI(courseItem.course_code)}/flode`);
   }
 
   return (
     <ListItemStyled
-      id={encodeURI(courseItem.code)}
-      key={courseItem.code}
+      id={encodeURI(courseItem.course_code)}
       onClick={onClick}>
       <Content>
         {/** Top bar */}
@@ -62,15 +61,15 @@ function CourseItem(props) {
           {/** Teacher info */}
           <Teacher>
             {/** Teacher image */}
-            <TeacherImage src={courseItem.teachers[0].image} alt={courseItem.teachers[0].name} />
+            <TeacherImage src={courseItem.teacher_avatar_url} alt={courseItem.teacher_name} />
             <div>
               {/** Teacher name */}
-              <Headline6>{courseItem.teachers[0].name}</Headline6>
+              <Headline6>{courseItem.teacher_name}</Headline6>
             </div>
           </Teacher>
           {/** Title */}
           <TitleContainer>
-            <Headline5>{courseItem.name}</Headline5>
+            <Headline5>{courseItem.course_name}</Headline5>
           </TitleContainer>
         </TopBar>
       </Content>

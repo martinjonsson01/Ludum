@@ -11,13 +11,11 @@ import { Grid, Row, Cell } from "@material/react-layout-grid";
 
 import "./CoursesPage.scss";
 
-function CoursePage(props) {
-
-  const { location, history, match } = props;
+function CoursePage({ location, history, match }) {
 
   const course = useFetch(
     `http://localhost:3001/api/course/${match.params.code}`,
-    { method: "GET" }
+    { method: "GET", credentials: "include" }
   );
 
   function getInitialIndex() {
@@ -92,19 +90,19 @@ function CoursePage(props) {
           classNames="carouselTransition">
           <section className="grid-container fix-container">
             <Route
-              path={`${props.match.path}/flode`}
+              path={`${match.path}/flode`}
               component={routeProps => <Flow {...routeProps} />}
             />
             <Route
-              path={`${props.match.path}/kursmaterial`}
+              path={`${match.path}/kursmaterial`}
               component={routeProps => <Materials {...routeProps} />}
             />
             <Route
-              path={`${props.match.path}/kursmatris`}
+              path={`${match.path}/kursmatris`}
               component={routeProps => <Flow {...routeProps} />}
             />
             <Route
-              path={`${props.match.path}/prov`}
+              path={`${match.path}/prov`}
               component={routeProps => <Materials {...routeProps} />}
             />
           </section>

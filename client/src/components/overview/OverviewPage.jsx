@@ -2,9 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Grid, Row, Cell } from "@material/react-layout-grid";
 import Card from "@material/react-card";
-import List from "@material/react-list";
+import List, { ListDivider } from "@material/react-list";
 import { Body1, Headline5 } from "@material/react-typography";
-import { ListDivider } from "@material/react-list";
 
 import "./OverviewPage.scss";
 

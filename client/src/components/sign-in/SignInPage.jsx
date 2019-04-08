@@ -39,6 +39,8 @@ function SignInPage({ signInUser }) {
         img.src = res.data.picture;
         // Sign-in new user after profile image has loaded.
         img.onload = () => signInUser(res.data);
+        img.onerror = (error) => onFailure(error);
+        img.onabort = (error) => onFailure(error);
       } catch (error) {
         onFailure(error.response);
       }

@@ -46,8 +46,8 @@ router.put("/current-user", asyncHandler(async (req, res) => {
   // Get database connection-pool-object.
   const pool = db.getPool();
   // Get the hosted domain of the school from the database.
-  const [hosted_domains] = await pool.query("SELECT hosted_domain FROM school");
-  const schoolHostedDomain = hosted_domains[0].hosted_domain;
+  const [schools] = await pool.query("SELECT hosted_domain FROM school");
+  const schoolHostedDomain = schools[0].hosted_domain;
   // Check if hosted domain of token matches the hosted domain of the school.
   if (tokenHostedDomain !== schoolHostedDomain) {
     return res
@@ -59,26 +59,19 @@ router.put("/current-user", asyncHandler(async (req, res) => {
   }
 
   /**
-   * Add user to database if not already there.
+   * Add user to database or update information if already there.
    */
-  // Get the subject of the token (the user ID).
-  const userId = payload["sub"];
-  // Check if a user with id userId exists in database.
-  const [users] = await pool.execute(
-    "SELECT id FROM user WHERE id = ?",
-    [userId]
+  const { sub: userId, given_name, family_name, picture, email } = payload;
+  await pool.execute(
+    "INSERT INTO user (id, first_name, last_name, avatar_url, email) " +
+    "VALUES (?, ?, ?, ?, ?) " +
+    "ON DUPLICATE KEY " +
+    "UPDATE first_name=?, last_name=?, avatar_url=?, email=?",
+    [userId, given_name, family_name, picture, email,
+      given_name, family_name, picture, email]
   );
-  if (users.length === 0) {
-    console.log(payload);
-    // TODO: Store user in database.
-    const { given_name, family_name, picture, email } = payload;
-    await pool.execute(
-      "INSERT INTO user (id, first_name, last_name, avatar_url, email, date_of_birth) " +
-      "VALUES (?, ?, ?, ?, ?, ?)",
-      [userId, given_name, family_name, picture, email, null]
-    );
-  }
 
+  // Store payload in session.
   req.session.user = payload;
 
   return res
@@ -104,11 +97,11 @@ router.get("/news", sessionChecker, asyncHandler(async (req, res) => {
   // Which columns to SELECT.
   const columns = "news.title, news.body, news.created_at, news.updated_at, user.first_name, user.last_name, user.avatar_url";
   // Await query on news and user tables.
-  const result = await pool.query(
+  const [news] = await pool.query(
     `SELECT ${columns} FROM news JOIN user ON news.user_id = user.id`
   );
   // Respond with list of news-data.
-  return res.json(result[0]);
+  return res.json(news);
 }));
 
 // GET course events from the database.
@@ -385,31 +378,68 @@ router.get("/course-events", sessionChecker, (req, res) => {
 
 // GET courses for user from the database.
 router.get("/courses", sessionChecker, asyncHandler(async (req, res) => {
-  // Can't fetch courses if a user session isn't established. TODO: Move this into a seperate auth middleware.
-  if (!req.session.user) return res.sendStatus(403); // FORBIDDEN.
   // Get database connection-pool-object.
   const pool = db.getPool();
-  // Which columns to SELECT.
-  const columns = "course.course_name, user.first_name + ' ' + user.last_name AS teacher_name";
-  // Await query on news and user tables.
-  const result = await pool.query(`
-    SELECT ${columns} 
-    FROM user_student_groups
-    JOIN course ON news.user_id = user.id`
-  );
-  // Respond with list of news-data.
-  res.json(result[0]);
+  // Await query for user courses.
+  // Tbh this query was cancer to set up...
+  const [courses] = await pool.execute(`
+    SELECT 
+      course.course_name,
+      course.id AS course_code,
+      course.banner_url AS course_banner_url,
+      student_group.id AS student_group_id,
+      student_group.group_name AS student_group_name,
+      CONCAT(teacher.first_name, ' ', teacher.lASt_name) AS teacher_name,
+      teacher.avatar_url AS teacher_avatar_url
+    FROM course
+      JOIN student_group
+        ON course.student_group_id = student_group.id
+      JOIN user_student_groups
+        ON student_group.id = user_student_groups.student_group_id
+      JOIN user student
+        ON user_student_groups.user_id = student.id
+      JOIN user_courses
+        ON course.id = user_courses.course_id
+      JOIN user teacher
+        ON user_courses.user_id = teacher.id
+    WHERE student.id = ?;
+  `, [req.session.user.sub]);
+
+  // Organize courses into arrays by student group ID.
+  let orderedCourses = {};
+  for (var i = 0; i < courses.length; i++) {
+    const course = courses[i];
+    if (orderedCourses[course.student_group_id]) {
+      orderedCourses[course.student_group_id].push(course);
+    } else {
+      orderedCourses[course.student_group_id] = [course];
+    }
+  }
+
+  // Respond with ordered courses.
+  res.json(orderedCourses);
 }));
 
 // GET course data from the database.
-router.get("/course/:code", sessionChecker, (req, res) => {
-  setTimeout(() =>
-    res.json([
-      {
-        code: req.params.code,
-      }
-    ]), 1000);
-});
+router.get("/course/:code", sessionChecker, asyncHandler(async (req, res) => {
+  const courseCode = req.params.code;
+  // Get database connection-pool-object.
+  const pool = db.getPool();
+  // Which columns to SELECT.
+  const columns = "id, course_name, banner_url, accent_color";
+  // Await query on course table.
+  const [courses] = await pool.execute(`
+    SELECT ${columns} FROM course WHERE id = ?
+  `, [courseCode]);
+  // If one result was not returned by database.
+  if (courses.length !== 1) {
+    return res
+      .status(404) // NOT FOUND.
+      .send(`Kunde inte hitta en kurs med kod "${courseCode}"`);
+  }
+  // Respond with course-data.
+  return res.json(courses[0]);
+}));
 
 // GET all available data in the database.
 /*router.get("/getData", (req, res) => {

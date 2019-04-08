@@ -148,7 +148,7 @@ class MainLayout extends Component {
       return;
     }
     const title = this.navItems[locationIndex].title;
-    document.title = "Ludum - " + title;
+    document.title = `${title} - Ludum`;
   }
 
   onNavigateChange = (location, hash) => {

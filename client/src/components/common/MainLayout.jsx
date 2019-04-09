@@ -10,7 +10,7 @@ import { findWithAttr } from "../../Util";
 import ErrorBoundary from "./ErrorBoundary";
 import NavigationDrawer from "./NavigationDrawer";
 import SignInPage from "../sign-in/SignInPage";
-import { UserContext } from "./UserContext";
+import { AppContext } from "./AppContext";
 import TopBar from "./TopBar";
 
 // Lazy-load pages.
@@ -29,17 +29,6 @@ class MainLayout extends Component {
       onToggleTheme: PropTypes.func,
     };
   }
-
-  navIndexes = [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-  ]
 
   // TODO: Switch out navItems depending on the type of account logged in (e.g. admin, student, etc...)
   navItems = [
@@ -90,21 +79,9 @@ class MainLayout extends Component {
       title: "Elevgrupper",
       icon: "group",
     },
-    {
-      location: "/installningar",
-      title: "Inställningar",
-    },
-    {
-      location: "/profil",
-      title: "Profil",
-    },
-    {
-      location: "/kurser/IDRIDR01",
-      title: "Idrott & Hälsa 1",
-    },
   ];
 
-  static contextType = UserContext;
+  static contextType = AppContext;
 
   constructor(props) {
     super(props);
@@ -113,21 +90,14 @@ class MainLayout extends Component {
     this.state = {
       selectedIndex: locationIndex,
       drawerOpen: window.innerWidth > 600,
-      title: locationIndex === -1 ? "Hittades Inte" : this.navItems[locationIndex].title,
       topAppBarSmall: window.innerWidth > 600,
     };
     this.onNavigateChange = this.onNavigateChange.bind(this);
-    this.updateBrowserTitle = this.updateBrowserTitle.bind(this);
     this.onWindowResize = this.onWindowResize.bind(this);
   }
 
   componentDidMount() {
-    this.updateBrowserTitle();
     window.addEventListener("resize", this.onWindowResize);
-  }
-
-  componentDidUpdate() {
-    this.updateBrowserTitle();
   }
 
   componentWillUnmount() {
@@ -140,23 +110,11 @@ class MainLayout extends Component {
     });
   }
 
-  updateBrowserTitle() {
-    const { pathname } = this.props.location;
-    const locationIndex = findWithAttr(this.navItems, "location", pathname);
-    if (locationIndex === -1) {
-      document.title = "Ludum";
-      return;
-    }
-    const title = this.navItems[locationIndex].title;
-    document.title = `${title} - Ludum`;
-  }
-
   onNavigateChange = (location, hash) => {
     this.props.history.push(`${location}#${hash || ""}`);
     var navItemIndex = findWithAttr(this.navItems, "location", location);
     this.setState({
       selectedIndex: navItemIndex,
-      title: navItemIndex === -1 ? "Ludum" : this.navItems[navItemIndex].title,
     });
   }
 
@@ -181,14 +139,12 @@ class MainLayout extends Component {
             selectedIndex={this.state.selectedIndex}
             drawerOpen={this.state.drawerOpen}
             navItems={this.navItems}
-            navIndexes={this.navIndexes}
             onNavigateChange={this.onNavigateChange} />
         </ErrorBoundary>
 
         <DrawerAppContent className='drawer-app-content'>
           <TopBar
             drawerOpen={this.state.drawerOpen}
-            title={this.state.title}
             onDrawerToggle={this.onDrawerToggle}
             onNavigateChange={this.onNavigateChange}
           />

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import PropTypes from "prop-types";
-import { ThemeContext } from "../common/ThemeContext";
+import { AppContext } from "../common/AppContext";
 import { addGoogleClientLibraryScript, parseGoogleUser } from "../../Util";
 
 /**
@@ -15,7 +15,7 @@ const defaultScopes = [
 
 function SignInButton({ onSuccess, onFailure, onRequest }) {
 
-  const theme = useContext(ThemeContext).theme;
+  const theme = useContext(AppContext).theme;
 
   function renderSignInButton() {
     window.gapi.signin2.render("google-sign-in-button", {

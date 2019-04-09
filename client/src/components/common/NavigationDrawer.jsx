@@ -9,7 +9,6 @@ import lbsLogo from "../../media/lbs-logo.png";
 
 function NavigationDrawer({
   drawerOpen,
-  navIndexes,
   selectedIndex,
   navItems,
   onNavigateChange
@@ -48,21 +47,21 @@ function NavigationDrawer({
           id="navList"
           singleSelection selectedIndex={selectedIndex}
           tag="nav">
-          {navIndexes.map((index) => [
+          {navItems.map((navItem) => [
             // Only render subheader if subHeader has a value.
-            navItems[index].subHeader &&
-            <ListGroupSubheader tag='h2'>{navItems[index].subHeader}</ListGroupSubheader>,
+            navItem.subHeader &&
+            <ListGroupSubheader tag='h2'>{navItem.subHeader}</ListGroupSubheader>,
 
             <ListItem
               tag="a"
-              key={navItems[index].location}
-              onClick={() => onNavigateChange(navItems[index].location)}>
-              <ListItemGraphic graphic={<MaterialIcon icon={navItems[index].icon} />} />
-              <ListItemText primaryText={navItems[index].title} />
+              key={navItem.location}
+              onClick={() => onNavigateChange(navItem.location)}>
+              <ListItemGraphic graphic={<MaterialIcon icon={navItem.icon} />} />
+              <ListItemText primaryText={navItem.title} />
             </ListItem>,
 
             // Only render divider if trailingDivider is true.
-            navItems[index].trailingDivider && <ListDivider />
+            navItem.trailingDivider && <ListDivider />
           ])}
         </List>
       </DrawerContent>
@@ -74,7 +73,6 @@ NavigationDrawer.propTypes = {
   selectedIndex: PropTypes.any,
   drawerOpen: PropTypes.bool,
   navItems: PropTypes.array,
-  navIndexes: PropTypes.array,
   onNavigateChange: PropTypes.func
 };
 

@@ -7,6 +7,7 @@ import SignInButton from "./SignInButton";
 import Splashscreen from "../common/Splashscreen";
 import { addGoogleClientLibraryScript, parseGoogleUser } from "../../Util";
 import axios from "axios";
+import withTitle from "../common/withTitle.jsx";
 
 import logo from "../../media/logo-104x104.png";
 
@@ -201,4 +202,4 @@ const MainContent = styled.div`
   animation-fill-mode: forwards;
 `;
 
-export default SignInPage;
+export default withTitle(SignInPage, "Logga In");

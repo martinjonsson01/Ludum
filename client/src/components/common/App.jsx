@@ -4,8 +4,7 @@ import Sheltr from "@taito/react-sheltr";
 import "./App.scss";
 import MainLayout from "./MainLayout";
 import ErrorBoundary from "./ErrorBoundary";
-import { ThemeContext } from "./ThemeContext";
-import { UserContext } from "./UserContext";
+import { AppContext } from "./AppContext";
 import axios from "axios";
 
 class App extends Component {
@@ -54,10 +53,12 @@ class App extends Component {
         });
     };
 
+    this.setTitle = (title) => {
+      this.setState({ title: title });
+    };
+
     const currentTheme = localStorage.getItem("theme") || "light";
     this.setDocumentTheme(currentTheme, true);
-
-
 
     this.state = {
       theme: currentTheme,
@@ -65,22 +66,27 @@ class App extends Component {
       user: null,
       signInUser: this.signInUser,
       signOutUser: this.signOutUser,
+      title: "Ludum",
+      setTitle: this.setTitle,
     };
+  }
+
+  componentDidUpdate() {
+    // Update document title.
+    document.title = `${this.state.title} - Ludum`;
   }
 
   render() {
     return (
       //<React.StrictMode>
       <BrowserRouter>
-        <ThemeContext.Provider value={this.state}>
-          <UserContext.Provider value={this.state}>
-            <ErrorBoundary>
-              <Sheltr delay={200}>
-                <MainLayout />
-              </Sheltr>
-            </ErrorBoundary>
-          </UserContext.Provider>
-        </ThemeContext.Provider>
+        <AppContext.Provider value={this.state}>
+          <ErrorBoundary>
+            <Sheltr delay={200}>
+              <MainLayout />
+            </Sheltr>
+          </ErrorBoundary>
+        </AppContext.Provider>
       </BrowserRouter>
       //</React.StrictMode>
     );

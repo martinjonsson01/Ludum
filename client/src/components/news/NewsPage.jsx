@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import withTitle from "../common/withTitle.jsx";
 
 import FetchList from "../common/FetchList";
 import NewsItem from "./NewsItem";
@@ -20,4 +21,4 @@ function NewsPage() {
   );
 }
 
-export default NewsPage;
+export default withTitle(NewsPage, "Nyheter");

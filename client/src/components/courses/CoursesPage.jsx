@@ -6,7 +6,8 @@ import useFetch from "fetch-suspense";
 import Card from "@material/react-card";
 import { Grid, Row, Cell } from "@material/react-layout-grid";
 import { Headline5 } from "@material/react-typography";
-import List, {ListDivider} from "@material/react-list";
+import List, { ListDivider } from "@material/react-list";
+import withTitle from "../common/withTitle.jsx";
 
 import CourseItem from "./CourseItem";
 
@@ -18,13 +19,22 @@ const Container = styled.div`
   width: 1000px;
   margin: 0 auto;
 `;
+const ScrollableList = styled(List)`
+  overflow-y: hidden;
+  ${ScrollableList}:hover {
+    overflow-y: auto;
+  }
+  ${ScrollableList}::-webkit-scrollbar-track {
+    margin-top: 4px;
+  }
+`;
 
 function CoursesPage(props) {
 
-  const courses = useFetch("http://localhost:3001/api/courses", { 
-    method: "GET", credentials: "include" 
+  const courses = useFetch("http://localhost:3001/api/courses", {
+    method: "GET", credentials: "include"
   });
-  
+
   function renderCourses() {
     return (
       <Container>
@@ -33,16 +43,16 @@ function CoursesPage(props) {
             {Object.keys(courses).map(studentGroupId => {
               const studentGroupCourses = courses[studentGroupId];
               return (
-                <Cell 
-                  columns={6} 
+                <Cell
+                  columns={6}
                   tabletColumns={8}
                   key={studentGroupId}
                 >
                   <Card className="full-height">
                     <Headline5 className="card-title">{studentGroupId}</Headline5>
-                    <List>
+                    <ScrollableList>
                       {studentGroupCourses.map((course, index, array) => [
-                        <CourseItem 
+                        <CourseItem
                           key={course.course_code}
                           listItem={course}
                           index={index}
@@ -54,7 +64,7 @@ function CoursesPage(props) {
                           <ListDivider
                             key={index + "_divider"} />
                       ])}
-                    </List>
+                    </ScrollableList>
                   </Card>
                 </Cell>
               );
@@ -82,4 +92,4 @@ CoursesPage.propTypes = {
   match: PropTypes.object,
 };
 
-export default CoursesPage;
+export default withTitle(CoursesPage, "Kurser");

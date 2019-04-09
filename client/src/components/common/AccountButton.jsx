@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 import { SharedElement } from "@taito/react-sheltr";
 
 import defaultProfile from "../../media/defaultProfile.png";
-import { ThemeContext } from "./ThemeContext";
-import { UserContext } from "./UserContext";
+import { AppContext } from "./AppContext";
 import AccountSurface from "./AccountSurface";
 
 export default class AccountButton extends Component {
@@ -48,39 +47,36 @@ export default class AccountButton extends Component {
   render() {
 
     return (
-      <ThemeContext.Consumer>
-        {({ theme, toggleTheme }) =>
-          (<UserContext.Consumer>
-            {({ user, signOutUser }) =>
-              <div className="account" >
-                {/** Profile Image */}
-                <SharedElement sharedId="logo" startOnUnmount>
-                  {sheltrProps =>
-                    <img
-                      {...sheltrProps}
-                      src={user ? user.picture : defaultProfile}
-                      alt="Profilbild"
-                      className='mdc-menu-surface--anchor'
-                      ref={this.setAnchorElement}
-                      onClick={this.toggleMenu}
-                    />
-                  }
-                </SharedElement>
-                {/** Menu Surface */}
-                <AccountSurface
-                  theme={theme}
-                  toggleTheme={toggleTheme}
-                  user={user}
-                  signOutUser={signOutUser}
-                  anchorElement={this.state.anchorElement}
-                  closeMenu={this.closeMenu}
-                  menuOpen={this.state.menuOpen}
-                  onNavigateChange={this.props.onNavigateChange}
+      <AppContext.Consumer>
+        {({ theme, toggleTheme, user, signOutUser }) =>
+          <div className="account" >
+            {/** Profile Image */}
+            <SharedElement sharedId="logo" startOnUnmount>
+              {sheltrProps =>
+                <img
+                  {...sheltrProps}
+                  src={user ? user.picture : defaultProfile}
+                  alt="Profilbild"
+                  className='mdc-menu-surface--anchor'
+                  ref={this.setAnchorElement}
+                  onClick={this.toggleMenu}
                 />
-              </div>
-            }
-          </UserContext.Consumer>)}
-      </ThemeContext.Consumer>
+              }
+            </SharedElement>
+            {/** Menu Surface */}
+            <AccountSurface
+              theme={theme}
+              toggleTheme={toggleTheme}
+              user={user}
+              signOutUser={signOutUser}
+              anchorElement={this.state.anchorElement}
+              closeMenu={this.closeMenu}
+              menuOpen={this.state.menuOpen}
+              onNavigateChange={this.props.onNavigateChange}
+            />
+          </div>
+        }
+      </AppContext.Consumer>
     );
   }
 }

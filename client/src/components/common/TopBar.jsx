@@ -5,8 +5,9 @@ import MaterialIcon from "@material/react-material-icon";
 
 import ErrorBoundary from "./ErrorBoundary";
 import AccountButton from "./AccountButton";
+import { AppContext } from "./AppContext";
 
-function TopBar({ drawerOpen, onDrawerToggle, title, onNavigateChange }) {
+function TopBar({ drawerOpen, onDrawerToggle, onNavigateChange }) {
 
   const [topAppBarSmall, setTopAppBarSmall] = useState(window.innerWidth > 600);
 
@@ -41,10 +42,14 @@ function TopBar({ drawerOpen, onDrawerToggle, title, onNavigateChange }) {
           </TopAppBarIcon>
         </TopAppBarSection>
         <TopAppBarSection>
-          <TopAppBarTitle
-            className="align-text-center">
-            {title}
-          </TopAppBarTitle>
+          <AppContext.Consumer>
+            {({ title }) =>
+              <TopAppBarTitle
+                className="align-text-center">
+                {title}
+              </TopAppBarTitle>
+            }
+          </AppContext.Consumer>
         </TopAppBarSection>
         <TopAppBarSection align="end">
           <ErrorBoundary key="accountButtonErrorBoundary">
@@ -60,7 +65,6 @@ function TopBar({ drawerOpen, onDrawerToggle, title, onNavigateChange }) {
 
 TopBar.propTypes = {
   drawerOpen: PropTypes.bool.isRequired,
-  title: PropTypes.string.isRequired,
   onDrawerToggle: PropTypes.func.isRequired,
   onNavigateChange: PropTypes.func.isRequired,
 };

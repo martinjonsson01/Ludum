@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "@material/react-card";
 import { Grid, Row, Cell } from "@material/react-layout-grid";
+import withTitle from "../common/withTitle.jsx";
 
 function SchedulePage() {
   return (
@@ -16,4 +17,4 @@ function SchedulePage() {
   );
 }
 
-export default SchedulePage;
+export default withTitle(SchedulePage, "Schema");

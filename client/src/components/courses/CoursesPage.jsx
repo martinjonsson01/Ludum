@@ -1,5 +1,6 @@
-import React, { lazy } from "react";
+import React, { lazy, useContext } from "react";
 import { Route } from "react-router-dom";
+import { AppContext } from "../common/AppContext";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import useFetch from "fetch-suspense";
@@ -7,20 +8,20 @@ import Card from "@material/react-card";
 import { Grid, Row, Cell } from "@material/react-layout-grid";
 import { Headline5 } from "@material/react-typography";
 import List, { ListDivider } from "@material/react-list";
-import withTitle from "../common/withTitle.jsx";
 
 import CourseItem from "./CourseItem";
 
 // Lazy-load CoursePage.
 const CoursePage = lazy(() => import("../courses/CoursePage"));
 
+const ScrollableList = styled(List)`
+  overflow-y: hidden;
+`;
 const Container = styled.div`
   max-width: calc(100% - (2*1.5rem));
   width: 1000px;
   margin: 0 auto;
-`;
-const ScrollableList = styled(List)`
-  overflow-y: hidden;
+  
   ${ScrollableList}:hover {
     overflow-y: auto;
   }
@@ -31,11 +32,18 @@ const ScrollableList = styled(List)`
 
 function CoursesPage(props) {
 
+  const { title, setTitle } = useContext(AppContext);
+
   const courses = useFetch("http://localhost:3001/api/courses", {
     method: "GET", credentials: "include"
   });
 
   function renderCourses() {
+
+    if (title !== "Kurser") {
+      setTitle("Kurser");
+    }
+
     return (
       <Container>
         <Grid>
@@ -92,4 +100,4 @@ CoursesPage.propTypes = {
   match: PropTypes.object,
 };
 
-export default withTitle(CoursesPage, "Kurser");
+export default CoursesPage;

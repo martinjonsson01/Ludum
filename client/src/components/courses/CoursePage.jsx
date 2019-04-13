@@ -1,15 +1,18 @@
 /* eslint-disable indent */
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { Route } from "react-router-dom";
 import useFetch from "fetch-suspense";
+import { AppContext } from "../common/AppContext";
 import TabBar from "@material/react-tab-bar";
 import Tab from "@material/react-tab";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import Card from "@material/react-card";
-import { Grid, Row, Cell } from "@material/react-layout-grid";
 
 import "./CoursesPage.scss";
+import FlowPage from "./FlowPage";
+import MatrixPage from "./MatrixPage";
+import TestsPage from "./TestsPage";
+import MaterialsPage from "./MaterialsPage";
 
 function CoursePage({ location, history, match }) {
 
@@ -17,6 +20,11 @@ function CoursePage({ location, history, match }) {
     `http://localhost:3001/api/course/${match.params.code}`,
     { method: "GET", credentials: "include" }
   );
+
+  const { title, setTitle } = useContext(AppContext);
+  if (title !== course.course_name) {
+    setTitle(course.course_name);
+  }
 
   function getInitialIndex() {
     switch (location.pathname) {
@@ -28,30 +36,6 @@ function CoursePage({ location, history, match }) {
     }
   }
   const [activeIndex, setActiveIndex] = useState(getInitialIndex());
-
-  function Flow() {
-    return (
-      <Grid>
-        <Row>
-          <Cell columns={12}>
-            <Card className="full-height-tabbar">Flöde</Card>
-          </Cell>
-        </Row>
-      </Grid>
-    );
-  }
-
-  function Materials() {
-    return (
-      <Grid>
-        <Row>
-          <Cell columns={12}>
-            <Card className="full-height-tabbar">Kursmaterial</Card>
-          </Cell>
-        </Row>
-      </Grid>
-    );
-  }
 
   function onActiveIndexUpdate(index) {
     setActiveIndex(index);
@@ -91,19 +75,19 @@ function CoursePage({ location, history, match }) {
           <section className="grid-container fix-container">
             <Route
               path={`${match.path}/flode`}
-              component={routeProps => <Flow {...routeProps} />}
+              component={routeProps => <FlowPage {...routeProps} />}
             />
             <Route
               path={`${match.path}/kursmaterial`}
-              component={routeProps => <Materials {...routeProps} />}
+              component={routeProps => <MaterialsPage {...routeProps} />}
             />
             <Route
               path={`${match.path}/kursmatris`}
-              component={routeProps => <Flow {...routeProps} />}
+              component={routeProps => <MatrixPage {...routeProps} />}
             />
             <Route
               path={`${match.path}/prov`}
-              component={routeProps => <Materials {...routeProps} />}
+              component={routeProps => <TestsPage {...routeProps} />}
             />
           </section>
         </CSSTransition>

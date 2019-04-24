@@ -5,11 +5,6 @@ import withTitle from "../common/withTitle.jsx";
 import FetchList from "../common/FetchList";
 import NewsItem from "./NewsItem";
 
-const Container = styled.div`
-  max-width: calc(100% - (2*1.5rem));
-  width: 1000px;
-  margin: 1.5rem auto;
-`;
 function NewsPage() {
   return (
     <Container>
@@ -20,5 +15,11 @@ function NewsPage() {
     </Container>
   );
 }
+
+const Container = styled.div`
+  max-width: calc(100% - (2*1.5rem));
+  width: 1000px;
+  margin: 1.5rem auto;
+`;
 
 export default withTitle(NewsPage, "Nyheter");

@@ -8,7 +8,80 @@ import IconButton from "@material/react-icon-button";
 import { writeText, formatDate } from "../../Util";
 
 /**
- * NewsItem styling.
+ * Component.
+ */
+function NewsItem(props) {
+
+  const newsItem = props.listItem;
+  const authorName = newsItem.first_name + " " + newsItem.last_name;
+  const publishDate = formatDate(new Date(newsItem.created_at));
+  const editDate = formatDate(new Date(newsItem.updated_at));
+  const [copiedLink, setCopiedLink] = useState(false);
+
+  function onCopyLink() {
+    writeText(`${window.location.origin}${window.location.pathname}#${encodeURI(newsItem.title)}`);
+    setCopiedLink(true);
+  }
+
+  function onSnackbarDismiss() {
+    setCopiedLink(false);
+  }
+
+  return ([
+    <NewsItemContainer
+      id={encodeURI(newsItem.title)}
+      key={newsItem.title + ":" + newsItem.date}>
+      <Card>
+        <NewsItemContent>
+          {/** Top bar */}
+          <TopBar>
+            {/** Author info */}
+            <Author>
+              {/** Author image */}
+              <AuthorImage src={newsItem.avatar_url} alt={authorName} />
+              <div>
+                {/** Author name */}
+                <Headline6>{authorName}</Headline6>
+                {/** Publish date */}
+                <Body1>{publishDate}</Body1>
+                {/** Edit date */}
+                { editDate === publishDate ? "" :
+                  <i><Body1>Redigerad {editDate}</Body1></i>
+                }
+              </div>
+            </Author>
+            <TitleContainer>
+              {/** Title */}
+              <Headline5 className="vertical-align">{newsItem.title}</Headline5>
+              {/** Copy link button */}
+              <IconButton
+                onClick={onCopyLink}>
+                <MaterialIcon icon="link" />
+              </IconButton>
+            </TitleContainer>
+          </TopBar>
+          {/** News body */}
+          <BodyArea>
+            <Body1>{newsItem.body}</Body1>
+          </BodyArea>
+          {
+            copiedLink ?
+              <Snackbar
+                leading
+                message="Länk kopierad"
+                actionText="Avfärda"
+                onClose={onSnackbarDismiss}
+              />
+              : ""
+          }
+        </NewsItemContent>
+      </Card>
+    </NewsItemContainer>
+  ]);
+}
+
+/**
+ * Styling.
  */
 const NewsItemContainer = styled.li`
   margin: 1.5rem;
@@ -53,74 +126,5 @@ const BodyArea = styled.div`
 const Author = styled.div`
   display: flex;
 `;
-
-/**
- * NewsItem component.
- */
-function NewsItem(props) {
-
-  const newsItem = props.listItem;
-  const authorName = newsItem.first_name + " " + newsItem.last_name;
-  const publishDate = formatDate(new Date(newsItem.created_at));
-
-  const [copiedLink, setCopiedLink] = useState(false);
-
-  function onCopyLink() {
-    writeText(`${window.location.origin}${window.location.pathname}#${encodeURI(newsItem.title)}`);
-    setCopiedLink(true);
-  }
-
-  function onSnackbarDismiss() {
-    setCopiedLink(false);
-  }
-
-  return ([
-    <NewsItemContainer
-      id={encodeURI(newsItem.title)}
-      key={newsItem.title + ":" + newsItem.date}>
-      <Card>
-        <NewsItemContent>
-          {/** Top bar */}
-          <TopBar>
-            {/** Author info */}
-            <Author>
-              {/** Author image */}
-              <AuthorImage src={newsItem.avatar_url} alt={authorName} />
-              <div>
-                {/** Author name */}
-                <Headline6>{authorName}</Headline6>
-                {/** Publish date */}
-                <Body1>{publishDate}</Body1>
-              </div>
-            </Author>
-            <TitleContainer>
-              {/** Title */}
-              <Headline5 className="vertical-align">{newsItem.title}</Headline5>
-              {/** Copy link button */}
-              <IconButton
-                onClick={onCopyLink}>
-                <MaterialIcon icon="link" />
-              </IconButton>
-            </TitleContainer>
-          </TopBar>
-          {/** News body */}
-          <BodyArea>
-            <Body1>{newsItem.body}</Body1>
-          </BodyArea>
-          {
-            copiedLink ?
-              <Snackbar
-                leading
-                message="Kopierade länk till nyhet"
-                actionText="Avfärda"
-                onClose={onSnackbarDismiss}
-              />
-              : ""
-          }
-        </NewsItemContent>
-      </Card>
-    </NewsItemContainer>
-  ]);
-}
 
 export default NewsItem;

@@ -9,13 +9,13 @@ import { AppContext } from "./AppContext";
 
 function TopBar({ drawerOpen, onDrawerToggle, onNavigateChange }) {
 
-  const [topAppBarSmall, setTopAppBarSmall] = useState(window.innerWidth > 600);
+  const [topAppBarSmall, setTopAppBarSmall] = useState(window.innerWidth > 700);
 
   // Resize top app bar based on window size.
   useEffect(() => {
     // Create listener.
     function onWindowResize() {
-      setTopAppBarSmall(window.innerWidth > 600);
+      setTopAppBarSmall(window.innerWidth > 700);
     }
     // Register listener.
     window.addEventListener("resize", onWindowResize);
@@ -43,10 +43,10 @@ function TopBar({ drawerOpen, onDrawerToggle, onNavigateChange }) {
         </TopAppBarSection>
         <TopAppBarSection>
           <AppContext.Consumer>
-            {({ title }) =>
+            {({ appBarTitle }) =>
               <TopAppBarTitle
                 className="align-text-center">
-                {title}
+                {appBarTitle}
               </TopAppBarTitle>
             }
           </AppContext.Consumer>

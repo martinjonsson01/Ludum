@@ -1,0 +1,56 @@
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import useFetch from "fetch-suspense";
+
+import AnnouncementItem from "./AnnouncementItem";
+
+/**
+ * FeedPage component.
+ */
+function FeedPage({ courseId, accentColor }) {
+
+  const feed = useFetch(
+    `http://localhost:3001/api/course/${courseId}/feed`,
+    { method: "GET", credentials: "include" }
+  );
+
+  return (
+    <Container>
+      <ul>
+        {feed.map((event, index, array) => [
+          event.type === "assignment" ?
+            <li key={event.content}>Uppgift</li>
+            :
+            <AnnouncementItem
+              key={event.content}
+              event={event}
+              accentColor={accentColor}
+            />,
+          // Only render MarginDivider if not last item.
+          array.length - 1 === index ? "" :
+            <MarginDivider key={index + "_divider"} />
+        ])}
+      </ul>
+    </Container>
+  );
+}
+
+FeedPage.propTypes = {
+  courseId: PropTypes.string.isRequired,
+  accentColor: PropTypes.string,
+};
+
+/**
+ * FeedPage styling.
+ */
+const Container = styled.div`
+  max-width: calc(100% - (2*1.5rem));
+  width: 764px;
+  margin: 0  auto 1.5rem auto;
+`;
+const MarginDivider = styled.div`
+  margin-top: 1.5rem;
+`;
+
+export default FeedPage;

@@ -11,7 +11,7 @@ import withTitle from "../common/withTitle.jsx";
 
 import logo from "../../media/logo-104x104.png";
 
-function SignInPage({ signInUser }) {
+function SignInPage({ user, signInUser, signOutUser, setAccessToken, setAuthUser }) {
 
   const [loading, setLoading] = useState(shouldBeLoading());
   const [error, setError] = useState(null);
@@ -36,12 +36,27 @@ function SignInPage({ signInUser }) {
           `idToken=${googleUser.tokenId}`,
           { withCredentials: true }
         );
+        // Get authorization response.
+        const authResponse = await googleUser.getAuthResponse(true);
+        // Add access token from auth response to application context.
+        setAccessToken(authResponse.access_token);
+        // Get which Google user is authenticated, if there is one.
+        if (authResponse.session_state) {
+          if (authResponse.session_state.extraQueryParams) {
+            if (authResponse.session_state.extraQueryParams.authuser) {
+              // Add authuser from auth response to application context.
+              setAuthUser(authResponse.session_state.extraQueryParams.authuser);
+            }
+          }
+        }
+
         var img = new Image();
         img.src = res.data.picture;
         // Sign-in new user after profile image has loaded.
         img.onload = () => signInUser(res.data);
         img.onerror = (error) => onFailure(error);
         img.onabort = (error) => onFailure(error);
+
       } catch (error) {
         onFailure(error.response);
       }
@@ -49,42 +64,37 @@ function SignInPage({ signInUser }) {
   }
 
   function onFailure(response) {
-    if (response.status === 401) {
-      // Explain to user why authentication failed using supplied error message.
-      setError(response.data);
-    }
-    if (response.error === "popup_closed_by_user") {
-      // Explain to user why authentication failed when the popup was closed.
-      setError("Inloggningsfönstret stängdes.");
+    if (response) {
+      if (response.status === 401) {
+        // Explain to user why authentication failed using supplied error message.
+        setError(response.data);
+      }
+      if (response.error === "popup_closed_by_user") {
+        // Explain to user why authentication failed when the popup was closed.
+        setError("Inloggningsfönstret stängdes.");
+      }
     }
     setLoading(false);
   }
 
-  function initAuth2() {
-    if (!window.gapi.auth2.getAuthInstance()) {
-      const scopes = [
-        "https://www.googleapis.com/auth/userinfo.email",
-        "https://www.googleapis.com/auth/userinfo.profile",
-        /*"https://www.googleapis.com/auth/user.birthday.read",
-        "https://www.googleapis.com/auth/user.addresses.read",*/
-      ];
-      window.gapi.auth2.init({
+  function initClient() {
+    if (!window.gapi.auth2 || !window.gapi.auth2.getAuthInstance()) {
+      const scope = "email profile https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/youtube.readonly";
+      window.gapi.client.init({
         client_id: "425892769172-0jb5mo5gm07avnjraabf75pkula2uv65.apps.googleusercontent.com",
         cookie_policy: "single_host_origin",
         login_hint: "Login hint här",
         //hosted_domain: "*.ga.lbs.se",  TODO: Needs to allow both elev.ga.lbs.se and ga.lbs.se. See GitHub issue: https://github.com/google/google-api-javascript-client/issues/210
         fetch_basic_profile: true,
         ux_mode: "popup",
-        scopes,
+        scope: scope,
         access_type: "online"
-      }).then(res => {
-        if (res.isSignedIn.get()) {
-          const googleUser = res.currentUser.get();
-          onSuccess(parseGoogleUser(googleUser));
-        }
-        else {
-          setLoading(false);
-        }
+      }).then(() => {
+        // Listen for sign-in state changes.
+        window.gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+        // Handle the initial sign-in state.
+        updateSigninStatus(window.gapi.auth2.getAuthInstance().isSignedIn.get());
       }, err => onFailure(err));
     }
     else {
@@ -95,16 +105,28 @@ function SignInPage({ signInUser }) {
     }
   }
 
+  function updateSigninStatus(isSignedin) {
+    if (isSignedin) {
+      const googleUser = window.gapi.auth2.getAuthInstance().currentUser.get();
+      onSuccess(parseGoogleUser(googleUser));
+    }
+    else {
+      setLoading(false);
+      if (user) {
+        signOutUser();
+        setAuthUser(null);
+      }
+    }
+  }
+
   async function initGoogleAuth() {
     // Add Google client library script to DOM.
     await addGoogleClientLibraryScript();
 
-    if (!window.gapi.auth2) {
-      window.gapi.load("auth2", () => {
-        initAuth2();
-      });
+    if (window.gapi.client) {
+      initClient();
     } else {
-      initAuth2();
+      window.gapi.load("client:auth2", initClient);
     }
   }
 
@@ -157,6 +179,10 @@ function SignInPage({ signInUser }) {
 
 SignInPage.propTypes = {
   signInUser: PropTypes.func.isRequired,
+  signOutUser: PropTypes.func.isRequired,
+  setAccessToken: PropTypes.func.isRequired,
+  setAuthUser: PropTypes.func.isRequired,
+  user: PropTypes.object,
 };
 
 const Center = styled.div`

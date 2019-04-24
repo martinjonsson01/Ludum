@@ -89,8 +89,8 @@ class MainLayout extends Component {
     const locationIndex = findWithAttr(this.navItems, "location", pathname);
     this.state = {
       selectedIndex: locationIndex,
-      drawerOpen: window.innerWidth > 600,
-      topAppBarSmall: window.innerWidth > 600,
+      drawerOpen: window.innerWidth > 700,
+      topAppBarSmall: window.innerWidth > 700,
     };
     this.onNavigateChange = this.onNavigateChange.bind(this);
     this.onWindowResize = this.onWindowResize.bind(this);
@@ -106,7 +106,7 @@ class MainLayout extends Component {
 
   onWindowResize() {
     this.setState({
-      drawerOpen: window.innerWidth > 600
+      drawerOpen: window.innerWidth > 700
     });
   }
 
@@ -129,7 +129,15 @@ class MainLayout extends Component {
   render() {
 
     if (!this.context.user) {
-      return <SignInPage signInUser={this.context.signInUser} />;
+      return (
+        <SignInPage
+          signInUser={this.context.signInUser}
+          signOutUser={this.context.signOutUser}
+          setAccessToken={this.context.setAccessToken}
+          setAuthUser={this.context.setAuthUser}
+          user={this.context.user}
+        />
+      );
     }
 
     return (

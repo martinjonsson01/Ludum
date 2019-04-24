@@ -23,6 +23,11 @@ main {
   width: calc(100% - 256px) !important;
 }
 
+.mdc-top-app-bar {
+  background-color: var(--mdc-theme-surface);
+  color: var(--mdc-theme-on-surface);
+}
+
 .align-text-center {
   margin: auto;
   padding: 0;
@@ -67,7 +72,7 @@ main {
 html[data-theme="dark"] {
   .mdc-drawer {
     /* Should always be --mdc-theme-surface color. */
-    @include mdc-drawer-fill-color-accessible(#003638);
+    @include mdc-drawer-fill-color-accessible(#002b2c);
     @include mdc-drawer-item-activated-icon-ink-color(#da5026);
   }
 }
@@ -174,8 +179,8 @@ html[data-theme="dark"] .mdc-list-divider {
 }
 
 .full-height {
-  /* Set height to 100% of the shortest screen length... */
+  /* Set height to 100% of the viewport height... */
   /* minus the height of the top app bar... */
   /* minus the padding of the layout grid(twice). */
-  height: calc(100vmin - 64px - 24px - 24px);
+  height: calc(100vh - 64px - 24px - 24px);
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import List, { ListItem, ListItemGraphic, ListItemText, ListGroupSubheader, ListDivider } from "@material/react-list";
-import Drawer, { DrawerContent, DrawerHeader, DrawerTitle } from "@material/react-drawer";
+import Drawer, { DrawerContent, DrawerHeader } from "@material/react-drawer";
 import MaterialIcon from "@material/react-material-icon";
 
 import logo from "../../media/logo-144x144.png";
@@ -19,7 +19,7 @@ function NavigationDrawer({
    */
   const [dismissible, setDismissible] = useState(false);
   const [actualDrawerOpen, setActualDrawerOpen] = useState(false);
-  if (window.innerWidth > 600) {
+  if (window.innerWidth > 700) {
     setTimeout(() => {
       setDismissible(true);
       setActualDrawerOpen(drawerOpen);
@@ -35,9 +35,6 @@ function NavigationDrawer({
       dismissible={dismissible}
       open={actualDrawerOpen}>
       <DrawerHeader>
-        <DrawerTitle tag='h2'>
-          Ludum
-        </DrawerTitle>
         <img src={logo} alt="Ludum logotyp" width="64px" height="64px" />
         <img src={lbsLogo} alt="LBS logotyp" width="auto" height="64px" />
       </DrawerHeader>

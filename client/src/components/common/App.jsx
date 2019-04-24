@@ -53,8 +53,26 @@ class App extends Component {
         });
     };
 
-    this.setTitle = (title) => {
-      this.setState({ title: title });
+    this.setTitle = (title, onlyDocumentTitle) => {
+      if (onlyDocumentTitle) {
+        this.setState({
+          appBarTitle: "",
+          documentTitle: title
+        });
+      } else {
+        this.setState({
+          appBarTitle: title,
+          documentTitle: title
+        });
+      }
+    };
+
+    this.setAccessToken = (accessToken) => {
+      this.setState({ accessToken: accessToken });
+    };
+
+    this.setAuthUser = (authUser) => {
+      this.setState({ authUser: authUser });
     };
 
     const currentTheme = localStorage.getItem("theme") || "light";
@@ -66,14 +84,19 @@ class App extends Component {
       user: null,
       signInUser: this.signInUser,
       signOutUser: this.signOutUser,
-      title: "Ludum",
+      appBarTitle: "Ludum",
+      documentTitle: "Ludum",
       setTitle: this.setTitle,
+      accessToken: null,
+      setAccessToken: this.setAccessToken,
+      authUser: null,
+      setAuthUser: this.setAuthUser,
     };
   }
 
   componentDidUpdate() {
     // Update document title.
-    document.title = `${this.state.title} - Ludum`;
+    document.title = `${this.state.documentTitle}`;
   }
 
   render() {
@@ -82,7 +105,7 @@ class App extends Component {
       <BrowserRouter>
         <AppContext.Provider value={this.state}>
           <ErrorBoundary>
-            <Sheltr delay={200}>
+            <Sheltr delay={100} easing="cubic-bezier(0.4, 0.0, 0.2, 1)">
               <MainLayout />
             </Sheltr>
           </ErrorBoundary>

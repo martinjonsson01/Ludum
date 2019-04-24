@@ -1,19 +1,24 @@
-/* eslint-disable indent */
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect, Suspense } from "react";
 import PropTypes from "prop-types";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
+import styled from "styled-components";
 import useFetch from "fetch-suspense";
 import { AppContext } from "../common/AppContext";
 import TabBar from "@material/react-tab-bar";
 import Tab from "@material/react-tab";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
+import LinearProgress from "@material/react-linear-progress";
+import { Headline3, Headline5 } from "@material/react-typography";
+//import anime from "animejs";
 
-import "./CoursesPage.scss";
-import FlowPage from "./FlowPage";
+import ErrorBoundary from "../common/ErrorBoundary";
+import FeedPage from "./FeedPage";
 import MatrixPage from "./MatrixPage";
 import TestsPage from "./TestsPage";
 import MaterialsPage from "./MaterialsPage";
 
+/**
+ * Component.
+ */
 function CoursePage({ location, history, match }) {
 
   const course = useFetch(
@@ -21,17 +26,25 @@ function CoursePage({ location, history, match }) {
     { method: "GET", credentials: "include" }
   );
 
-  const { title, setTitle } = useContext(AppContext);
-  if (title !== course.course_name) {
-    setTitle(course.course_name);
-  }
+  const { appBarTitle, documentTitle, setTitle, theme } = useContext(AppContext);
+
+  useEffect(() => {
+    if (appBarTitle !== "" || documentTitle !== course.course_name) {
+      setTitle(course.course_name, true);
+    }
+  });
 
   function getInitialIndex() {
     switch (location.pathname) {
+    // eslint-disable-next-line indent
       case `/kurser/${match.params.code}/flode`: return 0;
+      // eslint-disable-next-line indent
       case `/kurser/${match.params.code}/kursmaterial`: return 1;
+      // eslint-disable-next-line indent
       case `/kurser/${match.params.code}/kursmatris`: return 2;
+      // eslint-disable-next-line indent
       case `/kurser/${match.params.code}/prov`: return 3;
+      // eslint-disable-next-line indent
       default: return -1;
     }
   }
@@ -51,8 +64,22 @@ function CoursePage({ location, history, match }) {
 
   return (
     <React.Fragment>
-      <TabBar
+      <Banner>
+        <BannerImage
+          bannerurl={course.banner_url}
+          tintcolor={course.accent_color_dark}
+        />
+        <DarkTint />
+        <CourseTitle>{course.course_name}</CourseTitle>
+        <TeacherName>{course.teacher_name}</TeacherName>
+        <TeacherImage
+          src={course.teacher_avatar_url}
+          alt={course.teacher_name}
+        />
+      </Banner>
+      <ThemedTabBar
         activeIndex={activeIndex}
+        tintcolor={theme === "dark" ? course.accent_color_dark : course.accent_color}
         handleActiveIndexUpdate={onActiveIndexUpdate}>
         <Tab>
           <span className='mdc-tab__text-label'>Flöde</span>
@@ -66,16 +93,20 @@ function CoursePage({ location, history, match }) {
         <Tab>
           <span className='mdc-tab__text-label'>Prov</span>
         </Tab>
-      </TabBar>
-      <TransitionGroup>
-        <CSSTransition
-          key={activeIndex}
-          timeout={600}
-          classNames="carouselTransition">
-          <section className="grid-container fix-container">
+      </ThemedTabBar>
+      
+      <ErrorBoundary>
+        <Suspense fallback={<LinearProgress indeterminate={true} />}>
+          <Switch>
             <Route
               path={`${match.path}/flode`}
-              component={routeProps => <FlowPage {...routeProps} />}
+              component={routeProps => 
+                <FeedPage 
+                  courseId={course.id} 
+                  {...routeProps} 
+                  accentColor={theme === "dark" ? course.accent_color_dark : course.accent_color}
+                />
+              }
             />
             <Route
               path={`${match.path}/kursmaterial`}
@@ -89,17 +120,119 @@ function CoursePage({ location, history, match }) {
               path={`${match.path}/prov`}
               component={routeProps => <TestsPage {...routeProps} />}
             />
-          </section>
-        </CSSTransition>
-      </TransitionGroup>
+          </Switch>
+        </Suspense>
+      </ErrorBoundary>
     </React.Fragment>
   );
 }
 
+/**
+ * Props.
+ */
 CoursePage.propTypes = {
   location: PropTypes.object,
   history: PropTypes.object,
   match: PropTypes.object,
 };
+
+/**
+ * Styling.
+ */
+const Banner = styled.div`
+  position: relative;
+  height: 18rem;
+  border-radius: 0  0 1rem 1rem;
+
+  @media (max-width: 600px) {
+    height: 10rem;
+  }
+`;
+const BannerImage = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: ${props => `url(${props.bannerurl})`};
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: ${props => `#${props.tintcolor}`};
+  background-blend-mode: multiply;
+  border-radius: 0  0 1rem 1rem;
+`;
+const DarkTint = styled.div`
+  background-color: rgba(32,33,36,0.6);
+  height: 18rem;
+  border-radius: 0  0 1rem 1rem;
+
+  @media (max-width: 600px) {
+    height: 10rem;
+  }
+`;
+const ThemedTabBar = styled(TabBar)`
+  --mdc-theme-primary: ${props => `#${props.tintcolor}`};
+  .mdc-tab__text-label {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+`;
+const CourseTitle = styled(Headline3)`
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  color: white;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+
+  @media (max-width: 600px) {
+    font-size: 2rem !important;
+    top: 1rem;
+    left: 1rem;
+    line-height: 2rem !important;
+  }
+`;
+const TeacherName = styled(Headline5)`
+  position: absolute;
+  bottom: 6rem;
+  left: 2rem;
+  color: white;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+
+  @media (max-width: 900px) {
+    bottom: 5rem;
+  }
+  @media (max-width: 600px) {
+    font-size: 1.2rem !important;
+    bottom: 2rem;
+    left: 1rem;
+  }
+`;
+const TeacherImage = styled.img`
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  object-fit: cover; /* Scale the image to cover element. */
+  object-position: center; /* Center the image within the element. */
+
+  @media (max-width: 900px) {
+    height: 7rem;
+    width: 7rem;
+  }
+  @media (max-width: 600px) {
+    height: 5rem;
+    width: 5rem;
+    bottom: 1rem;
+    right: 1rem;
+  }
+`;
 
 export default CoursePage;

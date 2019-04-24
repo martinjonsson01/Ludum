@@ -5,6 +5,11 @@ export const AppContext = React.createContext({
   user: null,
   signInUser: null,
   signOutUser: null,
-  title: "Ludum",
+  appBarTitle: "Ludum",
+  documentTitle: "Ludum",
   setTitle: null,
+  accessToken: null,
+  setAccessToken: null,
+  authUser: null,
+  setAuthUser: null,
 });

@@ -1,78 +1,43 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { Headline5, Headline6 } from "@material/react-typography";
+import { Headline5, Body1 } from "@material/react-typography";
 import { ListItem } from "@material/react-list";
-
-/**
- * CourseItem styling.
- */
-const ListItemStyled = styled(ListItem)`
-  height: fit-content !important;
-`;
-const Content = styled.div`
-  display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: auto auto;
-  grid-template-areas: 
-    "top-bar"
-    "body"; 
-  padding: 1rem;
-`;
-const TopBar = styled.div`
-  grid-area: top-bar;
-  margin-bottom: 0.5rem;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: start;
-`;
-const TeacherImage = styled.img`
-  width: 48px;
-  height: 48px;
-  margin: auto 1rem auto 0;
-  border-radius: 50%;
-`;
-const TitleContainer = styled.div`
-  margin: 0.5rem 0 0 4rem;
-`;
-const Teacher = styled.div`
-  display: flex;
-`;
 
 /**
  * CourseItem component.
  */
-function CourseItem(props) {
-
-  const courseItem = props.listItem;
+function CourseItem({ listItem: course, onNavigateChange }) {
 
   function onClick() {
-    // Navigate to /kurser/kurs-kod.
-    props.onNavigateChange(`/kurser/${encodeURI(courseItem.course_code)}/flode`);
+    // Navigate to /kurser/kurs-kod/flode.
+    onNavigateChange(`/kurser/${encodeURI(course.course_code)}/flode`);
   }
 
   return (
     <ListItemStyled
-      id={encodeURI(courseItem.course_code)}
+      id={encodeURI(course.course_code)}
       onClick={onClick}>
       <Content>
-        {/** Top bar */}
-        <TopBar>
-          {/** Teacher info */}
-          <Teacher>
-            {/** Teacher image */}
-            <TeacherImage src={courseItem.teacher_avatar_url} alt={courseItem.teacher_name} />
-            <div>
-              {/** Teacher name */}
-              <Headline6>{courseItem.teacher_name}</Headline6>
-            </div>
-          </Teacher>
-          {/** Title */}
-          <TitleContainer>
-            <Headline5>{courseItem.course_name}</Headline5>
-          </TitleContainer>
-        </TopBar>
+        {/** Title */}
+        <TitleContainer>
+          <Headline5>{course.course_name}</Headline5>
+        </TitleContainer>
+        {/** Teacher info */}
+        <Teacher>
+          {/** Teacher name */}
+          <Body1>{course.teacher_name}</Body1>
+          {/** Teacher image */}
+          <TeacherImage
+            src={course.teacher_avatar_url}
+            alt={course.teacher_name}
+          />
+        </Teacher>
       </Content>
+      <BackgroundImage
+        bannerurl={course.course_banner_url}
+        tintcolor={course.course_accent_color_dark}
+      />
     </ListItemStyled>
   );
 }
@@ -81,5 +46,54 @@ CourseItem.propTypes = {
   listItem: PropTypes.object,
   onNavigateChange: PropTypes.func,
 };
+
+/**
+ * CourseItem styling.
+ */
+const ListItemStyled = styled(ListItem)`
+  position: relative;
+  height: fit-content !important;
+  border-radius: 1rem;
+  --mdc-theme-on-background: white;
+`;
+const BackgroundImage = styled.div`
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: ${props => `url(${props.bannerurl})`};
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: ${props => `#${props.tintcolor}`};
+  background-blend-mode: multiply;
+  border-radius: 1rem;
+`;
+const Content = styled.div`
+  display: grid;
+  width: 100%;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto;
+  grid-template-areas: 
+    "top-bar"
+    "body"; 
+  padding: 1rem 0;
+`;
+const TeacherImage = styled.img`
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  object-fit: cover; /* Scale the image to cover element. */
+  object-position: center; /* Center the image within the element. */
+`;
+const TitleContainer = styled.div`
+
+`;
+const Teacher = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 
 export default CourseItem;

@@ -3,8 +3,9 @@ const router = express.Router();
 
 const sessionChecker = require("./SessionChecker");
 const user = require("./User");
-const getNews = require("./News");
-const course = require("./Course");
+const newsRouter = require("./news");
+const coursesRouter = require("./courses");
+const commentsRouter = require("./comments");
 
 /**
  * Unauthenticated routes.
@@ -23,19 +24,17 @@ router.get("/current-user", sessionChecker, user.getCurrentUser);
 // DELETE current user session.
 router.delete("/current-user", sessionChecker, user.deleteCurrentUser);
 
-// GET news from the database.
-router.get("/news", sessionChecker, getNews);
+/**
+ * Authenticated routers.
+ */
 
-// GET course events from the database.
-router.get("/course-events", sessionChecker, course.getCourseEvents);
+// News router.
+router.use("/news", sessionChecker, newsRouter);
 
-// GET courses for user from the database.
-router.get("/courses", sessionChecker, course.getCourses);
+// Courses router.
+router.use("/courses", sessionChecker, coursesRouter);
 
-// GET course data from the database.
-router.get("/course/:code", sessionChecker, course.getCourse);
-
-// GET course feed from the database.
-router.get("/course/:code/feed", sessionChecker, course.getCourseFeed);
+// Comments router.
+router.use("/comments", sessionChecker, commentsRouter);
 
 module.exports = router;

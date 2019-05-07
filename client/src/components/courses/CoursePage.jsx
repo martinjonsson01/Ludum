@@ -22,7 +22,7 @@ import MaterialsPage from "./MaterialsPage";
 function CoursePage({ location, history, match }) {
 
   const course = useFetch(
-    `http://localhost:3001/api/course/${match.params.code}`,
+    `http://localhost:3001/api/courses/${match.params.code}`,
     { method: "GET", credentials: "include" }
   );
 
@@ -36,7 +36,7 @@ function CoursePage({ location, history, match }) {
 
   function getInitialIndex() {
     switch (location.pathname) {
-    // eslint-disable-next-line indent
+      // eslint-disable-next-line indent
       case `/kurser/${match.params.code}/flode`: return 0;
       // eslint-disable-next-line indent
       case `/kurser/${match.params.code}/kursmaterial`: return 1;
@@ -94,16 +94,16 @@ function CoursePage({ location, history, match }) {
           <span className='mdc-tab__text-label'>Prov</span>
         </Tab>
       </ThemedTabBar>
-      
+
       <ErrorBoundary>
         <Suspense fallback={<LinearProgress indeterminate={true} />}>
           <Switch>
             <Route
               path={`${match.path}/flode`}
-              component={routeProps => 
-                <FeedPage 
-                  courseId={course.id} 
-                  {...routeProps} 
+              component={routeProps =>
+                <FeedPage
+                  courseId={course.id}
+                  {...routeProps}
                   accentColor={theme === "dark" ? course.accent_color_dark : course.accent_color}
                 />
               }
@@ -186,6 +186,7 @@ const CourseTitle = styled(Headline3)`
   -moz-user-select: text;
   -ms-user-select: text;
   user-select: text;
+  font-family: Montserrat !important;
 
   @media (max-width: 600px) {
     font-size: 2rem !important;
@@ -203,6 +204,7 @@ const TeacherName = styled(Headline5)`
   -moz-user-select: text;
   -ms-user-select: text;
   user-select: text;
+  font-family: Montserrat !important;
 
   @media (max-width: 900px) {
     bottom: 5rem;

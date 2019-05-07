@@ -4,8 +4,8 @@ import TopAppBar, { TopAppBarSection, TopAppBarTitle, TopAppBarRow, TopAppBarIco
 import MaterialIcon from "@material/react-material-icon";
 
 import ErrorBoundary from "./ErrorBoundary";
-import AccountButton from "./AccountButton";
 import { AppContext } from "./AppContext";
+import UserButton from "./UserButton";
 
 function TopBar({ drawerOpen, onDrawerToggle, onNavigateChange }) {
 
@@ -53,7 +53,7 @@ function TopBar({ drawerOpen, onDrawerToggle, onNavigateChange }) {
         </TopAppBarSection>
         <TopAppBarSection align="end">
           <ErrorBoundary key="accountButtonErrorBoundary">
-            <AccountButton
+            <UserButton
               className="top-app-bar-needs-drawer-fix"
               onNavigateChange={onNavigateChange} />
           </ErrorBoundary>

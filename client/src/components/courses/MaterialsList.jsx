@@ -7,7 +7,7 @@ import LinkPreview from "../common/LinkPreview";
 /**
  * Component.
  */
-function MaterialsList({event, accentColor}) {
+function MaterialsList({ event, accentColor }) {
 
   let linkCards;
   if (event.material_urls) {
@@ -43,6 +43,10 @@ MaterialsList.propTypes = {
  */
 const Materials = styled.section`
   margin-left: 3rem;
+
+  @media (max-width: 800px) {
+    margin-left: 0;
+  }
 `;
 
 export default MaterialsList;

@@ -9,7 +9,7 @@ import "./styles.scss";
 // Load fonts using webfontloader to not block the main thread.
 WebFont.load({
   google: {
-    families: ["Material Icons"]
+    families: ["Material Icons", "Montserrat"]
   }
 });
 

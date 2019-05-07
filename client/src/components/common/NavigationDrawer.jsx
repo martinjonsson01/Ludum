@@ -44,22 +44,23 @@ function NavigationDrawer({
           id="navList"
           singleSelection selectedIndex={selectedIndex}
           tag="nav">
-          {navItems.map((navItem) => [
-            // Only render subheader if subHeader has a value.
-            navItem.subHeader &&
-            <ListGroupSubheader tag='h2'>{navItem.subHeader}</ListGroupSubheader>,
+          {navItems.map((navItem) => (
+            <div key={navItem.location}>
+              {/** Only render subheader if subHeader has a value. */}
+              {navItem.subHeader &&
+                <ListGroupSubheader tag='h2'>{navItem.subHeader}</ListGroupSubheader>}
 
-            <ListItem
-              tag="a"
-              key={navItem.location}
-              onClick={() => onNavigateChange(navItem.location)}>
-              <ListItemGraphic graphic={<MaterialIcon icon={navItem.icon} />} />
-              <ListItemText primaryText={navItem.title} />
-            </ListItem>,
+              <ListItem
+                tag="a"
+                onClick={() => onNavigateChange(navItem.location)}>
+                <ListItemGraphic graphic={<MaterialIcon icon={navItem.icon} />} />
+                <ListItemText primaryText={navItem.title} />
+              </ListItem>
 
-            // Only render divider if trailingDivider is true.
-            navItem.trailingDivider && <ListDivider />
-          ])}
+              {/** Only render divider if trailingDivider is true. */}
+              {navItem.trailingDivider && <ListDivider />}
+            </div>
+          ))}
         </List>
       </DrawerContent>
     </Drawer>

@@ -36,7 +36,7 @@ function OverviewPage(props) {
           <Card className="full-height overview-list">
             <Headline5 className="card-title">Kurshändelser</Headline5>
             <FetchList
-              url="http://localhost:3001/api/course-events"
+              url="http://localhost:3001/api/courses/events"
               listComponent={List}
               listDivider={ListDivider}
               listItemComponent={CourseEventItem} />

@@ -1,7 +1,10 @@
+const express = require("express");
+const router = express.Router();
+
 const db = require("../db");
 const asyncHandler = require("express-async-handler");
 
-const getNews = asyncHandler(async (req, res) => {
+router.get("/", asyncHandler(async (req, res) => {
   // Get database connection-pool-object.
   const pool = db.getPool();
   // Which columns to SELECT.
@@ -12,6 +15,6 @@ const getNews = asyncHandler(async (req, res) => {
   );
   // Respond with list of news-data.
   return res.json(news);
-});
+}));
 
-module.exports = getNews;
+module.exports = router;

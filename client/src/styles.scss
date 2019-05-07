@@ -58,33 +58,39 @@ h6 {
 
 ::-webkit-scrollbar {
   width: 8px;
+  background-color: #171614;
+  color: #ecdcbf;
+}
+
+/* Scrollbar corner */
+
+::-webkit-scrollbar-corner {
+  background-color: #12110f;
 }
 
 /* Scrollbar track. */
 
 ::-webkit-scrollbar-track {
-  width: 4px;
-  background: #f1f1f1;
-  margin: 48px 4px 4px 4px;
-  border-radius: 4px;
-  /* Box shadow used for anti-aliasing. */
-  box-shadow: 0 0 1px 0px #9e9e9e inset, 0 0 1px 0px #9e9e9e;
+  width: 8px;
 }
 
 /* Scrollbar handle. */
 
 ::-webkit-scrollbar-thumb {
-  width: 4px;
-  background: #cacaca;
-  border-radius: 4px;
-  /* Box shadow used for anti-aliasing. */
-  box-shadow: 0 0 1px 0px #f1f1f1 inset, 0 0 1px 0px #f1f1f1;
+  width: 8px;
+  background-color: #292723;
 }
 
 /* Scrollbar handle on hover. */
 
 ::-webkit-scrollbar-thumb:hover {
   background: #929292;
+}
+
+/* Text selection */
+::selection {
+  background-color: #43576c;
+  color: #ffffff;
 }
 
 ul {

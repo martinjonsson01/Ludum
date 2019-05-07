@@ -11,7 +11,7 @@ import AnnouncementItem from "./AnnouncementItem";
 function FeedPage({ courseId, accentColor }) {
 
   const feed = useFetch(
-    `http://localhost:3001/api/course/${courseId}/feed`,
+    `http://localhost:3001/api/courses/${courseId}/feed`,
     { method: "GET", credentials: "include" }
   );
 
@@ -48,6 +48,10 @@ const Container = styled.div`
   max-width: calc(100% - (2*1.5rem));
   width: 764px;
   margin: 0  auto 1.5rem auto;
+
+  @media (max-width: 600px) {
+    max-width: calc(100% - (2*0.25rem));
+  }
 `;
 const MarginDivider = styled.div`
   margin-top: 1.5rem;

@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import Card from "@material/react-card";
 import MaterialIcon from "@material/react-material-icon";
 import { Body1 } from "@material/react-typography";
 
-import { AppContext } from "../common/AppContext";
 import MaterialsList from "./MaterialsList";
+import CommentBox from "./CommentBox";
 import { formatDate } from "../../Util";
 
 /**
@@ -14,28 +14,32 @@ import { formatDate } from "../../Util";
  */
 function AnnouncementItem({ event, accentColor }) {
 
-  const { theme } = useContext(AppContext);
   const publishDate = formatDate(new Date(event.created_at));
   const editDate = formatDate(new Date(event.updated_at));
 
   return (
     <li key={event.content}>
-      <StyledCard theme={theme}>
+      <StyledCard>
         <Content>
           <Icon icon="announcement" iconcolor={accentColor} />
           <Body>{event.content}</Body>
           <Dates>
             {/** Publish date */}
-            <Body1>{publishDate}</Body1>
+            <DateText>{publishDate}</DateText>
             {/** Edit date */}
             {editDate === publishDate ? "" :
-              <i><Body1>Redigerad {editDate}</Body1></i>
+              <i><DateText>Redigerad {editDate}</DateText></i>
             }
           </Dates>
         </Content>
         <MaterialsList
           event={event}
           accentColor={accentColor}
+        />
+        <Divider />
+        <CommentBox
+          accentColor={accentColor}
+          commentUrl={`http://localhost:3001/api/comments/announcement/${event.id}`}
         />
       </StyledCard>
     </li>
@@ -57,8 +61,6 @@ const StyledCard = styled(Card)`
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
-  border: 0.05rem solid #000;
-  border-color: ${props => props.theme === "dark" ? "#000" : "#dadce0"};
   -webkit-user-select: text;
   -moz-user-select: text;
   -ms-user-select: text;
@@ -85,6 +87,14 @@ const Body = styled(Body1)`
 `;
 const Dates = styled.div`
   margin-left: 2rem;
+`;
+const DateText = styled(Body1)`
+  color: var(--mdc-theme-text-subtitle);
+`;
+const Divider = styled.div`
+  height: 1px;
+  margin: 1.5rem -1.5rem 0 -1.5rem;
+  background: var(--mdc-theme-border);
 `;
 
 export default AnnouncementItem;

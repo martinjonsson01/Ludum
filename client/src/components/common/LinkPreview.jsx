@@ -140,7 +140,7 @@ function LinkPreview({ url, target, hoverColor }) {
     } else { // For default links not recognized.
       setMetadata({});
     }
-  }, []/* Empty array here to make effect only apply on first render. */);
+  }, [parsedUrl]);
 
   return (
     <Container
@@ -212,15 +212,15 @@ const Content = styled.div`
   padding-right: 1rem;
   border-style: solid;
   border-width: 1px;
-  border-radius: 0.5rem;
-  border-color: ${props => props.theme === "dark" ? "var(--mdc-theme-background)" : "#dadce0"};
+  border-radius: 1rem;
+  border-color: var(--mdc-theme-border);
   clip-path: ${props => props.clipborder ? "inset(0 0 0 36px)" : "inset(0 0 0 0)"};
 `;
 const Image = styled.img`
   height: 4.5rem;
   max-width: 4.5rem;
   margin: auto 0;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   border-width: 0;
   object-fit: cover; /* Scale the image to cover element. */
   object-position: center; /* Center the image within the element. */
@@ -233,6 +233,7 @@ const Title = styled(Headline6)`
   height: fit-content;
   margin-top: 0.5rem;
   word-wrap: break-word;
+  word-break: break-all;
   overflow-wrap: break-word;
 
   ${Container}:hover & {
@@ -247,7 +248,7 @@ const PlaceholderImage = styled.img`
   height: 4.5rem;
   min-width: 4.5rem;
   margin: auto 0;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   border-width: 0;
   animation: ${pulse} 1s infinite ease-in-out;
 `;

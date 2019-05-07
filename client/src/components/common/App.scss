@@ -19,6 +19,15 @@ main {
   height: 100%;
 }
 
+:not(.mdc-list--non-interactive)> :not(.mdc-list-item--disabled).mdc-list-item::before,
+:not(.mdc-list--non-interactive)> :not(.mdc-list-item--disabled).mdc-list-item::after {
+  background-color: var(--mdc-theme-primary);
+}
+
+:not(.mdc-list--non-interactive)> :not(.mdc-list-item--disabled).mdc-list-item:hover::before {
+  opacity: 0.1;
+}
+
 .mdc-top-app-bar-drawer-fix {
   width: calc(100% - 256px) !important;
 }
@@ -85,13 +94,13 @@ h5.vertical-align {
 .account {
   margin: auto 0;
   margin-right: 12px;
-  height: 44px;
-  width: 44px;
+  height: 32px;
+  width: 32px;
 
   img {
     border-radius: 50%;
-    height: 44px;
-    width: 44px;
+    height: 32px;
+    width: 32px;
   }
 }
 
@@ -151,10 +160,15 @@ html[data-theme="dark"] .mdc-list-divider {
 }
 
 .mdc-card {
-  border-radius: 8px;
+  border-radius: 1rem;
   overflow-y: hidden;
   color: var(--mdc-theme-on-surface);
+  background: var(--mdc-theme-background);
   transition: background-color 500ms ease-in-out;
+
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--mdc-theme-border);
 }
 
 .mdc-card::-webkit-scrollbar-track {

@@ -83,7 +83,6 @@ function SignInPage({ user, signInUser, signOutUser, setAccessToken, setAuthUser
       window.gapi.client.init({
         client_id: "425892769172-0jb5mo5gm07avnjraabf75pkula2uv65.apps.googleusercontent.com",
         cookie_policy: "single_host_origin",
-        login_hint: "Login hint här",
         //hosted_domain: "*.ga.lbs.se",  TODO: Needs to allow both elev.ga.lbs.se and ga.lbs.se. See GitHub issue: https://github.com/google/google-api-javascript-client/issues/210
         fetch_basic_profile: true,
         ux_mode: "popup",
@@ -199,7 +198,7 @@ const Content = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  flex-direction: horizontal;
+  flex-direction: row;
 `;
 const Error = styled(Body1)`
   margin-bottom: 3rem;

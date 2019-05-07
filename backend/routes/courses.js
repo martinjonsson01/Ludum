@@ -1,11 +1,14 @@
+const express = require("express");
+const router = express.Router();
+
 const db = require("../db");
 const asyncHandler = require("express-async-handler");
 
-const getCourses = asyncHandler(async (req, res) => {
+// GET courses for user from the database.
+router.get("/", asyncHandler(async (req, res) => {
   // Get database connection-pool-object.
   const pool = db.getPool();
   // Await query for user courses.
-  // Tbh this query was cancer to set up...
   const [courses] = await pool.execute(`
     SELECT
       course.course_name,
@@ -51,9 +54,10 @@ const getCourses = asyncHandler(async (req, res) => {
 
   // Respond with ordered courses.
   res.json(orderedCourses);
-});
+}));
 
-const getCourseEvents = (req, res) => {
+// GET course events from the database.
+router.get("/events", (req, res) => {
   // TODO: REMOVE THIS 1000 MS TIMEOUT ASAP
   setTimeout(() =>
     res.json([
@@ -322,9 +326,10 @@ const getCourseEvents = (req, res) => {
         },
       },
     ]), 1000);
-};
+});
 
-const getCourse = asyncHandler(async (req, res) => {
+// GET course data from the database.
+router.get("/:code", asyncHandler(async (req, res) => {
   const courseCode = req.params.code;
   // Get database connection-pool-object.
   const pool = db.getPool();
@@ -353,15 +358,17 @@ const getCourse = asyncHandler(async (req, res) => {
   }
   // Respond with course-data.
   return res.json(courses[0]);
-});
+}));
 
-const getCourseFeed = asyncHandler(async (req, res) => {
+// GET course feed from the database.
+router.get("/:code/feed", asyncHandler(async (req, res) => {
   const courseCode = req.params.code;
   // Get database connection-pool-object.
   const pool = db.getPool();
   // Await query on announcement and assignment tables.
   const [courseEvents] = await pool.execute(`
       SELECT
+        announcement.id,
         "announcement" AS type,
         NULL AS title,
         announcement.content,
@@ -378,6 +385,7 @@ const getCourseFeed = asyncHandler(async (req, res) => {
       WHERE announcement.course_id = ?
     UNION ALL
       SELECT
+        assignment.id,
         "assignment" AS type,
         assignment.title,
         assignment.content,
@@ -429,9 +437,6 @@ const getCourseFeed = asyncHandler(async (req, res) => {
   });
   // Respond with defragmented course events.
   return res.json(defraggedCourseEvents);
-});
+}));
 
-module.exports.getCourses = getCourses;
-module.exports.getCourseEvents = getCourseEvents;
-module.exports.getCourse = getCourse;
-module.exports.getCourseFeed = getCourseFeed;
+module.exports = router;

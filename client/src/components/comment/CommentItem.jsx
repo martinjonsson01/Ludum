@@ -1,12 +1,9 @@
-import React, {useContext} from "react";
+import React, { useContext, useRef, useLayoutEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Body1, Headline6 } from "@material/react-typography";
 import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
-import Button from "@material-ui/core/Button";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 
 import { formatDate } from "../../Util";
 import { AppContext } from "../common/AppContext";
@@ -14,14 +11,38 @@ import { AppContext } from "../common/AppContext";
 /**
  * Component.
  */
-function CommentItem({ comment }) {
+function CommentItem({ comment, toggleContextMenu, ellipsis }) {
 
-  const {user} = useContext(AppContext);
+  const { user } = useContext(AppContext);
   const publishDate = formatDate(new Date(comment.created_at));
   const editDate = formatDate(new Date(comment.updated_at));
-  
+
+  const commentRef = useRef();
+  const contextButtonRef = useRef();
+
+  useLayoutEffect(() => {
+    const commentElement = commentRef.current;
+    commentElement.addEventListener("contextmenu", openContextMenu);
+    // Cleanup.
+    return () => {
+      commentElement.removeEventListener("contextmenu", openContextMenu);
+    };
+  });
+
+  function openContextMenu(event) {
+    event.preventDefault();
+    toggleContextMenu(comment, contextButtonRef);
+  }
+
+  function toggleContextMenuWithData() {
+    toggleContextMenu(comment, contextButtonRef);
+  }
+
   return (
-    <Comment ispostedbycurrentuser={user.sub === comment.user_id}>
+    <Comment
+      ref={commentRef}
+      ispostedbycurrentuser={user.sub === comment.user_id}
+    >
       {/** User avatar */}
       <UserImage
         src={comment.avatar_url}
@@ -39,11 +60,14 @@ function CommentItem({ comment }) {
           }
         </Author>
         {/** Comment body */}
-        <Body>{comment.body}</Body>
+        <Body ellipsis={ellipsis}>{comment.body}</Body>
       </Content>
       <EmptyMargin />
       {/** "More" button */}
-      <StyledIconButton>
+      <StyledIconButton
+        onClick={toggleContextMenuWithData}
+        buttonRef={contextButtonRef}
+      >
         <Icon>more_vert</Icon>
       </StyledIconButton>
     </Comment>
@@ -55,12 +79,17 @@ function CommentItem({ comment }) {
  */
 CommentItem.propTypes = {
   comment: PropTypes.object.isRequired,
+  toggleContextMenu: PropTypes.func.isRequired,
+  isEditing: PropTypes.bool,
+  ellipsis: PropTypes.any,
 };
 
 /**
  * Styling.
  */
-const StyledIconButton = styled(IconButton) `
+const StyledIconButton = styled(IconButton)`
+  width: 3rem;
+  height: 3rem;
   display: none;
   opacity: 0;
   color: var(--mdc-theme-on-background) !important;
@@ -71,7 +100,7 @@ const Comment = styled.section`
   display: flex;
   flex-direction: row;
 
-  &:before {
+  /*&:before {
     position: absolute;
     opacity: 0;
     pointer-events: none;
@@ -80,16 +109,16 @@ const Comment = styled.section`
     transition: opacity 15ms linear, background-color 15ms linear;
     z-index: 1;
 
-    top: 0;
+    top: -1rem;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: calc(100% + 1rem);
 
     background-color: var(--mdc-theme-primary);
   }
   &:hover:before {
     opacity: 0.05;
-  }
+  }*/
 
   &:hover ${StyledIconButton}{
     /** Only show "More" button if comment was posted by currently signed in user. */
@@ -135,6 +164,11 @@ const DateText = styled(Body1)`
 `;
 const Body = styled(Body1)`
   font-size: 0.9em !important;
+
+  display: ${props => props.ellipsis ? "-webkit-box" : "block"};
+  -webkit-line-clamp: ${props => props.ellipsis ? 3 : "none"};
+  -webkit-box-orient: ${props => props.ellipsis ? "vertical" : "none"};  
+  overflow: ${props => props.ellipsis ? "hidden" : "auto"};
 `;
 
 export default CommentItem;

@@ -11,6 +11,12 @@
 @import '@material/react-ripple/index.scss';
 @import '@material/react-snackbar/index.scss';
 
+html,
+body,
+#root {
+  overflow: hidden;
+}
+
 #root {
   height: 100%;
 }
@@ -148,11 +154,8 @@ h5.vertical-align {
 }
 
 .mdc-list-divider {
-  border-bottom-color: #0000001f;
-}
-
-html[data-theme="dark"] .mdc-list-divider {
-  border-bottom-color: #ffffff1f;
+  border-bottom-color: var(--mdc-theme-border);
+  height: 1px !important;
 }
 
 .navigate-highlight .mdc-card {

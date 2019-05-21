@@ -34,6 +34,7 @@
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.0",
     "react-transition-group": "^4.0.0",
+    "simple-markdown": "^0.4.4",
     "styled-components": "^4.2.0",
     "webfontloader": "^1.6.28"
   },

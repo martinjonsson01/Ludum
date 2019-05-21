@@ -31,7 +31,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `announcement` WRITE;
 /*!40000 ALTER TABLE `announcement` DISABLE KEYS */;
-INSERT INTO `announcement` VALUES (1,'Till lektion 3 (onsdag/torsdag), v. 17\n\nRepetera enligt fliken \"Rep. inför NP\" i länkat dokument.','2019-04-18 21:25:31','2019-04-18 21:27:40','MATMAT03c'),(2,'Tisdag, v. 17 (Studiedagen)\n\nRepetera kap 3 och 4, ifall diagnoserna inte gick som önskat.\nOm du var nöjd med resultatet: ledig.','2019-04-18 21:27:40','2019-04-18 21:27:40','MATMAT03c'),(3,'Programmeringsuppgift - en instruktion.','2019-04-18 21:27:40','2019-04-18 21:27:40','MATMAT03c'),(4,'Diagnoser\nKap 3\nE-nivå: C3WaKM\nCA-nicå: 491Dst\n\nKap 4\nE-nivå: y5MV9P\nCA-nivå: K2Rqhx','2019-04-18 21:28:30','2019-04-18 21:28:30','MATMAT03c');
+INSERT INTO `announcement` VALUES (1,'Till lektion 3 (onsdag/torsdag), v. 17\r \r Repetera enligt fliken \"Rep. Inför NP\" i länkat dokument.','2019-04-18 21:25:31','2019-04-21 17:50:23','MATMAT03c'),(2,'Tisdag, v. 17 (Studiedagen)\r \r Repetera kap 3 och 4, ifall diagnoserna inte gick som önskat.\r Om du var Nöjd med resultatet: ledig.','2019-04-18 21:27:40','2019-04-21 17:50:23','MATMAT03c'),(3,'Programmeringsuppgift - en instruktion.','2019-04-18 21:27:40','2019-04-18 21:27:40','MATMAT03c'),(4,'Diagnoser\nKap 3\nE-nivå: C3WaKM\nCA-nicå: 491Dst\n\nKap 4\nE-nivå: y5MV9P\nCA-nivå: K2Rqhx','2019-04-18 21:28:30','2019-04-18 21:28:30','MATMAT03c');
 /*!40000 ALTER TABLE `announcement` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -41,6 +41,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `announcement_comments` WRITE;
 /*!40000 ALTER TABLE `announcement_comments` DISABLE KEYS */;
+INSERT INTO `announcement_comments` VALUES (62,2),(63,1),(64,1),(65,1),(66,1),(68,1),(69,1),(70,1),(71,1),(72,1),(73,1),(74,1),(75,1),(76,1),(77,1),(78,1),(79,1),(81,1),(82,1),(83,1),(84,1),(85,1),(87,1),(95,1),(97,1),(104,1),(106,1),(107,1),(108,1),(109,1),(110,1),(111,1),(112,1),(113,1),(114,1);
 /*!40000 ALTER TABLE `announcement_comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -50,7 +51,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `announcement_materials` WRITE;
 /*!40000 ALTER TABLE `announcement_materials` DISABLE KEYS */;
-INSERT INTO `announcement_materials` VALUES (1,1),(3,2);
+INSERT INTO `announcement_materials` VALUES (1,1),(1,2),(1,6),(1,8),(3,1),(3,5),(3,6),(3,7),(3,8),(3,9),(3,10),(3,11),(3,12);
 /*!40000 ALTER TABLE `announcement_materials` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -70,6 +71,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `assignment_comments` WRITE;
 /*!40000 ALTER TABLE `assignment_comments` DISABLE KEYS */;
+INSERT INTO `assignment_comments` VALUES (1,57),(1,58),(2,59),(2,60),(2,61);
 /*!40000 ALTER TABLE `assignment_comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -109,6 +111,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
+INSERT INTO `comment` VALUES (57,'bodyyy','2019-04-28 22:21:23','2019-04-28 22:21:23','110882501398047352348'),(58,'bodyyy','2019-04-28 22:23:09','2019-04-28 22:23:09','110882501398047352348'),(59,'bodyyy','2019-04-28 22:24:27','2019-04-28 22:24:27','110882501398047352348'),(60,'bodyyy','2019-04-28 22:27:10','2019-04-28 22:27:10','110882501398047352348'),(61,'bodyyy','2019-04-28 22:42:20','2019-04-28 22:42:20','110882501398047352348'),(62,'bodyyy','2019-04-28 22:43:09','2019-04-28 22:43:09','110882501398047352348'),(63,'Hello there','2019-04-28 23:08:50','2019-05-07 18:13:26','jhdghjdghjdghjdhhj'),(64,'General Kenobi...','2019-04-28 23:09:08','2019-04-28 23:36:29','110882501398047352348'),(65,'( ͠° ͜ʖ °)','2019-04-28 23:10:26','2019-05-07 18:13:26','jhdghjdghjdghjdhhj'),(66,'test','2019-04-30 00:12:24','2019-04-30 00:12:24','110882501398047352348'),(68,'eyyyyy','2019-04-30 00:14:48','2019-04-30 00:14:48','110882501398047352348'),(69,'test 47','2019-04-30 00:16:45','2019-04-30 00:16:45','110882501398047352348'),(70,'eyyy','2019-05-03 19:20:12','2019-05-03 19:20:12','110882501398047352348'),(71,'asdasdasd das Auto\nasd\nasd\nasd\nasd\nasd\nasd\nasd\nasd','2019-05-03 19:24:03','2019-05-21 22:31:15','110882501398047352348'),(72,'yeet','2019-05-03 19:24:48','2019-05-03 19:24:48','110882501398047352348'),(73,'test','2019-05-03 19:26:32','2019-05-03 19:26:32','110882501398047352348'),(74,'test','2019-05-03 19:28:13','2019-05-07 18:13:26','jhdghjdghjdghjdhhj'),(75,'eeee','2019-05-03 19:28:46','2019-05-03 19:28:46','110882501398047352348'),(76,'ttt','2019-05-03 19:29:38','2019-05-03 19:29:38','110882501398047352348'),(77,'test','2019-05-03 19:35:06','2019-05-03 19:35:06','110882501398047352348'),(78,'yayeet','2019-05-03 19:36:41','2019-05-03 19:36:41','110882501398047352348'),(79,'ooof','2019-05-03 19:38:28','2019-05-03 19:38:28','110882501398047352348'),(81,'new comment here we goo booiiisssss\n\n\n\n\n\n\nit is multiline that is c o r r e c t hecc ye','2019-05-03 19:48:32','2019-05-03 19:48:32','110882501398047352348'),(82,'eyyyyy\n\n\n\n\ntest','2019-05-03 19:56:30','2019-05-03 19:56:30','110882501398047352348'),(83,'kommentar','2019-05-05 22:24:25','2019-05-05 22:24:25','110882501398047352348'),(84,'eyyyy','2019-05-06 23:52:07','2019-05-06 23:52:07','110882501398047352348'),(85,'test comment','2019-05-07 19:18:15','2019-05-07 19:18:15','110882501398047352348'),(87,'dafda','2019-05-11 00:01:41','2019-05-11 00:01:41','110882501398047352348'),(95,'asdfasdfasdf','2019-05-11 00:02:14','2019-05-11 00:02:14','110882501398047352348'),(97,'asdfasdfasdf','2019-05-11 00:02:22','2019-05-11 00:02:22','110882501398047352348'),(104,'test222','2019-05-11 15:57:47','2019-05-11 15:57:47','110882501398047352348'),(106,'this is a test','2019-05-11 21:30:56','2019-05-11 21:30:56','110882501398047352348'),(107,'testing once again\n\n\n\n\n\n\nayy lmao top 12','2019-05-11 21:35:53','2019-05-11 21:35:53','110882501398047352348'),(108,'cool cool','2019-05-11 21:36:46','2019-05-11 21:36:46','110882501398047352348'),(109,'new stateful commentbox!','2019-05-11 21:40:09','2019-05-11 21:40:09','110882501398047352348'),(110,'very najs','2019-05-11 22:14:56','2019-05-11 22:14:56','110882501398047352348'),(111,'asdasdasds\nasd\nas\nd\nasd\nas\nd\nasd\nas\nd\nasd\na\nsd\nasd\na\nsd\nasd\na\nsd\nasd\na\nsd\nhg\ngh\nfg\nkjgh\njgh\njgh\njg\nhjghj\ng\nhj\ngh\nj\nghj\n\n\njh\ngh\njg\nhj\ngh\nj\nghj\ng\nhj\ngh\njg\nhj\näö\nöä\nlåö\nläök\nläö\nkälöåk\nlöäk\nlöåk\nlöä\nkläö\nkläö\nkälö\näklöå\n\'lö¨\n¨hj\nk\'\'jh\nkhj\nk¨hj','2019-05-12 02:28:42','2019-05-12 02:28:42','110882501398047352348'),(112,'test','2019-05-21 20:58:23','2019-05-21 20:58:23','110882501398047352348'),(113,'test2','2019-05-21 21:02:57','2019-05-21 21:02:57','110882501398047352348'),(114,'this is a comment, please edit me D A D D Y\nasd\nasd','2019-05-21 21:31:08','2019-05-21 22:25:28','110882501398047352348');
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -146,7 +149,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `material` WRITE;
 /*!40000 ALTER TABLE `material` DISABLE KEYS */;
-INSERT INTO `material` VALUES (1,'https://drive.google.com/open?id=1rSeH_qBsQojzIJ-zAhM2SdiwMWzxfzAWbdm7S6clVY0&authuser=1'),(2,'https://drive.google.com/open?id=1Tiew5N22DmR1ASjYB0LeV1ZGgf_kCmgNa05BS1slqTY&authuser=1'),(3,'https://www.kunskapsmatrisen.se/'),(4,'https://docs.google.com/spreadsheets/u/0/');
+INSERT INTO `material` VALUES (1,'https://drive.google.com/open?id=1rSeH_qBsQojzIJ-zAhM2SdiwMWzxfzAWbdm7S6clVY0'),(2,'https://drive.google.com/open?id=1Tiew5N22DmR1ASjYB0LeV1ZGgf_kCmgNa05BS1slqTY'),(3,'https://www.kunskapsmatrisen.se/'),(4,'https://docs.google.com/spreadsheets/u/0/'),(5,'https://docs.google.com/document/d/1Tiew5N22DmR1ASjYB0LeV1ZGgf_kCmgNa05BS1slqTY/edit'),(6,'https://www.youtube.com/watch?v=R_W7epN8Mec'),(7,'https://www.youtube.com/watch?v=krBZhNyCJfM'),(8,'https://drive.google.com/open?id=0B9kQzOpiqBrNV1kyZGZZZEVoVVU'),(9,'https://drive.google.com/open?id=0B9kQzOpiqBrNLUlkcldEb1M4VEE'),(10,'https://drive.google.com/open?id=0B9kQzOpiqBrNZUVpNi1OVlphUmc'),(11,'https://murt.in/'),(12,'https://docs.google.com/forms/d/e/1FAIpQLSepoRzBOpXOdtRHJ6g-TAgi3smunEVrli-mJgIl4pbSzF5Qkg/viewform');
 /*!40000 ALTER TABLE `material` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,7 +159,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `news` WRITE;
 /*!40000 ALTER TABLE `news` DISABLE KEYS */;
-INSERT INTO `news` VALUES (4,'Påminnelse om Plugg- och Mattestuga','Hej allihopa!\n\n\n\nNu är Pluggstugan och Mattestugan igång i Magenta och Cyan. Här finns lärare som har massor med tid till att hjälpa de elever som behöver stöd i studierna, jobba ikapp, planera sina studier, öva inför prov, plugga inför prövningar osv. Alla som inte ligger 100 % i fas med kurserna borde vara här. Det är nu ni har chansen! \n\n\n\nHälsningar Stina, rektor','2019-03-30 21:42:11','2019-04-18 21:07:17','sdasdasdasdasdasd1'),(5,'Tider för IT-support med Bea','Beatrice som har hand om IT-support på skolan har satt upp nya tider som hon är tilgänglig för detta endamål. Tiderna är: \n\n\n\nmån: 10-12\ntors: 13-15\n\n\n\nBea sitter i ett av rummen i korridoren till E-sport rummet.','2019-03-28 21:45:57',NULL,'sdasdfdfdfdfdf'),(6,'Låna bok skolbiblioteket','LÅNA BOK\n\nSka du låna en bok från skolbiblioteket? Det är enkelt!\n\n\n\nScanna QR-koden och fyll i formuläret så har du lånat boken i 1 månad.\n\nVill du låna den längre är det bara att fylla i formuläret igen. Du kan som mest låna boken 3 gånger i rad.\n\n\n\nNär du ska lämna tillbaka boken så lägger du den i \"facket\" på väggen utanför Agnes kontor (administrationen), är facket fullt eller boken är för tjock, lägg den på Agnes skrivbord.\n\n\n\nIngen QR-läsare?\n\nGå till formuläret via länken: https://goo.gl/forms/PpXhYWJhg4oo2QCI2\n\nFinns även på LBS.se under ”elevinformation”.\n\n\n\nFrågor? \n- Kontakta Agnes','2019-03-28 21:45:57',NULL,'sdasdfdfdfdfdf'),(7,'Ledighetsansökan','Ni kommer åt ledighetsansökan på hemsidan http://www.lbs.se/terminstider.\n\nKlicka här för direktlänk!','2019-03-28 21:45:57',NULL,'gffassafgsfdg'),(8,'Pluggstuga v. 11','Vecka 11 är det dags för utvecklingssamtal och då bryter vi undervisningen vid lunch. Varje eftermiddag finns möjlighet att få extra hjälp med sina studier i form av Räknestuga i Cyan och Pluggstuga i Magenta. Det kommer finnas lärare på plats mellan kl 13.00-15.45. Världens chans att ta tag i sina studier! Alla elever är välkomna!','2019-03-28 21:47:16',NULL,'sdasdasdasdasdasd1');
+INSERT INTO `news` VALUES (4,'Påminnelse om Plugg- och Mattestuga','Hej allihopa!\r \r \r \r Nu är Pluggstugan och Mattestugan igång i Magenta och Cyan. Här finns lärare som har massor med tid till att hjälpa de elever som behöver stöd i studierna, jobba ikapp, planera sina studier, öva inför prov, plugga inför prövningar osv. Alla som inte ligger 100 % i fas med kurserna borde vara här. Det är nu ni har chansen! \r \r \r \r Hälsningar Stina, rektor','2019-03-30 21:42:11','2019-04-21 16:40:31','sdasdasdasdasdasd1'),(5,'Tider för IT-support med Bea','Beatrice som har hand om IT-support på skolan har satt upp nya tider som hon är tilgänglig för detta endamål. Tiderna är: \n\n\n\nmån: 10-12\ntors: 13-15\n\n\n\nBea sitter i ett av rummen i korridoren till E-sport rummet.','2019-03-28 21:45:57','2019-03-28 21:45:57','sdasdfdfdfdfdf'),(6,'Låna bok skolbiblioteket','LÅNA BOK\n\nSka du låna en bok från skolbiblioteket? Det är enkelt!\n\n\n\nScanna QR-koden och fyll i formuläret så har du lånat boken i 1 månad.\n\nVill du låna den längre är det bara att fylla i formuläret igen. Du kan som mest låna boken 3 gånger i rad.\n\n\n\nNär du ska lämna tillbaka boken så lägger du den i \"facket\" på väggen utanför Agnes kontor (administrationen), är facket fullt eller boken är för tjock, lägg den på Agnes skrivbord.\n\n\n\nIngen QR-läsare?\n\nGå till formuläret via länken: https://goo.gl/forms/PpXhYWJhg4oo2QCI2\n\nFinns även på LBS.se under ”elevinformation”.\n\n\n\nFrågor? \n- Kontakta Agnes','2019-03-28 21:45:57','2019-03-28 21:45:57','sdasdfdfdfdfdf'),(7,'Ledighetsansökan','Ni kommer åt ledighetsansökan på hemsidan http://www.lbs.se/terminstider.\n\nKlicka här för direktlänk!','2019-03-28 21:45:57','2019-03-28 21:45:57','gffassafgsfdg'),(8,'Pluggstuga v. 11','Vecka 11 är det dags för utvecklingssamtal och då bryter vi undervisningen vid lunch. Varje eftermiddag finns möjlighet att få extra hjälp med sina studier i form av Räknestuga i Cyan och Pluggstuga i Magenta. Det kommer finnas lärare på plats mellan kl 13.00-15.45. Världens chans att ta tag i sina studier! Alla elever är välkomna!','2019-03-28 21:47:16','2019-03-28 21:47:16','sdasdasdasdasdasd1');
 /*!40000 ALTER TABLE `news` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -194,7 +197,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('JbBwDPAqJqaukfFRoCaWvSwueD-ldGHO',1555714379,'{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2019-04-19T22:37:17.013Z\",\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"iss\":\"accounts.google.com\",\"azp\":\"425892769172-0jb5mo5gm07avnjraabf75pkula2uv65.apps.googleusercontent.com\",\"aud\":\"425892769172-0jb5mo5gm07avnjraabf75pkula2uv65.apps.googleusercontent.com\",\"sub\":\"110882501398047352348\",\"hd\":\"elev.ga.lbs.se\",\"email\":\"martin.jonsson@elev.ga.lbs.se\",\"email_verified\":true,\"at_hash\":\"Ekxk5xSBgaa5KfBtZZi9Bg\",\"name\":\"Martin Jonsson\",\"picture\":\"https://lh6.googleusercontent.com/-3dPWeQ4BbYg/AAAAAAAAAAI/AAAAAAAAAAg/4TBODT-6Sic/s96-c/photo.jpg\",\"given_name\":\"Martin\",\"family_name\":\"Jonsson\",\"locale\":\"sv\",\"iat\":1555627027,\"exp\":1555630627,\"jti\":\"de9f836c37e3f67aa3420b11fcde9f92684300c9\"}}');
+INSERT INTO `sessions` VALUES ('5ounKeu06wlagq_23m9CFlpRi9_RYcjj',1558557076,'{\"cookie\":{\"originalMaxAge\":86399999,\"expires\":\"2019-05-22T20:13:38.303Z\",\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"iss\":\"accounts.google.com\",\"azp\":\"425892769172-0jb5mo5gm07avnjraabf75pkula2uv65.apps.googleusercontent.com\",\"aud\":\"425892769172-0jb5mo5gm07avnjraabf75pkula2uv65.apps.googleusercontent.com\",\"sub\":\"110882501398047352348\",\"hd\":\"elev.ga.lbs.se\",\"email\":\"martin.jonsson@elev.ga.lbs.se\",\"email_verified\":true,\"at_hash\":\"KRcfN6cx2fCtNJqm0Jt3Ww\",\"name\":\"Martin Jonsson\",\"picture\":\"https://lh6.googleusercontent.com/-3dPWeQ4BbYg/AAAAAAAAAAI/AAAAAAAAAAg/4TBODT-6Sic/s96-c/photo.jpg\",\"given_name\":\"Martin\",\"family_name\":\"Jonsson\",\"locale\":\"sv\",\"iat\":1558469273,\"exp\":1558472873,\"jti\":\"61ffa29083185fdf294a464f504c7f2398738548\"}}');
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -274,4 +277,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-19  1:03:16
+-- Dump completed on 2019-05-21 22:46:48

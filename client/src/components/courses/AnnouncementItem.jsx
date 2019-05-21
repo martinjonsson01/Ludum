@@ -6,10 +6,10 @@ import MaterialIcon from "@material/react-material-icon";
 import { Body1 } from "@material/react-typography";
 
 import MaterialsList from "./MaterialsList";
-import CommentBox from "./CommentBox";
+import CommentBox from "../comment/CommentBox";
 import { formatDate } from "../../Util";
 
-/**
+/*
  * Component.
  */
 function AnnouncementItem({ event, accentColor }) {
@@ -46,7 +46,7 @@ function AnnouncementItem({ event, accentColor }) {
   );
 }
 
-/**
+/*
  * Props.
  */
 AnnouncementItem.propTypes = {
@@ -54,7 +54,7 @@ AnnouncementItem.propTypes = {
   accentColor: PropTypes.string,
 };
 
-/**
+/*
  * Styles.
  */
 const StyledCard = styled(Card)`

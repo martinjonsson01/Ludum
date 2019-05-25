@@ -1,13 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
 
 import LinkPreview from "../common/LinkPreview";
 
 /**
  * Component.
  */
-function MaterialsList({ event, accentColor }) {
+function MaterialsList({ event, accentColor, className }) {
 
   let linkCards;
   if (event.material_urls) {
@@ -23,9 +22,9 @@ function MaterialsList({ event, accentColor }) {
 
   return (
     linkCards ? (
-      <Materials>
+      <section className={className}>
         {linkCards}
-      </Materials>
+      </section>
     ) : ""
   );
 }
@@ -36,17 +35,7 @@ function MaterialsList({ event, accentColor }) {
 MaterialsList.propTypes = {
   event: PropTypes.object.isRequired,
   accentColor: PropTypes.string,
+  className: PropTypes.string,
 };
-
-/**
- * Styling.
- */
-const Materials = styled.section`
-  margin-left: 3rem;
-
-  @media (max-width: 800px) {
-    margin-left: 0;
-  }
-`;
 
 export default MaterialsList;

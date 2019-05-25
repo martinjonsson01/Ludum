@@ -399,10 +399,10 @@ router.get("/:code/feed", asyncHandler(async (req, res) => {
         ON assignment.id = assignment_materials.assignment_id
         LEFT JOIN material
         ON assignment_materials.material_id = material.id
-      WHERE assignment.user_id = ?
+      WHERE assignment.user_id = ? && assignment.course_id = ?
     ORDER BY created_at ASC
     LIMIT 20 OFFSET 0
-  `, [courseCode, req.session.user.sub]); // TODO: This LIMIT operation can accidentally exclude materials from an event if it contains multiple materials.
+  `, [courseCode, req.session.user.sub, courseCode]); // TODO: This LIMIT operation can accidentally exclude materials from an event if it contains multiple materials.
   // If one result was not returned by database.
   if (courseEvents.length <= 0) {
     return res

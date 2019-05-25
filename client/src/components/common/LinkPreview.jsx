@@ -33,6 +33,9 @@ function LinkPreview({ url, target, hoverColor }) {
       }).then(res => {
         window.sessionStorage.setItem(id, JSON.stringify(res.result));
         setMetadata(res.result);
+      }).catch(err => {
+        console.log(err);
+        setMetadata(null);
       });
     }
   }
@@ -111,7 +114,12 @@ function LinkPreview({ url, target, hoverColor }) {
     ) {
       // Parse the file id out of the drive URL search parameters.
       const id = parsedUrl.searchParams.get("id");
-      fetchMetadata(id);
+      if (id) {
+        fetchMetadata(id);
+      } else {
+        // Could not find id in link.
+        setMetadata({});
+      }
     } else if (
       parsedUrl.hostname === "docs.google.com" &&
       (parsedUrl.pathname.split("/")[1] === "document" ||
@@ -122,7 +130,12 @@ function LinkPreview({ url, target, hoverColor }) {
       const pathPieces = parsedUrl.pathname.split("/");
       const indexId = pathPieces.findIndex(path => path === "d") + 1;
       const id = pathPieces[indexId];
-      fetchMetadata(id);
+      if (id) {
+        fetchMetadata(id);
+      } else {
+        // Could not find id in link.
+        setMetadata({});
+      }
     } else if (
       parsedUrl.hostname === "www.youtube.com" &&
       parsedUrl.pathname === "/watch" &&
@@ -131,11 +144,23 @@ function LinkPreview({ url, target, hoverColor }) {
       // Parse the video id out of the youtube URL search parameters.
       const id = parsedUrl.searchParams.get("v");
       if (window.gapi.client.youtube) {
-        fetchYouTubeMetadata(id);
+        if (id) {
+          fetchYouTubeMetadata(id);
+        } else {
+          // Could not find id in link.
+          setMetadata({});
+        }
       } else {
         window.gapi.client
           .load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
-          .then(() => fetchYouTubeMetadata(id));
+          .then(() => {
+            if (id) {
+              fetchYouTubeMetadata(id);
+            } else {
+              // Could not find id in link.
+              setMetadata({});
+            }
+          });
       }
     } else { // For default links not recognized.
       setMetadata({});

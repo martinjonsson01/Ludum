@@ -74,6 +74,8 @@ function CommentList({ comments, setComments, accentColor, setError }) {
         // Create new comments-array and add the edited comment body to it.
         const newComments = comments.slice(0);
         newComments[index].body = newText;
+        // Change the updated_at date as well.
+        newComments[index].updated_at = new Date();
         // Exit edit-mode.
         stopEditComment(comment);
         // Push newComments to state.

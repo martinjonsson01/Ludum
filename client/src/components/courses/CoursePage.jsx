@@ -16,7 +16,7 @@ import MatrixPage from "./MatrixPage";
 import TestsPage from "./TestsPage";
 import MaterialsPage from "./MaterialsPage";
 
-/**
+/*
  * Component.
  */
 function CoursePage({ location, history, match }) {
@@ -63,7 +63,7 @@ function CoursePage({ location, history, match }) {
   }
 
   return (
-    <React.Fragment>
+    <Container>
       <Banner>
         <BannerImage
           bannerurl={course.banner_url}
@@ -123,11 +123,11 @@ function CoursePage({ location, history, match }) {
           </Switch>
         </Suspense>
       </ErrorBoundary>
-    </React.Fragment>
+    </Container>
   );
 }
 
-/**
+/*
  * Props.
  */
 CoursePage.propTypes = {
@@ -136,9 +136,19 @@ CoursePage.propTypes = {
   match: PropTypes.object,
 };
 
-/**
+/*
  * Styling.
  */
+const Container = styled.div`
+  max-width: calc(100% - (2*1.5rem));
+  width: 1000px;
+  margin: 0  auto 1.5rem auto;
+
+  @media (max-width: 600px) {
+    max-width: 100%;
+    margin: 0;
+  }
+`;
 const Banner = styled.div`
   position: relative;
   height: 18rem;
@@ -171,7 +181,15 @@ const DarkTint = styled.div`
   }
 `;
 const ThemedTabBar = styled(TabBar)`
+  width: calc(100% - 2*1.5rem) !important;
+  margin: 0 1.5rem;
   --mdc-theme-primary: ${props => `#${props.tintcolor}`};
+
+  @media (max-width: 600px) {
+    width: calc(100% - 2*1rem) !important;
+    margin: 0 1rem;
+  }
+
   .mdc-tab__text-label {
     font-size: 1rem;
     font-weight: 700;

@@ -73,8 +73,8 @@ function MultilineTextInput({
     if (startText) {
       // If text has not been changed from startText.
       if (startText === text) {
-        // Select all text.
-        textareaRef.current.select();
+        // Focus textarea.
+        textareaRef.current.focus();
       }
     }
   });

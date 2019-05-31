@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+
 import useFetch from "fetch-suspense";
 
 import FeedItem from "./FeedItem";
@@ -8,7 +9,7 @@ import FeedItem from "./FeedItem";
 /*
  * FeedPage component.
  */
-function FeedPage({ courseId, accentColor }) {
+function FeedPage({ courseId, accentColor, onNavigateChange }) {
 
   const feed = useFetch(
     `http://localhost:3001/api/courses/${courseId}/feed`,
@@ -17,18 +18,18 @@ function FeedPage({ courseId, accentColor }) {
 
   return (
     <Container>
-      <ul>
-        {feed.map((event, index, array) => [
-          <FeedItem
-            key={event.content}
-            event={event}
-            accentColor={accentColor}
-          />,
-          // Only render MarginDivider if not last item.
-          array.length - 1 === index ? "" :
-            <MarginDivider key={index + "_divider"} />
-        ])}
-      </ul>
+      {feed.map((event, index, array) => [
+        <FeedItem
+          key={event.content}
+          event={event}
+          accentColor={accentColor}
+          courseId={courseId}
+          onNavigateChange={onNavigateChange}
+        />,
+        // Only render MarginDivider if not last item.
+        array.length - 1 === index ? "" :
+          <MarginDivider key={index + "_divider"} />
+      ])}
     </Container>
   );
 }
@@ -39,6 +40,7 @@ function FeedPage({ courseId, accentColor }) {
 FeedPage.propTypes = {
   courseId: PropTypes.string.isRequired,
   accentColor: PropTypes.string,
+  onNavigateChange: PropTypes.func.isRequired,
 };
 
 /*

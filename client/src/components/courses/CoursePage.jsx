@@ -19,7 +19,7 @@ import MaterialsPage from "./MaterialsPage";
 /*
  * Component.
  */
-function CoursePage({ location, history, match }) {
+function CoursePage({ location, history, match, onNavigateChange }) {
 
   const course = useFetch(
     `http://localhost:3001/api/courses/${match.params.code}`,
@@ -105,6 +105,7 @@ function CoursePage({ location, history, match }) {
                   courseId={course.id}
                   {...routeProps}
                   accentColor={theme === "dark" ? course.accent_color_dark : course.accent_color}
+                  onNavigateChange={onNavigateChange}
                 />
               }
             />
@@ -134,6 +135,7 @@ CoursePage.propTypes = {
   location: PropTypes.object,
   history: PropTypes.object,
   match: PropTypes.object,
+  onNavigateChange: PropTypes.func.isRequired,
 };
 
 /*

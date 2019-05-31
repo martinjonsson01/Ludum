@@ -222,7 +222,7 @@ const Container = styled.a`
   flex-direction: row;
   min-height: calc(4.5rem + 2px);
   width: fit-content;
-  margin-top: 1rem;
+  margin-bottom: 1rem;
   color: inherit;
   flex-direction: row;
   -webkit-user-select: text;

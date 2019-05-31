@@ -65,6 +65,7 @@ const ProfileImage = styled.img`
   height: 2rem;
   border-radius: 50%;
   margin: auto 1rem;
+  cursor: pointer;
 `;
 
 export default UserButton;

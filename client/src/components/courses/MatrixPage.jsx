@@ -1,13 +1,14 @@
 import React from "react";
-import Card from "@material/react-card";
 import { Grid, Row, Cell } from "@material/react-layout-grid";
+
+import Modal from "../common/Modal";
 
 function MatrixPage() {
   return (
     <Grid>
       <Row>
         <Cell columns={12}>
-          <Card className="full-height-tabbar">Kursmatris</Card>
+          <Modal initialBounds={{ width: 800, height: 600, top: 50, left: 100 }} />
         </Cell>
       </Row>
     </Grid>

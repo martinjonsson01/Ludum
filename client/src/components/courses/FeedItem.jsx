@@ -1,59 +1,129 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import Card from "@material/react-card";
 import MaterialIcon from "@material/react-material-icon";
 import { Body1, Headline6 } from "@material/react-typography";
 
 import MaterialsList from "./MaterialsList";
 import CommentBox from "../comment/CommentBox";
-import { formatDate } from "../../Util";
+import { formatDate, formatDueDate } from "../../Util";
+import Modal from "../common/Modal";
+import DateText from "../common/DateText";
 
 /*
  * Component.
  */
 function FeedItem({ event, accentColor }) {
 
-  const publishDate = formatDate(new Date(event.created_at));
-  const editDate = formatDate(new Date(event.updated_at));
+  const [expandData, setExpandData] = useState(null);
+  const [fullSize, setFullSize] = useState(false);
+  const itemRef = useRef();
 
-  return (
-    <li key={event.content}>
-      <StyledCard>
-        <Meta type={event.type}>
+  function expandItem() {
+    if (expandData) {
+      // Update size state.
+      setFullSize(false);
+    } else if (itemRef.current) {
+      const bounds = itemRef.current.getBoundingClientRect();
+      // Pass FeedItems bounds rect to modal.
+      setExpandData(bounds);
+      // Update size state.
+      setFullSize(true);
+    }
+  }
+
+  function closeItem() {
+    // Hide modal component.
+    setExpandData(null);
+  }
+
+  function NormalFeedItem() {
+    return (
+      <StyledCard
+        className="mdc-card"
+        key={event.content}
+        ref={itemRef}
+      >
+        <Meta
+          type={event.type}
+          onClick={expandItem}
+        >
+          {/** Icon */}
           <Icon
             icon={event.type === "coursematerial" ? "book" : event.type}
             iconcolor={accentColor}
             type={event.type}
           />
+          {/* If event type is announcement, put publish and edit date up here. */}
           {event.type === "announcement" &&
-            /** Publish date */
-            <DateText>{publishDate}</DateText>
+            /** Publish and edit date */
+            <DateText
+              publishDate={event.created_at}
+              editDate={event.updated_at}
+              formatter={formatDate}
+              prefix="Publicerad "
+            />
           }
           {event.type !== "announcement" &&
             /** Title */
             <Title>{event.title}</Title>
           }
+          {/* This margin seperates the above from the below. */}
           <EmptyMargin />
-          {/** Edit date */}
-          {editDate === publishDate ? "" :
-            <i><DateText>Redigerad {editDate}</DateText></i>
+          {event.type === "assignment" &&
+            /** Turn-in date */
+            <DateText
+              publishDate={event.due_at}
+              formatter={formatDueDate}
+              prefix="Inlämning "
+            />
           }
         </Meta>
         {event.type !== "announcement" && <Divider />}
+        {/* If event type is not announcement, put publish and edit date down here. */}
+        {event.type !== "announcement" &&
+          /** Publish and edit date */
+          <DateTextWithMargins
+            publishDate={event.created_at}
+            editDate={event.updated_at}
+            formatter={formatDate}
+            prefix="Publicerad "
+          />
+        }
+        {/** Body */}
         <Body>{event.content}</Body>
+        {/** Materials */}
         <StyledMaterialsList
           event={event}
           accentColor={accentColor}
         />
         <Divider />
+        {/** Comments */}
         <CommentBox
           accentColor={accentColor}
           commentUrl={`http://localhost:3001/api/comments/${event.type}/${event.id}`}
         />
       </StyledCard>
-    </li>
+    );
+  }
+
+  return (
+    expandData ?
+      <React.Fragment>
+        <Modal
+          key={event.content}
+          fullSize={fullSize}
+          setFullSize={setFullSize}
+          initialBounds={expandData}
+          onScrimClick={closeItem}
+        >
+          <NormalFeedItem />
+        </Modal>
+        <Placeholder bounds={expandData} />
+      </React.Fragment>
+      :
+      <NormalFeedItem />
   );
 }
 
@@ -68,8 +138,9 @@ FeedItem.propTypes = {
 /*
  * Styles.
  */
-const StyledCard = styled(Card)`
+const StyledCard = styled.div`
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   -webkit-user-select: text;
@@ -78,16 +149,21 @@ const StyledCard = styled(Card)`
   user-select: text;
   white-space: pre-wrap;
 `;
-const Meta = styled.div`
+const Placeholder = styled.div`
+  height: ${props => props.bounds.height}px;
+  width: ${props => props.bounds.width}px;
+`;
+const Meta = styled.button`
   display: flex;
   flex-direction: row;
   align-items: center;
   margin: ${props => props.type !== "announcement" ? "-1rem -1.5rem 0 -1.5rem" : "0"};
   padding: ${props => props.type !== "announcement" ? "0.5rem 1.5rem" : "0"};
+  color: var(--mdc-theme-on-background);
   
   &:hover {
     background: ${props => props.type !== "announcement" ? "var(--mdc-theme-surface)" : "none"};
-    cursor: pointer;
+    cursor: ${props => props.type !== "announcement" ? "pointer" : "inherit"};
   }
 `;
 const Icon = styled(MaterialIcon)`
@@ -113,18 +189,20 @@ const EmptyMargin = styled.div`
 const Body = styled(Body1)`
   height: fit-content;
   margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
   flex-grow: 1;
 `;
 const StyledMaterialsList = styled(MaterialsList)`
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
 `;
 const Title = styled(Headline6)`
   color: var(--mdc-theme-title);
+  font-family: Montserrat, Roboto, sans-serif !important;
   font-weight: 500 !important;
 `;
-const DateText = styled(Body1)`
-  color: var(--mdc-theme-text-subtitle);
-  font-size: 0.9375rem !important;
+const DateTextWithMargins = styled(DateText)`
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
 `;
 const Divider = styled.div`
   height: 1px;

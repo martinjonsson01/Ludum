@@ -39,6 +39,33 @@ export function formatDate(date) {
   }
 }
 
+export function formatDueDate(date) {
+  var now = new Date();
+  // If date is today.
+  if (
+    now.getFullYear() === date.getFullYear() &&
+    now.getMonth() === date.getMonth() &&
+    now.getDate() === date.getDate()
+  ) {
+    // Calculate time remaining until date in minutes.
+    const deltaMin = (date - now) / 1000 / 60;
+    // Remaining minutes.
+    const remainingMin = Math.round(deltaMin % 60);
+    // Remaining hours.
+    const remainingHours = Math.floor(deltaMin / 60);
+    var strTime = "om ";
+    // Only include hours if there are any remaining.
+    if (remainingHours > 0) {
+      strTime += remainingHours + " h ";
+    }
+    strTime += remainingMin + " min";
+    return strTime;
+  }
+  else { // If date is not today.
+    return date.toLocaleString("sv-SE", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
+  }
+}
+
 // Copied from:
 // https://stackoverflow.com/questions/22148885/converting-youtube-data-api-v3-video-duration-format-to-seconds-in-javascript-no
 export function parseISO8601Duration(duration) {

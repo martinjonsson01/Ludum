@@ -103,7 +103,9 @@ function CommentList({ comments, setComments, accentColor, setError }) {
           accentcolor={accentColor}
           onClick={toggleExpanded}
         >
-          <ExpandText>{`${comments.length} kommentarer`}</ExpandText>
+          <ExpandText>
+            {`${comments.length} ${comments.length === 1 ? "kommentar" : "kommentarer"}`}
+          </ExpandText>
         </ExpandButton>
         : ""
       }

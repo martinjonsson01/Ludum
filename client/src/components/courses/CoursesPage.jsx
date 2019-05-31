@@ -107,11 +107,13 @@ function CoursesPage(props) {
     );
   }
 
+  const onNavigateChange = props.onNavigateChange;
+
   return (
     <Sheltr duration={200}>
       <Route
         path={`${props.match.path}/:code`}
-        component={props => <CoursePage {...props} />}
+        component={props => <CoursePage {...props} onNavigateChange={onNavigateChange} />}
       />
       <Route
         exact
@@ -123,7 +125,7 @@ function CoursesPage(props) {
 }
 
 CoursesPage.propTypes = {
-  onNavigateChange: PropTypes.func,
+  onNavigateChange: PropTypes.func.isRequired,
   match: PropTypes.object,
 };
 

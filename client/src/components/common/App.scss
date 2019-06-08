@@ -1,0 +1,203 @@
+@import '@material/react-linear-progress/index.scss';
+@import '@material/react-card/index.scss';
+@import '@material/react-drawer/index.scss';
+@import '@material/react-top-app-bar/index.scss';
+@import '@material/react-drawer/index.scss';
+@import '@material/react-list/index.scss';
+@import '@material/react-button/index.scss';
+@import '@material/react-icon-button/index.scss';
+@import '@material/react-menu-surface/index.scss';
+@import '@material/react-layout-grid/index.scss';
+@import '@material/react-ripple/index.scss';
+@import '@material/react-snackbar/index.scss';
+
+html,
+body,
+#root {
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
+}
+
+main {
+  height: 100%;
+}
+
+:not(.mdc-list--non-interactive)> :not(.mdc-list-item--disabled).mdc-list-item::before,
+:not(.mdc-list--non-interactive)> :not(.mdc-list-item--disabled).mdc-list-item::after {
+  background-color: var(--mdc-theme-primary);
+}
+
+:not(.mdc-list--non-interactive)> :not(.mdc-list-item--disabled).mdc-list-item:hover::before {
+  opacity: 0.1;
+}
+
+.mdc-top-app-bar-drawer-fix {
+  width: calc(100% - 256px) !important;
+}
+
+.mdc-top-app-bar {
+  background-color: var(--mdc-theme-surface);
+  color: var(--mdc-theme-on-surface);
+}
+
+.align-text-center {
+  margin: auto;
+  padding: 0;
+}
+
+.top-app-bar-fix-adjust {
+  display: flex;
+  width: 100%;
+}
+
+.drawer-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  overflow: hidden;
+}
+
+.drawer-app-content {
+  flex: auto;
+  overflow: auto;
+}
+
+.grid-container {
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.fix-container {
+  position: absolute;
+  width: 100%;
+}
+
+.mdc-drawer {
+  @include mdc-drawer-surface-fill-color(var(--mdc-theme-surface));
+}
+
+#navList .mdc-list-item {
+  font-size: 1rem;
+}
+
+// Dark theming.
+html[data-theme="dark"] {
+  .mdc-drawer {
+    /* Should always be --mdc-theme-surface color. */
+    @include mdc-drawer-fill-color-accessible(#002b2c);
+    @include mdc-drawer-item-activated-icon-ink-color(#da5026);
+  }
+}
+
+h5.vertical-align {
+  height: 2rem;
+  margin: auto;
+}
+
+.account {
+  margin: auto 0;
+  margin-right: 12px;
+  height: 32px;
+  width: 32px;
+
+  img {
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+  }
+}
+
+.mdc-menu-surface #grid {
+  padding: 8px;
+  display: grid;
+  grid-row-gap: 16px;
+  grid-template-areas: "name name name name""email email email email""profile . . .""sign-out . dark-mode settings";
+}
+
+#name {
+  grid-area: name;
+}
+
+#email {
+  margin-top: -16px;
+  grid-area: email;
+}
+
+#profile {
+  grid-area: profile;
+  @include mdc-button-container-fill-color(var(--mdc-theme-secondary));
+}
+
+#dark-mode {
+  grid-area: dark-mode;
+  margin: auto;
+  width: 48px;
+  height: 48px;
+}
+
+#settings {
+  grid-area: settings;
+  margin: auto 0 0 auto;
+  width: 48px;
+  height: 48px;
+}
+
+#sign-out {
+  grid-area: sign-out;
+  margin: auto;
+  color: var(--mdc-theme-secondary);
+  @include mdc-button-outline-color(var(--mdc-theme-secondary));
+  @include mdc-states-base-color(#b00020);
+}
+
+.mdc-list-divider {
+  border-bottom-color: var(--mdc-theme-border);
+  height: 1px !important;
+}
+
+.navigate-highlight .mdc-card {
+  background: var(--mdc-theme-secondary);
+}
+
+.mdc-card {
+  border-radius: 1rem;
+  overflow-y: hidden;
+  color: var(--mdc-theme-on-surface);
+  background: var(--mdc-theme-background);
+  transition: background-color 500ms ease-in-out;
+
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--mdc-theme-border);
+}
+
+.mdc-card::-webkit-scrollbar-track {
+  margin-top: 4px;
+}
+
+.card-title {
+  text-align: center;
+  padding: 16px 0 32px 0;
+}
+
+.error-title {
+  color: var(--mdc-theme-on-surface);
+  margin: 16px auto;
+  width: 50vmin;
+}
+
+.error-body {
+  color: var(--mdc-theme-on-surface);
+  margin: 16px auto;
+  width: 50vmin;
+}
+
+.full-height {
+  /* Set height to 100% of the viewport height... */
+  /* minus the height of the top app bar... */
+  /* minus the padding of the layout grid(twice). */
+  height: calc(100vh - 64px - 24px - 24px);
+}

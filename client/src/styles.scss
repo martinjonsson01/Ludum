@@ -1,0 +1,98 @@
+@import '@material/react-material-icon/index.scss';
+@import '@material/react-typography/index.scss';
+
+* {
+  margin: 0em;
+  padding: 0;
+  /* Include padding and border in all element's total width and height. */
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  background: var(--mdc-theme-background);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+.system-font {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+  background: none;
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--mdc-theme-on-background)
+}
+
+/* Scrollbar width. */
+
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: #171614;
+  color: #ecdcbf;
+}
+
+/* Scrollbar corner */
+
+::-webkit-scrollbar-corner {
+  background-color: #12110f;
+}
+
+/* Scrollbar track. */
+
+::-webkit-scrollbar-track {
+  width: 8px;
+}
+
+/* Scrollbar handle. */
+
+::-webkit-scrollbar-thumb {
+  width: 8px;
+  background-color: #292723;
+}
+
+/* Scrollbar handle on hover. */
+
+::-webkit-scrollbar-thumb:hover {
+  background: #929292;
+}
+
+/* Text selection */
+::selection {
+  background-color: #20a9bb;
+  color: #000000;
+}
+
+ul {
+  list-style: none;
+}

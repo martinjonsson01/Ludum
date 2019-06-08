@@ -1,0 +1,38 @@
+.mdc-list {
+  overflow-y: hidden;
+}
+
+.mdc-list:hover {
+  overflow-y: auto;
+}
+
+.mdc-list::-webkit-scrollbar-track {
+  margin-top: 4px;
+}
+
+.overview-list {
+  .mdc-list-item__text {
+    color: var(--mdc-theme-on-surface);
+  }
+  .mdc-list-item {
+    height: fit-content !important;
+  }
+  .mdc-list-item__secondary-text {
+    height: fit-content !important;
+    white-space: pre-line !important;
+    margin-bottom: 8px;
+  }
+  .mdc-list-item__primary-text {
+    height: fit-content !important;
+    white-space: normal !important;
+    margin-bottom: 1px;
+  }
+  .mdc-list-item__graphic {
+    align-self: flex-start;
+    margin-top: 16px;
+  }
+}
+
+.mdc-card {
+  padding-top: 8px;
+}

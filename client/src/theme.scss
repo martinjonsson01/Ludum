@@ -1,0 +1,105 @@
+/*html.color-theme-in-transition:not(input),
+html.color-theme-in-transition *:not(input),
+html.color-theme-in-transition *:not(input):before,
+html.color-theme-in-transition *:not(input):after {
+  transition: all 750ms;
+  transition-delay: 0;
+}*/
+
+html {
+  /* global light colors */
+  /* The theme primary color. */
+  --mdc-theme-primary: #26c6da;
+  /* The theme primary color at 10% opacity. */
+  --mdc-theme-primary-opacity-10: #26c6da1a;
+  /* The theme primary color at 20% opacity. */
+  --mdc-theme-primary-opacity-20: #26c6da33;
+  /* The theme link color. */
+  --mdc-theme-link: #209bab;
+  /* The theme secondary color. */
+  --mdc-theme-secondary: #f9a825;
+  /* The theme background color. */
+  --mdc-theme-background: #f7f7f7;
+  /* The theme surface color. */
+  --mdc-theme-surface: #ffffff;
+  /* The theme border color. */
+  --mdc-theme-border: #dadce0;
+  /* The theme title text color. */
+  --mdc-theme-text-title: #3c4043;
+  /* The dark theme title text color. */
+  --mdc-theme-text-title-dark: #3c4043;
+  /* The theme subtitle text color. */
+  --mdc-theme-text-subtitle: rgba(0, 0, 0, 0.55);
+  /* Text color on top of a primary background. */
+  --mdc-theme-on-primary: #3c4043;
+  /* Text color on top of a secondary background. */
+  --mdc-theme-on-secondary: #3c4043;
+  /* Text color on top of a surface background. */
+  --mdc-theme-on-surface: #3c4043;
+  /* Text color on top of the background. */
+  --mdc-theme-on-background: #3c4043;
+  /* Secondary text color on top of the background. */
+  --mdc-theme-text-secondary-on-background: #3c4043e8;
+  /* Disabled background color. */
+  --mdc-theme-background-disabled: rgba(0, 0, 0, 0.10);
+  /* Error color. */
+  --mdc-theme-error: #b00020;
+  /* Error text color. */
+  --mdc-theme-on-error: #000000;
+  /* Warning color. */
+  --mdc-theme-warning: #f9a825;
+  /* Warning text color. */
+  --mdc-theme-on-warning: #000000;
+}
+
+/* https://stackoverflow.com/questions/36915508/what-are-the-material-design-dark-theme-colors */
+
+html[data-theme="dark"] {
+  /* global dark colors */
+  /* The theme primary color. */
+  --mdc-theme-primary: #1b8c9b;
+  /* The theme primary color at 10% opacity. */
+  --mdc-theme-primary-opacity-10: #1b8c9b1a;
+  /* The theme primary color at 20% opacity. */
+  --mdc-theme-primary-opacity-20: #1b8c9b33;
+  /* The theme link color. */
+  --mdc-theme-link: #26c6da;
+  /* The theme secondary color. */
+  --mdc-theme-secondary: #da9322;
+  /* The theme background color.003638 */
+  --mdc-theme-background: #001d1f;
+  /* The theme surface color.006064 */
+  --mdc-theme-surface: #002b2c;
+  /* The theme border color. */
+  --mdc-theme-border: #004648;
+  /* The theme title text color. */
+  --mdc-theme-text-title: #ffffff;
+  /* The dark theme title text color. */
+  --mdc-theme-text-title-dark: #9aa0a6;
+  /* The theme subtitle text color. */
+  --mdc-theme-text-subtitle: #adadad;
+  /* Text color on top of a primary background. */
+  --mdc-theme-on-primary: #ffffff;
+  /* Text color on top of a secondary background. */
+  --mdc-theme-on-secondary: #000000;
+  /* Text color on top of a surface background. */
+  --mdc-theme-on-surface: #e8eaed;
+  /* Text color on top of the background. */
+  --mdc-theme-on-background: #e8eaed;
+  /* Secondary text color on top of the background. */
+  --mdc-theme-text-secondary-on-background: #e8eaedf1;
+  /* Disabled background color. */
+  --mdc-theme-background-disabled: rgba(255, 255, 255, 0.10);
+  /* Error color. */
+  --mdc-theme-error: #b00020;
+  /* Error text color. */
+  --mdc-theme-on-error: #000000;
+  /* Warning color. */
+  --mdc-theme-warning: #f57f17;
+  /* Warning text color. */
+  --mdc-theme-on-warning: #000000;
+}
+
+@function color($color-name) {
+  @return var(--mdc-theme-#{$color-name});
+}

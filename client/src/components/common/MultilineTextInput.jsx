@@ -22,7 +22,7 @@ function MultilineTextInput({
   paddingBottom = 1.5,
   paddingLeft = 1.5,
   paddingRight = 1.5,
-  minHeight = 5.25,
+  minHeight = 4.5,
   textPaddingTop = 0,
 }) {
 
@@ -80,7 +80,7 @@ function MultilineTextInput({
   });
 
   return (
-    <CommentArea
+    <Container
       paddingtop={paddingTop}
       paddingbottom={paddingBottom}
       paddingleft={paddingLeft}
@@ -122,7 +122,7 @@ function MultilineTextInput({
           : ""
         }
       </InputArea>
-    </CommentArea>
+    </Container>
   );
 }
 
@@ -149,7 +149,7 @@ MultilineTextInput.propTypes = {
 /*
  * Styling.
  */
-const CommentArea = styled.div`
+const Container = styled.div`
   display: flex;
   min-height: ${props => `${props.minheight}rem`};
   flex-direction: row;
@@ -221,7 +221,7 @@ const StyledButton = styled(Button)`
   font-family: Montserrat, sans-serif !important;
   font-weight: 600 !important;
   letter-spacing: 0.02em !important;
-  border-radius: 0.0625rem !important;
+  border-radius: 0.1875rem !important;
   margin-left: 1rem;
   min-width: 5.5rem !important;
   color: ${props => props.raised ? "var(--mdc-theme-on-primary)" : "var(--mdc-theme-link)"} !important;

@@ -81,7 +81,7 @@ function SignInPage({ user, signInUser, signOutUser, setAccessToken, setAuthUser
     if (!window.gapi.auth2 || !window.gapi.auth2.getAuthInstance()) {
       const scope = "email profile https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/youtube.readonly";
       window.gapi.client.init({
-        client_id: "425892769172-0jb5mo5gm07avnjraabf75pkula2uv65.apps.googleusercontent.com",
+        client_id: "685131692090-p0ea4htr20qsvd5kuvd2bl9tl7ihudq0.apps.googleusercontent.com",
         cookie_policy: "single_host_origin",
         //hosted_domain: "*.ga.lbs.se",  TODO: Needs to allow both elev.ga.lbs.se and ga.lbs.se. See GitHub issue: https://github.com/google/google-api-javascript-client/issues/210
         fetch_basic_profile: true,

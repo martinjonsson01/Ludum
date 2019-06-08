@@ -7,7 +7,14 @@ import styled from "styled-components";
  */
 function DateText(props) {
 
-  var { prefix, publishDate, editDate = null, formatter, refreshIntervalSeconds = 60 } = props;
+  var { 
+    prefix, 
+    publishDate,
+    editDate = null, 
+    formatter, 
+    refreshIntervalSeconds = 60, 
+    textColor = "var(--mdc-theme-text-subtitle)" 
+  } = props;
 
   // Make editDate equal to publishDate if no editDate is provided.
   // This way, the edit date won't show up.
@@ -32,7 +39,7 @@ function DateText(props) {
   }, [publishDate, editDate, formatter, refreshIntervalSeconds]);
 
   return (
-    <Text {...props}>
+    <Text {...props} textcolor={textColor}>
       {prefix}{formattedPublishDate}{publishDate !== editDate && ` (Redigerad ${formattedEditDate})`}
     </Text>
   );
@@ -47,6 +54,7 @@ DateText.propTypes = {
   editDate: PropTypes.string,
   formatter: PropTypes.func.isRequired,
   refreshIntervalSeconds: PropTypes.number,
+  textColor: PropTypes.string,
 };
 
 /*
@@ -60,7 +68,7 @@ const Text = styled.div`
   letter-spacing: 0.01875rem; /* 0.3px at 100% scale */
   line-height: 1rem; /* 16px at 100% scale */
 
-  color: var(--mdc-theme-text-subtitle);
+  color: ${props => props.textcolor};
 `;
 
 export default DateText;

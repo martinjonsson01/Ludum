@@ -11,7 +11,7 @@ import MultilineTextInput from "../common/MultilineTextInput";
 /**
  * Component.
  */
-function CommentList({ comments, setComments, accentColor, setError }) {
+function CommentList({ comments, setComments, accentColor, setError, buttonPrefix = () => "" }) {
 
   const [contextComment, setContextComment] = useState(null);
   const [expanded, setExpanded] = useState(false);
@@ -96,6 +96,12 @@ function CommentList({ comments, setComments, accentColor, setError }) {
     setEditing(editing => editing.filter(cmtId => cmtId !== comment.id));
   }
 
+  var formattedButtonPrefix = buttonPrefix(comments.length === 1);
+  // Append a space to button prefix if it contains text.
+  if (formattedButtonPrefix) {
+    formattedButtonPrefix += " ";
+  }
+
   return (
     <React.Fragment>
       {comments && comments.length > 0 ?
@@ -104,7 +110,7 @@ function CommentList({ comments, setComments, accentColor, setError }) {
           onClick={toggleExpanded}
         >
           <ExpandText>
-            {`${comments.length} ${comments.length === 1 ? "kommentar" : "kommentarer"}`}
+            {`${comments.length} ${formattedButtonPrefix}${comments.length === 1 ? "kommentar" : "kommentarer"}`}
           </ExpandText>
         </ExpandButton>
         : ""
@@ -183,6 +189,7 @@ CommentList.propTypes = {
   setComments: PropTypes.func,
   setError: PropTypes.func,
   accentColor: PropTypes.string,
+  buttonPrefix: PropTypes.func,
 };
 
 /**

@@ -10,6 +10,10 @@ html {
   /* global light colors */
   /* The theme primary color. */
   --mdc-theme-primary: #26c6da;
+  /* The theme primary color at 10% opacity. */
+  --mdc-theme-primary-opacity-10: #26c6da1a;
+  /* The theme primary color at 20% opacity. */
+  --mdc-theme-primary-opacity-20: #26c6da33;
   /* The theme link color. */
   --mdc-theme-link: #209bab;
   /* The theme secondary color. */
@@ -36,6 +40,16 @@ html {
   --mdc-theme-on-background: #3c4043;
   /* Secondary text color on top of the background. */
   --mdc-theme-text-secondary-on-background: #3c4043e8;
+  /* Disabled background color. */
+  --mdc-theme-background-disabled: rgba(0, 0, 0, 0.10);
+  /* Error color. */
+  --mdc-theme-error: #b00020;
+  /* Error text color. */
+  --mdc-theme-on-error: #000000;
+  /* Warning color. */
+  --mdc-theme-warning: #f9a825;
+  /* Warning text color. */
+  --mdc-theme-on-warning: #000000;
 }
 
 /* https://stackoverflow.com/questions/36915508/what-are-the-material-design-dark-theme-colors */
@@ -44,6 +58,10 @@ html[data-theme="dark"] {
   /* global dark colors */
   /* The theme primary color. */
   --mdc-theme-primary: #1b8c9b;
+  /* The theme primary color at 10% opacity. */
+  --mdc-theme-primary-opacity-10: #1b8c9b1a;
+  /* The theme primary color at 20% opacity. */
+  --mdc-theme-primary-opacity-20: #1b8c9b33;
   /* The theme link color. */
   --mdc-theme-link: #26c6da;
   /* The theme secondary color. */
@@ -70,6 +88,16 @@ html[data-theme="dark"] {
   --mdc-theme-on-background: #e8eaed;
   /* Secondary text color on top of the background. */
   --mdc-theme-text-secondary-on-background: #e8eaedf1;
+  /* Disabled background color. */
+  --mdc-theme-background-disabled: rgba(255, 255, 255, 0.10);
+  /* Error color. */
+  --mdc-theme-error: #b00020;
+  /* Error text color. */
+  --mdc-theme-on-error: #000000;
+  /* Warning color. */
+  --mdc-theme-warning: #f57f17;
+  /* Warning text color. */
+  --mdc-theme-on-warning: #000000;
 }
 
 @function color($color-name) {

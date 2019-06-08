@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 
 import LinkPreview from "../common/LinkPreview";
 
-/**
+/*
  * Component.
  */
-function MaterialsList({ event, accentColor, className }) {
+function MaterialsList({ materialUrls, accentColor, className }) {
 
-  let linkCards;
-  if (event.material_urls) {
-    linkCards = event.material_urls.map(url => (
+  var linkCards;
+  if (materialUrls) {
+    linkCards = materialUrls.map(url => (
       <LinkPreview
         key={url}
         url={url}
@@ -29,11 +29,11 @@ function MaterialsList({ event, accentColor, className }) {
   );
 }
 
-/**
+/*
  * Props.
  */
 MaterialsList.propTypes = {
-  event: PropTypes.object.isRequired,
+  materialUrls: PropTypes.array,
   accentColor: PropTypes.string,
   className: PropTypes.string,
 };

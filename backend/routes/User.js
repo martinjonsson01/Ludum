@@ -2,7 +2,7 @@ const db = require("../db");
 const asyncHandler = require("express-async-handler");
 const { OAuth2Client } = require("google-auth-library");
 
-const CLIENT_ID = "425892769172-0jb5mo5gm07avnjraabf75pkula2uv65.apps.googleusercontent.com";
+const CLIENT_ID = "685131692090-p0ea4htr20qsvd5kuvd2bl9tl7ihudq0.apps.googleusercontent.com";
 const client = new OAuth2Client(CLIENT_ID);
 
 const getCurrentUser = (req, res) => {

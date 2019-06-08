@@ -15,7 +15,7 @@ import CommentList from "../comment/CommentList";
 /*
  * Component.
  */
-function CommentBox({ accentColor, commentUrl }) {
+function CommentBox({ accentColor, commentUrl, buttonPrefix = () => "" }) {
 
   const initialComments = useFetch(commentUrl, {
     method: "GET", credentials: "include"
@@ -62,6 +62,7 @@ function CommentBox({ accentColor, commentUrl }) {
         setComments={setComments}
         accentColor={accentColor}
         setError={setError}
+        buttonPrefix={buttonPrefix}
       />
       {/** Divider. */}
       {comments ? <Divider /> : ""}
@@ -72,6 +73,8 @@ function CommentBox({ accentColor, commentUrl }) {
         submitLoadingText="Lägger upp ..."
         onTextSubmit={postComment}
         showUserAvatar
+        paddingTop={1.125}
+        paddingBottom={1.125}
       />
       {/** Error box. */}
       {error ?
@@ -94,6 +97,7 @@ function CommentBox({ accentColor, commentUrl }) {
 CommentBox.propTypes = {
   commentUrl: PropTypes.string.isRequired,
   accentColor: PropTypes.string,
+  buttonPrefix: PropTypes.func,
 };
 
 /*

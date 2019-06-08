@@ -11,7 +11,7 @@ import { Headline3, Headline5 } from "@material/react-typography";
 //import anime from "animejs";
 
 import ErrorBoundary from "../common/ErrorBoundary";
-import FeedPage from "./FeedPage";
+import FeedPage from "./feed/FeedPage";
 import MatrixPage from "./MatrixPage";
 import TestsPage from "./TestsPage";
 import MaterialsPage from "./MaterialsPage";
@@ -154,7 +154,8 @@ const Container = styled.div`
 const Banner = styled.div`
   position: relative;
   height: 18rem;
-  border-radius: 0  0 1rem 1rem;
+  border-radius: 1rem;
+  margin-top: 1rem;
 
   @media (max-width: 600px) {
     height: 10rem;
@@ -171,12 +172,12 @@ const BannerImage = styled.div`
   background-size: cover;
   background-color: ${props => `#${props.tintcolor}`};
   background-blend-mode: multiply;
-  border-radius: 0  0 1rem 1rem;
+  border-radius: 1rem;
 `;
 const DarkTint = styled.div`
   background-color: rgba(32,33,36,0.6);
   height: 18rem;
-  border-radius: 0  0 1rem 1rem;
+  border-radius: 1rem;
 
   @media (max-width: 600px) {
     height: 10rem;

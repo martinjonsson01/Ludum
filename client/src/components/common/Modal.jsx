@@ -17,7 +17,7 @@ import styled from "styled-components";
 /*
  * Component.
  */
-function Modal({ fullSize, setFullSize, initialBounds, onScrimClick, children, startVisible = true }) {
+function Modal({ fullSize, setFullSize, initialBounds, onScrimClick, onOpen, children, startVisible = true }) {
 
   const [visible] = useState(startVisible);
   const [maximized, setMaximized] = useState(false);
@@ -40,7 +40,13 @@ function Modal({ fullSize, setFullSize, initialBounds, onScrimClick, children, s
 
     function onTransitionEnd() {
       if (!fullSize) {
-        onScrimClick();
+        if (onScrimClick) {
+          onScrimClick();
+        }
+      } else {
+        if (onOpen) {
+          onOpen();
+        }
       }
     }
 
@@ -52,7 +58,7 @@ function Modal({ fullSize, setFullSize, initialBounds, onScrimClick, children, s
         ref.removeEventListener("transitionend", onTransitionEnd);
       }
     };
-  }, [onScrimClick, fullSize]);
+  }, [onScrimClick, fullSize, onOpen]);
 
   return (
     <Container>
@@ -79,6 +85,7 @@ Modal.propTypes = {
   setFullSize: PropTypes.func.isRequired,
   initialBounds: PropTypes.object.isRequired,
   onScrimClick: PropTypes.func,
+  onOpen: PropTypes.func,
   children: PropTypes.element.isRequired,
   startVisible: PropTypes.bool,
 };
@@ -89,7 +96,7 @@ Modal.propTypes = {
 const Container = styled.div`
   position: fixed;
 
-  overflow-y: scroll;
+  overflow-y: auto;
 
   z-index: 7;
 
@@ -102,7 +109,7 @@ const Scrim = styled.div`
   position: fixed;
 
   opacity: 0;
-  background-color: rgba(0,0,0,.32);
+  background-color: var(--mdc-theme-background);
 
   top: 0;
   left: 0;

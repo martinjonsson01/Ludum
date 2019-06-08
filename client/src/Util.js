@@ -41,8 +41,29 @@ export function formatDate(date) {
 
 export function formatDueDate(date) {
   var now = new Date();
-  // If date is today.
-  if (
+
+  // If date has passed.
+  if (now > date) {
+    // Calculate time passed since date in minutes.
+    const deltaMin = (now - date) / 1000 / 60;
+    // Passed hours.
+    const passedHours = deltaMin / 60;
+    let strTime = "för ";
+    // If less than 24 hours have passed since date.
+    if (passedHours < 24) {
+      // If less than one hour has passed.
+      if (passedHours < 1) {
+        strTime += Math.round(deltaMin) + " min";
+      } else {
+        strTime += Math.round(passedHours) + " h";
+      }
+    } else { // More than 24 hours have passed since date.
+      const passedDays = Math.round(deltaMin / 60 / 24);
+      strTime += passedDays + " dagar";
+    }
+    strTime += " sedan";
+    return strTime;
+  } else if ( // If date is today.
     now.getFullYear() === date.getFullYear() &&
     now.getMonth() === date.getMonth() &&
     now.getDate() === date.getDate()
@@ -53,7 +74,7 @@ export function formatDueDate(date) {
     const remainingMin = Math.round(deltaMin % 60);
     // Remaining hours.
     const remainingHours = Math.floor(deltaMin / 60);
-    var strTime = "om ";
+    let strTime = "om ";
     // Only include hours if there are any remaining.
     if (remainingHours > 0) {
       strTime += remainingHours + " h ";
@@ -61,7 +82,7 @@ export function formatDueDate(date) {
     strTime += remainingMin + " min";
     return strTime;
   }
-  else { // If date is not today.
+  else { // If date is not late or today.
     return date.toLocaleString("sv-SE", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
   }
 }

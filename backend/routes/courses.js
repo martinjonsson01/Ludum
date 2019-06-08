@@ -369,6 +369,7 @@ router.get("/:code/feed", asyncHandler(async (req, res) => {
   const [courseEvents] = await pool.execute(`
       SELECT
         announcement.id,
+        NULL AS user_id,
         "announcement" AS type,
         NULL AS title,
         announcement.content,
@@ -385,21 +386,24 @@ router.get("/:code/feed", asyncHandler(async (req, res) => {
       WHERE announcement.course_id = ?
     UNION ALL
       SELECT
-        assignment.id,
-        "assignment" AS type,
-        assignment.title,
-        assignment.content,
-        assignment.due_at,
-        assignment.created_at,
-        assignment.updated_at,
+        assignment.assignment_template_id,
+        assignment.user_id,
+        "assignment" AS "type",
+        assignment_template.title,
+        assignment_template.content,
+        assignment_template.due_at,
+        assignment_template.created_at,
+        assignment_template.updated_at,
         assignment.turned_in_at,
         material.url AS material_url
       FROM assignment
-        LEFT JOIN assignment_materials
-        ON assignment.id = assignment_materials.assignment_id
-        LEFT JOIN material
-        ON assignment_materials.material_id = material.id
-      WHERE assignment.user_id = ? && assignment.course_id = ?
+        LEFT JOIN assignment_template
+        ON assignment.assignment_template_id = assignment_template.id
+        LEFT JOIN assignment_template_materials
+        ON assignment.assignment_template_id = assignment_template_materials.assignment_template_id
+        RIGHT JOIN material
+        ON assignment_template_materials.material_id = material.id
+      WHERE assignment.user_id = ? && assignment_template.course_id = ?
     ORDER BY created_at ASC
     LIMIT 20 OFFSET 0
   `, [courseCode, req.session.user.sub, courseCode]); // TODO: This LIMIT operation can accidentally exclude materials from an event if it contains multiple materials.

@@ -83,7 +83,7 @@ const StyledPaper = styled(Paper)`
   border-color: var(--mdc-theme-border) !important;
 `;
 const StyledPopper = styled(Popper)`
-  z-index: 2;
+  z-index: 9;
 `;
 const StyledMenuItem = styled(MenuItem)`
   color: var(--mdc-theme-on-surface) !important;

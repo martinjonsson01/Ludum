@@ -4,7 +4,9 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -18,11 +20,13 @@
     "google-auth-library": "^3.1.2",
     "mongoose": "^5.4.18",
     "morgan": "^1.9.1",
-    "mysql2": "^1.6.5"
+    "mysql2": "^1.6.5",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
     "eslint": "^5.15.3",
     "nodemon": "^1.18.10"
-  }
+  },
+  "snyk": true
 }

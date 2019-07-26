@@ -1,19 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 
 import LinkPreview from "../common/LinkPreview";
 
 /*
  * Component.
  */
-function MaterialsList({ materialUrls, accentColor, className }) {
+function MaterialsList({ materials, accentColor, className }) {
 
   var linkCards;
-  if (materialUrls) {
-    linkCards = materialUrls.map(url => (
+  if (materials) {
+    linkCards = materials.map(material => (
       <LinkPreview
-        key={url}
-        url={url}
+        key={material.id}
+        url={material.url}
         target="_blank"
         hoverColor={accentColor}
       />
@@ -22,9 +23,9 @@ function MaterialsList({ materialUrls, accentColor, className }) {
 
   return (
     linkCards ? (
-      <section className={className}>
+      <Container className={className}>
         {linkCards}
-      </section>
+      </Container>
     ) : ""
   );
 }
@@ -33,9 +34,16 @@ function MaterialsList({ materialUrls, accentColor, className }) {
  * Props.
  */
 MaterialsList.propTypes = {
-  materialUrls: PropTypes.array,
+  materials: PropTypes.array,
   accentColor: PropTypes.string,
   className: PropTypes.string,
 };
+
+/*
+ * Styling.
+ */
+const Container = styled.section`
+  max-width: 100%;
+`;
 
 export default MaterialsList;

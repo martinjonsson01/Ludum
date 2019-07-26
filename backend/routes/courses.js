@@ -1,11 +1,27 @@
 const express = require("express");
 const router = express.Router();
 
+const assignmentRouter = require("./assignments");
+
 const db = require("../db");
 const asyncHandler = require("express-async-handler");
 
 // GET courses for user from the database.
-router.get("/", asyncHandler(async (req, res) => {
+router.get("/", asyncHandler(async (req, res) => await getCourses(req, res)));
+
+// GET course events from the database.
+router.get("/events", asyncHandler(async (req, res) => await getEvents(req, res)));
+
+// GET course data from the database.
+router.get("/:code", asyncHandler(async (req, res) => await getCourseData(req, res)));
+
+// GET course feed from the database.
+router.get("/:code/feed", asyncHandler(async (req, res) => await getFeed(req, res)));
+
+// Assignment router.
+router.use("/:code/assignment", assignmentRouter);
+
+async function getCourses(req, res) {
   // Get database connection-pool-object.
   const pool = db.getPool();
   // Await query for user courses.
@@ -54,10 +70,9 @@ router.get("/", asyncHandler(async (req, res) => {
 
   // Respond with ordered courses.
   res.json(orderedCourses);
-}));
+}
 
-// GET course events from the database.
-router.get("/events", (req, res) => {
+async function getEvents(req, res) {
   // TODO: REMOVE THIS 1000 MS TIMEOUT ASAP
   setTimeout(() =>
     res.json([
@@ -326,10 +341,9 @@ router.get("/events", (req, res) => {
         },
       },
     ]), 1000);
-});
+}
 
-// GET course data from the database.
-router.get("/:code", asyncHandler(async (req, res) => {
+async function getCourseData(req, res) {
   const courseCode = req.params.code;
   // Get database connection-pool-object.
   const pool = db.getPool();
@@ -358,10 +372,9 @@ router.get("/:code", asyncHandler(async (req, res) => {
   }
   // Respond with course-data.
   return res.json(courses[0]);
-}));
+}
 
-// GET course feed from the database.
-router.get("/:code/feed", asyncHandler(async (req, res) => {
+async function getFeed(req, res) {
   const courseCode = req.params.code;
   // Get database connection-pool-object.
   const pool = db.getPool();
@@ -377,6 +390,7 @@ router.get("/:code/feed", asyncHandler(async (req, res) => {
         announcement.created_at,
         announcement.updated_at,
         NULL AS turned_in_at,
+        material.id AS material_id,
         material.url AS material_url
       FROM announcement
         LEFT JOIN announcement_materials
@@ -395,6 +409,7 @@ router.get("/:code/feed", asyncHandler(async (req, res) => {
         assignment_template.created_at,
         assignment_template.updated_at,
         assignment.turned_in_at,
+        material.id AS material_id,
         material.url AS material_url
       FROM assignment
         LEFT JOIN assignment_template
@@ -425,15 +440,16 @@ router.get("/:code/feed", asyncHandler(async (req, res) => {
     ));
     // If defraggedCourseEvents contains this event already.
     if (alreadyDefraggedEvent) {
-      // Add the material_url from this event to the materials array of the defragged one.
-      alreadyDefraggedEvent.material_urls.push(event.material_url);
+      // Add the material from this event to the materials array of the defragged one.
+      alreadyDefraggedEvent.materials.push({ id: event.material_id, url: event.material_url });
     } else { // defraggedCourseEvents does not contain this event.
       // If this event has a material url.
       if (event.material_url) {
-        // Move material_url into material_urls array.
-        event.material_urls = [event.material_url];
-        // Delete material_url property, it is no longer needed.
+        // Move material into material_urls array.
+        event.materials = [{ id: event.material_id, url: event.material_url }];
+        // Delete material properties, it is no longer needed.
         delete event.material_url;
+        delete event.material_id;
       }
       // Add modified event to defragged course events.
       defraggedCourseEvents.push(event);
@@ -441,6 +457,6 @@ router.get("/:code/feed", asyncHandler(async (req, res) => {
   });
   // Respond with defragmented course events.
   return res.json(defraggedCourseEvents);
-}));
+}
 
 module.exports = router;

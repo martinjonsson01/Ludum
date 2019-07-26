@@ -185,3 +185,7 @@ export function getNameFromMimeType(metadata) {
       return "Fil";
   }
 }
+
+export function convertRemToPixels(rem) {
+  return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+}

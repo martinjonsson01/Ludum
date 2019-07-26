@@ -10,13 +10,13 @@ import CommentBox from "../../comment/CommentBox";
 import { formatDate } from "../../../Util";
 import Modal from "../../common/Modal";
 import DateText from "../../common/DateText";
-//import WorkArea from "../WorkArea";
+import WorkArea from "../WorkArea";
 import FeedItemHeader from "./FeedItemHeader";
 
 /*
  * Component.
  */
-function FeedItem({ event, accentColor }) {
+function FeedItem({ event, accentColor, courseId }) {
 
   const [expandData, setExpandData] = useState(null);
   // fullSize is used to control the opening and closing of the modal FeedItem.
@@ -102,17 +102,18 @@ function FeedItem({ event, accentColor }) {
         <Body>{event.content}</Body>
         {/** Materials */}
         <StyledMaterialsList
-          materialUrls={event.material_urls}
+          materials={event.materials}
           accentColor={accentColor}
         />
         {/** Divider */}
         {renderFullAssignment && <Divider />}
-        {/*event.type === "assignment" && renderFullAssignment && (
-          /** Work area *
+        {event.type === "assignment" && renderFullAssignment && (
+          /** Work area */
           <WorkArea
-
+            courseId={courseId}
+            assignmentId={event.id}
           />
-        )*/}
+        )}
         {/** Divider */}
         <Divider />
         {/** Comments */}
@@ -173,6 +174,7 @@ function FeedItem({ event, accentColor }) {
 FeedItem.propTypes = {
   event: PropTypes.object.isRequired,
   accentColor: PropTypes.string,
+  courseId: PropTypes.string.isRequired,
 };
 
 /*

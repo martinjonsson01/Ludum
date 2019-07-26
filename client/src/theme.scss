@@ -42,6 +42,8 @@ html {
   --mdc-theme-text-secondary-on-background: #3c4043e8;
   /* Disabled background color. */
   --mdc-theme-background-disabled: rgba(0, 0, 0, 0.10);
+  /* Text color on top of the disabled background color. */
+  --mdc-theme-on-background-disabled: rgba(0, 0, 0, 0.4);
   /* Error color. */
   --mdc-theme-error: #b00020;
   /* Error text color. */
@@ -90,6 +92,8 @@ html[data-theme="dark"] {
   --mdc-theme-text-secondary-on-background: #e8eaedf1;
   /* Disabled background color. */
   --mdc-theme-background-disabled: rgba(255, 255, 255, 0.10);
+  /* Text color on top of the disabled background color. */
+  --mdc-theme-on-background-disabled: rgba(255, 255, 255, 0.4);
   /* Error color. */
   --mdc-theme-error: #b00020;
   /* Error text color. */

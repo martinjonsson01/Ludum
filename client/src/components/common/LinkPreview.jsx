@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import PropTypes from "prop-types";
 import { Headline6, Body2 } from "@material/react-typography";
@@ -7,6 +7,7 @@ import { AppContext } from "../common/AppContext";
 import { getNameFromMimeType, parseISO8601Duration } from "../../Util";
 import LinkImageDark from "../../media/baseline_link_black_48dp.png";
 import LinkImage from "../../media/baseline_link_white_48dp.png";
+import { convertRemToPixels } from "./../../Util";
 
 /**
  * Component.
@@ -18,8 +19,11 @@ function LinkPreview({ url, target, hoverColor }) {
   const { authUser, theme } = useContext(AppContext);
 
   const [metadata, setMetadata] = useState();
+  const [clipBorder, setClipBorder] = useState(true);
 
-  function fetchMetadata(id) {
+  const elementRef = useRef(null);
+
+  function fetchDriveMetadata(id) {
     // Check if metadata already exists in session storage before sending request.
     if (window.sessionStorage.getItem(id)) {
       var meta = JSON.parse(window.sessionStorage.getItem(id));
@@ -106,7 +110,13 @@ function LinkPreview({ url, target, hoverColor }) {
     return theme === "dark" ? LinkImage : LinkImageDark;
   }
 
+  /**
+   * Fetches URL metadata.
+   */
   useEffect(() => {
+    // If metdata is already loaded, return.
+    if (metadata) return;
+
     if (
       parsedUrl.hostname === "drive.google.com" &&
       parsedUrl.pathname === "/open" &&
@@ -115,15 +125,38 @@ function LinkPreview({ url, target, hoverColor }) {
       // Parse the file id out of the drive URL search parameters.
       const id = parsedUrl.searchParams.get("id");
       if (id) {
-        fetchMetadata(id);
+        fetchDriveMetadata(id);
+      } else {
+        // Could not find id in link.
+        setMetadata({});
+      }
+    } else if (
+      parsedUrl.hostname === "drive.google.com" &&
+      parsedUrl.pathname.startsWith("/a/")
+    ) {
+      const path = parsedUrl.pathname;
+      // Parse the file id out of the drive URL search parameters.
+      const dIndex = path.indexOf("/d/");
+      const viewIndex = path.indexOf("/view");
+      var id;
+      if (viewIndex !== -1) {
+        id = path.substring(dIndex + 3, viewIndex);
+      } else {
+        id = path.substring(dIndex + 3, path.length - 1);
+      }
+
+      if (id) {
+        fetchDriveMetadata(id);
       } else {
         // Could not find id in link.
         setMetadata({});
       }
     } else if (
       parsedUrl.hostname === "docs.google.com" &&
-      (parsedUrl.pathname.split("/")[1] === "document" ||
-        parsedUrl.pathname.split("/")[1] === "spreadsheets") &&
+      (
+        parsedUrl.pathname.split("/")[1] === "document" ||
+        parsedUrl.pathname.split("/")[1] === "spreadsheets"
+      ) &&
       parsedUrl.pathname.split("/").length >= 3
     ) {
       // Parse the file id out of the docs URL (id comes after /d/).
@@ -131,7 +164,7 @@ function LinkPreview({ url, target, hoverColor }) {
       const indexId = pathPieces.findIndex(path => path === "d") + 1;
       const id = pathPieces[indexId];
       if (id) {
-        fetchMetadata(id);
+        fetchDriveMetadata(id);
       } else {
         // Could not find id in link.
         setMetadata({});
@@ -165,10 +198,32 @@ function LinkPreview({ url, target, hoverColor }) {
     } else { // For default links not recognized.
       setMetadata({});
     }
-  }, [parsedUrl]);
+  }, [parsedUrl, metadata]);
+
+
+  /**
+   * Decides wether to clip border or not.
+   */
+  useEffect(() => {
+    // If metdata is not loaded, return.
+    if (metadata) return;
+
+    // Calculate height for when to clip border.
+    const clipHeight = convertRemToPixels(4.5) + 2;
+    // Get actual element height.
+    const actualHeight = elementRef.current.scrollHeight;
+    // If actual element height is bigger than clip height.
+    if (actualHeight > clipHeight) {
+      // If border is currently being clipped.
+      if (clipBorder) {
+        setClipBorder(false);
+      }
+    }
+  }, [setClipBorder, clipBorder, metadata]);
 
   return (
     <Container
+      ref={elementRef}
       href={getUrl()}
       target={target}
     >
@@ -177,7 +232,7 @@ function LinkPreview({ url, target, hoverColor }) {
         :
         <PlaceholderImage src="" />
       }
-      <Content theme={theme} clipborder={metadata && metadata.kind}>
+      <Content theme={theme} clipborder={clipBorder && (metadata && metadata.kind)}>
         {metadata ?
           <React.Fragment>
             <Title hovercolor={hoverColor}>{getTitle()}</Title>
@@ -230,6 +285,9 @@ const Container = styled.a`
   -ms-user-select: text;
   user-select: text;
   white-space: pre-wrap;
+
+  max-width: 100%;
+  min-width: 0;
 `;
 const Content = styled.div`
   margin: 0 0 0 -73px;
@@ -240,6 +298,8 @@ const Content = styled.div`
   border-radius: 1rem;
   border-color: var(--mdc-theme-border);
   clip-path: ${props => props.clipborder ? "inset(0 0 0 36px)" : "inset(0 0 0 0)"};
+
+  min-width: 0;
 `;
 const Image = styled.img`
   height: 4.5rem;
@@ -257,9 +317,9 @@ const Image = styled.img`
 const Title = styled(Headline6)`
   height: fit-content;
   margin-top: 0.5rem;
-  word-wrap: break-word;
-  word-break: break-all;
-  overflow-wrap: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   ${Container}:hover & {
     color: ${props => "#" + props.hovercolor};

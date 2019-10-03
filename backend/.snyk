@@ -28,3 +28,16 @@ patch:
         patched: '2019-07-05T05:11:09.188Z'
     - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
         patched: '2019-07-05T05:11:09.188Z'
+  SNYK-JS-HTTPSPROXYAGENT-469131:
+    - google-auth-library > https-proxy-agent:
+        patched: '2019-10-03T22:10:07.978Z'
+    - google-auth-library > gaxios > https-proxy-agent:
+        patched: '2019-10-03T22:10:07.978Z'
+    - snyk > proxy-agent > https-proxy-agent:
+        patched: '2019-10-03T22:10:07.978Z'
+    - google-auth-library > gcp-metadata > gaxios > https-proxy-agent:
+        patched: '2019-10-03T22:10:07.978Z'
+    - google-auth-library > gtoken > gaxios > https-proxy-agent:
+        patched: '2019-10-03T22:10:07.978Z'
+    - snyk > proxy-agent > pac-proxy-agent > https-proxy-agent:
+        patched: '2019-10-03T22:10:07.978Z'

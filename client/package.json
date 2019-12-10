@@ -33,7 +33,7 @@
     "react-connected-transition": "^1.1.4",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1",
+    "react-scripts": "3.3.0",
     "react-transition-group": "^4.1.0",
     "simple-markdown": "^0.4.4",
     "styled-components": "^4.3.1",
